@@ -3,62 +3,121 @@
   <head>
     <meta charset="utf-8">
     <title>OSU Printer Toner Inventory</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
     <header>
   <div class="header-image-container">
-    <!-- <img src="placeholder" alt="placeholder"> SOME IMAGE FOR THE HEADER MAYBE OSU LOGO-->
+    <img src="oregonstate.jpg" alt="Oregon State Logo">
   </div>
-  <div class="contact-info-button">
-    <!-- BUTTON THAT LINKS TO CONTACT INFORMATION PAGE -->
-  </div>
-  <div class="home-button">
-    <!-- BUTTON THAT LINKS TO HOME PAGE WITH INDEX-->
+  <div class="header-title">
+    <h1>Printer Toner Inventory</h1>
   </div>
   </header>
 
+  <div class="navigation-bar">
+    <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
   <main class="content">
     <aside class ="filter-box">
-      <div class = "filter-brand">
+
+      <h2>Filters</h2>
+
+      <div class = "filter-input">
+        <label for="filter-brand" class="filter-input-label">Brand</label>
+        <input type="brand" name="filter-brand" id="filter-brand" class="filter-input">
+      </div>
+      <div class = "filter-input">
 
       </div>
-      <div class = "filter-type">
+      <div class = "filter-input">
 
       </div>
-      <div class = "filter-code">
+      <div class = "filter-input">
 
       </div>
-      <div class = "filter-color">
+      <div class = "filter-input">
 
       </div>
-      <div class = "filter-quantity">
-
-      </div>
-      <div class = "filter-location">
+      <div class = "filter-input">
 
       </div>
     </aside>
-    <section id="printers">
-      <div class="printer">
-        <div class = "type" code = "value">
-
+  <section id="printers">
+  <table>
+    <tr>
+      <th>Brand</th>
+      <th>Type</th>
+      <th># Code</th>
+      <th>Color</th>
+      <th>Quantity</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>HP</td>
+      <td>503A</td>
+      <td>Q7582A</td>
+      <td>Yellow</td>
+      <td>1</td>
+      <td>Location</td>
+    </tr>
+    <tr>
+      <td>HP</td>
+      <td>307A</td>
+      <td>
+        <div class="code">
+          CE740A
         </div>
-          <!-- BRAND OF PRINTER SUBCATEGORIES WITH TYPE USING DIV -->
-      </div>
-      <div class="printer">
-        <div class = "type" code = "value">
-
+        <div class="code">
+          CE741A
         </div>
-          <!-- BRAND OF PRINTER SUBCATEGORIES WITH TYPE USING DIV -->
-      </div>
-      <div class="printer">
-        <div class = "type" code = "value">
-
+        <div class="code">
+          CE742A
         </div>
-          <!-- BRAND OF PRINTER SUBCATEGORIES WITH TYPE USING DIV -->
-      </div>
-    </section>
+        <div class="code">
+          CE743A
+        </div>
+      </td>
+      <td>
+        <div class="color">
+          Black
+        </div>
+        <div class="color">
+          Cyan
+        </div>
+        <div class="color">
+          Yellow
+        </div>
+        <div class="color">
+          Magenta
+        </div>
+      </td>
+      <td>
+        <div class="quantity">
+          1
+        </div>
+        <div class="quantity">
+          5
+        </div>
+        <div class="quantity">
+          4
+        </div>
+        <div class="quantity">
+          5
+        </div>
+      </td>
+      <td>Location</td>
+    </tr>
+    <tr>
+
+    </tr>
+  </table>
+</section>
   </main>
 
 
