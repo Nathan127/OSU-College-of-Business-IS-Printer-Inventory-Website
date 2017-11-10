@@ -143,3 +143,7 @@ table th {
   margin-top: 2px;
   border:solid gray;
 }
+
+.sorting-container{
+  margin-bottom: 15px;
+}
