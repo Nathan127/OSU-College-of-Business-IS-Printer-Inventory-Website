@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>OSU Printer Toner Inventory</title>
     <link rel="stylesheet" href="style.css">
+    <script src="client.js" charset="utf-8" defer></script>
   </head>
   <body>
 
@@ -75,7 +76,7 @@
 
     </aside>
   <section id="printers">
-  <table>
+  <table id="printer-table">
 	<tr class = "sorting-type">
 	    <div class="sorting-container">
             <label for="sort-type">Sort-By</label>
@@ -107,125 +108,179 @@
 
         </div>
       </td>
-      <td>1
-	<div class="change-quantity">
-                <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
-                <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+      <td class='quantity-data'>
+        <span class='quantity-num'>1</span>
+	      <div class="change-quantity">
+            <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+            <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
         </div>
-	</td>
+	    </td>
 	<td>11/9/17</td>
     
  	<td>
-        <div class="notes">
+    <div class="notes">
                 Notes:
-        </div>
-        <div class="edit">
-                 <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
-        </div>
-        </td> 
+    </div>
+    <div class="edit">
+        <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+    </div>
+  </td> 
    
 
-    </tr>
+</tr>
 
     <tr>
-      <td>HP</td>
-      <td>307A</td>
+      <td rowspan="4">HP</th>
+      <td rowspan="4">307A</td>
       <td>
         <div class="code" type="307A" color="Black">
           CE740A
         </div>
-        <div class="code" type="307A" color="Cyan">
-          CE741A
-        </div>
+      </td>
+      <td>
+          <div class="color" type="307A" code="CE740A">
+            Black
+            <div class="color-icon">
+  
+            </div>
+          </div>
+      </td>
+      <td>
+          <div class="quantity" type="307A" color="Black" code="CE740A">
+            1
+          </div>
+          <div class="change-quantity">
+                  <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+                  <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+          </div>
+      </td>
+      <td>
+          <div class="Last-Updated" type="307A" color="Black" code="CE740A">
+            11/9/17
+          </div>
+      </td>
+      <td>
+          <div class="notes">
+                  Notes: 4700-290 Lab-Color
+          </div>
+          <div class="edit">
+                   <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+          </div>
+      </td> 
+    </tr>
+    <tr>
+        <td>
+          <div class="code" type="307A" color="Cyan">
+            CE741A
+          </div>
+        </td>
+        <td>
+            <div class="color" type="307A" code="CE741A">
+              Cyan
+              <div class="color-icon-cyan">
+    
+              </div>
+            </div>
+        </td>
+        <td>
+            <div class="quantity" type="307A" color="Cyan" code="CE741A">
+                5
+              </div>
+            <div class="change-quantity">
+                <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+                <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            
+        </td>
+        <td>
+            <div class="Last-Updated" type="307A" color="Cyan" code="CE741A">
+                11/9/17
+            </div>
+        </td>
+        <td>
+            <div class="notes">
+                Notes: CP5225-Marketing
+            </div>
+            <div class="edit">
+                 <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
         <div class="code" type="307A" color="Yellow">
           CE742A
         </div>
+        </td>
+        <td>
+            <div class="color" type="307A" code="CE742A">
+              Yellow
+              <div class="color-icon-yellow">
+    
+              </div>
+            </div>
+          </td>
+          <td>
+              <div class="quantity" type="307A" color="Yellow" code="CE742A">
+                  4
+            </div>
+              <div class="change-quantity">
+                  <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+                  <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+              </div>
+              
+          </td>
+          <td>
+              <div class="Last-Updated" type="307A" color="Yellow" code="CE742A">
+                  11/9/17
+              </div>
+          </td>
+          <td>
+              <div class="notes">
+                  Notes: CP5225-Marketing
+          </div>
+          <div class="edit">
+                   <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+          </div>
+          </td>
+    </tr>
+    <tr>
+        <td>
         <div class="code" type="307A" color="Magenta">
           CE743A
         </div>
-      </td>
-      <td>
-        <div class="color" type="307A" code="CE740A">
-          Black
-          <div class="color-icon">
-
+        </td>
+        <td>
+            <div class="color" type="307A" code="CE743A">
+              Magenta
+              <div class="color-icon-magenta">
+    
+              </div>
+            </div>
+          </td>
+        <td>
+            <div class="quantity" type="307A" color="Magenta" code="CE743A">
+                2
+              </div>
+              <div class="change-quantity">
+                  <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+                  <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
           </div>
-        </div>
-        <div class="color" type="307A" code="CE741A">
-          Cyan
-          <div class="color-icon-cyan">
-
-          </div>
-        </div>
-        <div class="color" type="307A" code="CE742A">
-          Yellow
-          <div class="color-icon-yellow">
-
-          </div>
-        </div>
-        <div class="color" type="307A" code="CE743A">
-          Magenta
-          <div class="color-icon-magenta">
-
-          </div>
-        </div>
-      </td>
-      <td>
-        <div class="quantity" type="307A" color="Black" code="CE740A">
-          1
-        </div>
-	<div class="change-quantity">
-                <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
-                <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
-        </div>
-        <div class="quantity" type="307A" color="Cyan" code="CE741A">
-          5
-        </div>
-	<div class="change-quantity">
-                <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
-                <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
-        </div>
-        <div class="quantity" type="307A" color="Yellow" code="CE742A">
-          4
-        </div>
-	<div class="change-quantity">
-                <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
-                <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
-        </div>
-        <div class="quantity" type="307A" color="Magenta" code="CE743A">
-          2
-        </div>
-	<div class="change-quantity">
-                <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
-                <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
-        </div>
-      </td>
-
-	 <td>
-        <div class="Last-Updated" type="307A" color="Black" code="CE740A">
-          11/9/17
-        </div>
-        <div class="Last-Updated" type="307A" color="Cyan" code="CE741A">
-          11/9/17
-        </div>
-        <div class="Last-Updated" type="307A" color="Yellow" code="CE742A">
-          11/9/17
-        </div>
-        <div class="Last-Updated" type="307A" color="Magenta" code="CE743A">
-          11/9/17
-        </div>
-      </td>
-
-	<td>
-        <div class="notes">
+          
+        </td>
+        <td>
+            <div class="Last-Updated" type="307A" color="Yellow" code="CE742A">
+                11/9/17
+            </div>
+        </td>
+        <td>
+            <div class="notes">
                 Notes: CP5225-Marketing
         </div>
         <div class="edit">
                  <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
         </div>
-        </td> 
-
-
+        </td>
     </tr>
 
     <tr>
