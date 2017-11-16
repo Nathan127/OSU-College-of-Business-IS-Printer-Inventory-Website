@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 var printerTable = document.getElementById('printer-table');
 
 function tableClick (event) {    
-=======
 var content = document.querySelector('.content');
 var table = document.getElementById('printer-table');
 console.log(table);
@@ -18,7 +16,6 @@ function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
 }
 
 function contentClick (event) {    
->>>>>>> 0c56162... Added search functionality
     var target = event.target;
 
     if (target.id == 'change') {
@@ -27,8 +24,6 @@ function contentClick (event) {
     else if (target.id == 'edit') {
         editNotes(target);
     }
-<<<<<<< HEAD
-=======
     else if (target.id == 'filter-update-button') {
         filter(target);
     }
@@ -38,7 +33,6 @@ function contentClick (event) {
     //     sort(event.currentTarget);
     // }// add a submit button to the sort
 
->>>>>>> 0c56162... Added search functionality
     
 }
 
@@ -63,9 +57,6 @@ function editNotes (target) {
     var text = target.parentNode.previousElementSibling.textContent;
 
 }
-<<<<<<< HEAD
-printerTable.addEventListener('click', tableClick);
-=======
 
 function filter (target) {
     var i, j;
@@ -223,7 +214,6 @@ function filter (target) {
 //             // }
                     
 content.addEventListener('click', contentClick);
->>>>>>> 0c56162... Added search functionality
 
 
 
