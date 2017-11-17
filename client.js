@@ -67,12 +67,16 @@ function contentClick (event) {
     }
     else if (target.id == 'filter-update-button') {
         filter(target);
+<<<<<<< HEAD
     }
     console.log(document.getElementById('sort-type').value);
     // else if (target.id == 'submitSort') {
     //     console.log(document.getElementById('sort-type').value);
     //     sort(event.currentTarget);
     // }// add a submit button to the sort
+=======
+    }   
+>>>>>>> 19813def8a46b8d0c9086272d1c2cb8e2603d80f
 }
 
 function changeQuantity(target) {
@@ -94,7 +98,6 @@ function changeQuantity(target) {
 
 function editNotes (target) {
     var text = target.parentNode.previousElementSibling.textContent;
-
 }
 
 function filter (target) {
@@ -103,7 +106,7 @@ function filter (target) {
     var td;
     var quantity;
     var foundMatch = false;
-    var tr = table.getElementsByTagName('tr');
+    var tr = table.getElementsByTagName('TR');
     var numRows = tr.length;
     var color;
 
@@ -115,15 +118,26 @@ function filter (target) {
         document.getElementById('filter-color').value
     );
 
+    var columns = {};
+
+    td = tr[1].getElementsByClassName('TD');
+    for (i = 0; i < td.length; i++) {
+        columns[td[i].textContent] = i;
+    }
+    // Show each row to start
     for (i = start; i < numRows - 1; i++) {
         tr[i].style.display = 'table-row';
     }
 
-    console.log(filter);
     var key = new RegExp(filter.searchKey, 'i');
 
+<<<<<<< HEAD
     // Search key
     for (i = start; i < numRows - 1; i++) {
+=======
+    // Search filter
+    for (i = start; i < numRows - 1; i++) {    
+>>>>>>> 19813def8a46b8d0c9086272d1c2cb8e2603d80f
         foundMatch = false;
         td = tr[i].getElementsByTagName('TD');
         for (j = 0; j < td.length; j++) {
@@ -151,21 +165,19 @@ function filter (target) {
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
             td[5].children[j].style.display = 'block';
-
+            
             if (filter.maxQuantity === 0) {
                 filter.maxQuantity = 9999999;
             }
-
+            console.log("== Before", quantity[j].style.display + " " + i);
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
-                console.log(Number(quantity[j].textContent));
-                console.log(filter.minQuantity);
                 // set the display of all rows not meeting quantity standards to 'none'
                 td[2].children[j].style.display = 'none';
                 td[3].children[j].style.display = 'none';
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
                 td[5].children[j].style.display = 'none';
-
+                console.log(quantity[j].style.display + '  ' + i);
                 // The commented out code below is in case we decide that we would rather change the color of the match
                 //      instead of the display value
 
@@ -198,6 +210,7 @@ function filter (target) {
 
     // Color filter
     // For HTML add an attribute that will give the color
+<<<<<<< HEAD
     for (i = start; i < numRows - 1; i++) {
 
         td = tr[i].getElementsByTagName('TD');
@@ -306,11 +319,47 @@ content.addEventListener('click', contentClick);
                 j++;
                 i++;
             }
+=======
+    if (filter.color != '') {
+        for (i = start; i < numRows - 1; i++) {
+            
+            td = tr[i].getElementsByTagName('TD');
+            color = td[3].getElementsByClassName('color');
+    
+            for (j = 0; j < color.length; j++) {
+                // reset all rows back to normal
+                td[2].children[j].style.display = 'block';
+                color[j].style.display = 'block';
+                td[4].children[j].style.display = 'block';
+                td[5].children[j].style.display = 'block';
+                
+                if (filter.color != '') {
+                    if (color[j].textContent.search(filter.color) === -1) {
+                        // set the display of all rows not meeting quantity standards to 'none'
+                        td[2].children[j].style.display = 'none';
+                        color[j].style.display = 'none';
+                        td[4].children[j].style.display = 'none';
+                        td[5].children[j].style.display = 'none';
+        
+                        // The commented out code below is in case we decide that we would rather change the color of the match
+                        //      instead of the display value 
+        
+                        // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
+                        //     quantity[j].style.color = 'white';
+                        // }
+                        // quantity[j].style.backgroundColor = quantity[j].getAttribute('color');
+                    }
+                
+                }
+            }
+    
+                
+>>>>>>> 19813def8a46b8d0c9086272d1c2cb8e2603d80f
         }
-        i++;
     }
 
 
+<<<<<<< HEAD
     var tempRow = rows[j];
     var xRowspan, jRowspan;
 
@@ -352,3 +401,8 @@ content.addEventListener('click', contentClick);
                 }
             }
             */
+=======
+    
+}
+content.addEventListener('click', contentClick);
+>>>>>>> 19813def8a46b8d0c9086272d1c2cb8e2603d80f
