@@ -1,7 +1,6 @@
 var printerTable = document.getElementById('printer-table');
 var button = document.getElementById('add-new-item');
 var content = document.querySelector('.content');
-var table = document.getElementById('printer-table');
 var close = document.getElementById('modal-close');
 var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
@@ -96,12 +95,12 @@ function editNotes (target) {
 function filter (target) {
     var i, j;
     var start = 2;
-    var td;
+    var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity;
     var foundMatch = false;
-    var tr = table.getElementsByTagName('TR');
     var numRows = tr.length;
     var color;
+    var columns = {};
 
     var filter = new Filter(
         document.getElementById('filter-search').value,
@@ -111,12 +110,13 @@ function filter (target) {
         document.getElementById('filter-color').value
     );
 
-    var columns = {};
+    
 
-    td = tr[1].getElementsByClassName('TD');
-    for (i = 0; i < td.length; i++) {
-        columns[td[i].textContent] = i;
+    th = tr[1].getElementsByTagName('TH');
+    for (i = 0; i < th.length; i++) {
+        columns[th[i].textContent] = i;
     }
+  
     // Show each row to start
     for (i = start; i < numRows - 1; i++) {
         tr[i].style.display = 'table-row';
@@ -144,35 +144,27 @@ function filter (target) {
     for (i = start; i < numRows - 1; i++) {
 
         td = tr[i].getElementsByTagName('TD');
-        quantity = td[4].getElementsByClassName('quantity');
+        quantity = td[columns['Quantity']].getElementsByClassName('quantity');
 
         for (j = 0; j < quantity.length; j++) {
             // reset all rows back to normal
-            td[2].children[j].style.display = 'block';
-            td[3].children[j].style.display = 'block';
+            td[columns['# Code']].children[j].style.display = 'block';
+            td[columns['Color']].children[j].style.display = 'block';
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
-            td[5].children[j].style.display = 'block';
+            td[columns['Last-Updated']].children[j].style.display = 'block';
 
             if (filter.maxQuantity === 0) {
                 filter.maxQuantity = 9999999;
             }
-            console.log("== Before", quantity[j].style.display + " " + i);
+            
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
                 // set the display of all rows not meeting quantity standards to 'none'
-                td[2].children[j].style.display = 'none';
-                td[3].children[j].style.display = 'none';
+                td[columns['# Code']].children[j].style.display = 'none';
+                td[columns['Color']].children[j].style.display = 'none';
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
-                td[5].children[j].style.display = 'none';
-                console.log(quantity[j].style.display + '  ' + i);
-                // The commented out code below is in case we decide that we would rather change the color of the match
-                //      instead of the display value
-
-                // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
-                //     quantity[j].style.color = 'white';
-                // }
-                // quantity[j].style.backgroundColor = quantity[j].getAttribute('color');
+                td[columns['Last-Updated']].children[j].style.display = 'none';
             }
         }
     }
