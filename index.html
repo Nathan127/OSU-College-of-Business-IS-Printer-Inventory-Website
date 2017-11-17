@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>OSU Printer Toner Inventory</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="client.js" charset="utf-8" defer></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-image-container">
+      <img src="oregonstate.jpg" alt="Oregon State Logo">
+    </div>
+    <div class="header-title">
+      <h1>Printer Toner Inventory</h1>
+    </div>
+    
+  </header>
+
+  <div class="navigation-bar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <main class="content">
+    <aside class="filter-box">
+
+      <h2>Filter</h2>
+
+      <div class="filter-input">
+        <label for="filter-search" class="filter-input-label">Search</label>
+        <input type="search" name="filter-search" id="filter-search" class="filter-input" placeholder="#Code, Type, Brand, etc.">
+      </div>
+
+      <div class="filter-input">
+        <label for="filter-min-quantity" class="filter-input-label">Quantity</label>
+        <input type="text" name="filter-min-quantity" id="filter-min-quantity" class="filter-input" placeholder="min">
+        <input type="text" name="filter-max-quantity" id="filter-max-quantity" class="filter-input" placeholder="max">
+      </div>
+
+      <div class="filter-input">
+        <fieldset id="filter-brand" class="filter-fieldset">
+          <legend>Brand</legend>
+          <div>
+            <input type="checkbox" name="filter-brand" id="filter-brand-hp" value="hp">
+            <label for="filter-condition-hp">HP</label>
+          </div>
+          <div>
+            <input type="checkbox" name="filter-brand" id="filter-brand-dell" value="dell">
+            <label for="filter-brand-dell">Dell</label>
+          </div>
+          <div>
+            <input type="checkbox" name="filter-brand" id="filter-brand-other" value="other">
+            <label for="filter-brand-other">Other</label>
+          </div>
+          <button type="button" id="add-item"><i class="fa fa-plus"></i>Add New Brand</button>
+        </fieldset>
+      </div>
+
+
+      <div class="filter-input-container">
+        <label for="filter-color">Color</label>
+        <select id="filter-color" class="filter-input" name="filter-color">
+            <option selected value="">Any</option>
+            <option>Yellow</option>
+            <option>Black</option>
+            <option>Cyan</option>
+            <option>Magenta</option>
+            <option>Unknown</option>
+          </select>
+      </div>
+
+      <button id="filter-update-button" class="action-button">Update</button>
+      <button id="reset-button" class="action-button">Reset</button>
+
+
+    </aside>
+    <section id="printers">
+      <table id="printer-table">
+        <tr class="sorting-type">
+          <div class="sorting-container">
+            <label for="sort-type">Sort-By</label>
+            <select id="sort-type" class="filter-input" name="filter-input">
+            <option selected value="">Default</option>
+            <option>Highest to Lowest Quantity</option>
+            <option>Lowest to Highest Quantity</option>
+            <option>Alphabetical</option>
+            <option>Last Updated</option>
+          </select>
+          </div>
+
+        </tr>
+        <tr class="table-row-type">
+          <th>Brand</th>
+          <th>Type</th>
+          <th># Code</th>
+          <th>Color</th>
+          <th>Quantity</th>
+          <th>Last-Updated</th>
+          <th>Notes</th>
+          <th>Printer Name</th>
+          <th>Location</th>
+        </tr>
+        <tr class="table-info">
+          <td>HP</td>
+          <td>503A</td>
+          <td>
+            <div class="code" type="503A" color = "Yellow">
+              Q7582A
+            </div>
+          </td>
+          <td>
+            <div class="color" type="503A" code="Q7582A">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="503A" color="Yellow" code="Q7582A">
+              1
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+          <td>
+            <div class="Last-Updated" type="503A" color="Yellow" code="Q7582A">
+              11/9/17
+            </div>
+          </td>
+          <td>
+            <div class="notes">
+              Notes:
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+
+        </tr>
+
+        <tr class="table-info">
+          <td>HP</td>
+          <td>307A</td>
+          <td>
+            <div class="code" type="307A" color="Black">
+              CE740A
+            </div>
+            <div class="code" type="307A" color="Cyan">
+              CE741A
+            </div>
+            <div class="code" type="307A" color="Yellow">
+              CE742A
+            </div>
+            <div class="code" type="307A" color="Magenta">
+              CE743A
+            </div>
+          </td>
+          <td>
+            <div class="color" type="307A" code="CE740A">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+            <div class="color" type="307A" code="CE741A">
+              Cyan
+              <div class="color-icon-cyan">
+
+              </div>
+            </div>
+            <div class="color" type="307A" code="CE742A">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+            <div class="color" type="307A" code="CE743A">
+              Magenta
+              <div class="color-icon-magenta">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="307A" color="Black" code="CE740A">
+              1
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="307A" color="Cyan" code="CE741A">
+              5
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="307A" color="Yellow" code="CE742A">
+              4
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="307A" color="Magenta" code="CE743A">
+              2
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+
+          <td>
+            <div class="Last-Updated" type="307A" color="Black" code="CE740A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="307A" color="Cyan" code="CE741A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="307A" color="Yellow" code="CE742A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="307A" color="Magenta" code="CE743A">
+              11/9/17
+            </div>
+          </td>
+
+          <td>
+            <div class="notes">
+              Notes: CP5225-Marketing
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+
+        </tr>
+
+        <tr class="table-info" >
+          <td>HP</td>
+          <td>643A</td>
+          <td>
+            <div class="code" type="643A" color="Black">
+              Q5950A
+            </div>
+            <div class="code" type="643A" color="Cyan">
+              Q5951A
+            </div>
+            <div class="code" type="643A" color="Yellow">
+              Q5952A
+            </div>
+            <div class="code" type="643A" color="Magenta">
+              Q5953A
+            </div>
+          </td>
+          <td>
+            <div class="color" type="643A" code="Q5950A">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+            <div class="color" type="643A" code="Q5951A">
+              Cyan
+              <div class="color-icon-cyan">
+
+              </div>
+            </div>
+            <div class="color" type="643A" code="Q5952A">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+            <div class="color" type="643A" code="Q5953A">
+              Magenta
+              <div class="color-icon-magenta">
+
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="quantity" type="643A" color="Black" code="Q5950A">
+              2
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="643A" color="Cyan" code="Q5951A">
+              3
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="643A" color="Yellow" code="Q5952A">
+              6
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="643A" color="Magenta" code="Q5953A">
+              3
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+
+          <td>
+            <div class="Last-Updated" type="643A" color="Black" code="Q5950A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="643A" color="Cyan" code="Q5951A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="643A" color="Yellow" code="Q5952A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="643A" color="Magenta" code="Q5953A">
+              11/9/17
+            </div>
+          </td>
+
+          <td>
+            <div class="notes">
+              Notes: 4700-290 Lab-Color
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+        </tr>
+
+        <tr class="table-info">
+          <td>HP</td>
+          <td>96A</td>
+          <td>
+            <div class="code" type="96A" color="Unknown">
+              C4096A
+            </div>
+          </td>
+          <td>
+            <div class="color" type="96A" code="C4096A">
+              Unknown
+              <div class="color-icon-none">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="96A" color="Unknown" code="C4096A">
+              5
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+          <td>
+            <div class="Last-Updated" type="96A" color="Unknown" code="C4096A">
+              11/9/17
+            </div>
+          </td>
+
+          <td>
+            <div class="notes">
+              Notes: 2100/2200
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+
+        </tr>
+
+        <tr class="table-info">
+          <td>HP</td>
+          <td>25X</td>
+          <td>
+            <div class="code" type="25X" color="Black">
+              CF325X
+            </div>
+          </td>
+          <td>
+            <div class="color" type="25X" code="CF325X">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="25X" color="Black" code="CF325X">
+              2
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+          <td>
+            <div class="Last-Updated" type="25X" color="Black" code="CF325X">
+              11/9/17
+            </div>
+          </td>
+
+          <td>
+            <div class="notes">
+              Notes: 290 B/W
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+
+        </tr>
+
+        <tr class="table-info">
+          <td>HP</td>
+          <td>970XL</td>
+          <td>
+            <div class="code" type="970XL" color="Black">
+              CN625AM
+            </div>
+            <div class="code" type="970XL" color="Cyan">
+              CN626AM
+            </div>
+            <div class="code" type="970XL" color="Magenta">
+              CN627AM
+            </div>
+            <div class="code" type="970XL" color="Yellow">
+              CN628AM
+            </div>
+          </td>
+          <td>
+            <div class="color" type="970XL" code="CN625AM">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+            <div class="color" type="970XL" code="CN626AM">
+              Cyan
+              <div class="color-icon-cyan">
+
+              </div>
+            </div>
+            <div class="color" type="970XL" code="CN627AM">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+            <div class="color" type="970XL" code="CN628AM">
+              Magenta
+              <div class="color-icon-magenta">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="970XL" color="Black" code="CN625AM">
+              6
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="970XL" color="Cyan" code="CN626AM">
+              7
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="970XL" color="Magenta" code="CN627AM">
+              8
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="970XL" color="Yellow" code="CN628AM">
+              6
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+
+          <td>
+            <div class="Last-Updated" type="970XL" color="Black" code="CN625AM">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="970XL" color="Cyan" code="CN626AM">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="970XL" color="Magenta" code="CN627AM">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="970XL" color="Yellow" code="CN628AM">
+              11/9/17
+            </div>
+          </td>
+
+          <td>
+            <div class="notes">
+              Notes: Office Printers
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+        </tr>
+
+        <tr class="table-info">
+          <td>HP</td>
+          <td>711</td>
+          <td>
+            <div class="code" type="711" color="Black">
+              CZ129A
+            </div>
+            <div class="code" type="711" color="Cyan">
+              CZ134A
+            </div>
+            <div class="code" type="711" color="Magenta">
+              CZ135A
+            </div>
+            <div class="code" type="711" color="Yellow">
+              CZ136A
+            </div>
+          </td>
+          <td>
+            <div class="color" type="711" code="CZ129A">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+            <div class="color" type="711" code="CZ134A">
+              Cyan
+              <div class="color-icon-cyan">
+
+              </div>
+            </div>
+            <div class="color" type="711" code="CZ135A">
+              Magenta
+              <div class="color-icon-magenta">
+
+              </div>
+            </div>
+            <div class="color" type="711" code="CZ136A">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="711" color="Black" code="CZ129A">
+              2
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="711" color="Cyan" code="CZ134A">
+              1
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="711" color="Magenta" code="CZ135A">
+              1
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="711" color="Yellow" code="CZ136A">
+              1
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+
+          <td>
+            <div class="Last-Updated" type="711" color="Black" code="CZ129A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="711" color="Cyan" code="CZ134A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="711" color="Magenta" code="CZ135A">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="711" color="Yellow" code="CZ136A">
+              11/9/17
+            </div>
+          </td>
+
+
+          <td>
+            <div class="notes">
+              Notes: DesignJet
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+        </tr>
+
+        <tr class="table-info">
+          <td>Dell</td>
+          <td>3110cn/3115cn</td>
+          <td>
+            <div class="code" type="3110cn/3115cn" color="Black">
+              CT350452
+            </div>
+            <div class="code" type="3110cn/3115cn" color="Cyan">
+              CT350453
+            </div>
+            <div class="code" type="3110cn/3115cn" color="Magenta">
+              CT350454
+            </div>
+            <div class="code" type="3110cn/3115cn" color="Yellow">
+              CT350455
+            </div>
+          </td>
+          <td>
+            <div class="color" type="3110cn/3115cn" code="CT350452">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+            <div class="color" type="3110cn/3115cn" code="CT350452">
+              Cyan
+              <div class="color-icon-cyan">
+
+              </div>
+            </div>
+            <div class="color" type="3110cn/3115cn" code="CT350453">
+              Magenta
+              <div class="color-icon-magenta">
+
+              </div>
+            </div>
+            <div class="color" type="3110cn/3115cn" code="CT350454">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="3110cn/3115cn" color="Black" code="CT350452">
+              3
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="3110cn/3115cn" color="Cyan" code="CT350453">
+              4
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="3110cn/3115cn" color="Magenta" code="CT350454">
+              4
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+            <div class="quantity" type="3110cn/3115cn" color="Yellow" code="CT350455">
+              4
+            </div>
+            <div class="change-quantity">
+              <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
+              <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
+            </div>
+          </td>
+
+          <td>
+            <div class="Last-Updated" type="3110cn/3115cn" color="Black" code="CT350452">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="3110cn/3115cn" color="Cyan" code="CT350453">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="3110cn/3115cn" color="Magenta" code="CT350454">
+              11/9/17
+            </div>
+            <div class="Last-Updated" type="3110cn/3115cn" color="Yellow" code="CT350455">
+              11/9/17
+            </div>
+          </td>
+
+          <td>
+            <div class="notes">
+              Notes:
+            </div>
+            <div class="edit">
+              <button type="button" id="edit"><i class="fa fa-plus"></i>Edit</button>
+            </div>
+          </td>
+          <td>
+            SOMETHING
+          </td>
+          <td>
+            SOMETHING
+          </td>
+
+
+        </tr>
+
+        </tr>
+
+        <tr class="table-info">
+          <td>
+            <div class="add-option">
+              <button type="button" id="add-new-item"><i class="fa fa-plus"></i>Add New Item</button>
+            </div>
+          </td>
+          </th>
+
+
+        </tr>
+      </table>
+      <div id="modal-backdrop" class="hidden"></div>
+      <div id="sell-something-modal" class="hidden">
+        <div class="modal-dialog">
+
+          <div class="modal-header">
+            <h3>Add a new Printer to the Database</h3>
+            <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+          </div>
+
+          <div class="modal-body">
+
+            <div class="post-input-element">
+              <label for="post-text-input">Brand</label>
+              <input type="text" id="post-brand-input"></input>
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-photo-input">Type</label>
+              <input type="text" id="post-type-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-price-input">Code #</label>
+              <input type="text" id="post-code-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-city-input">Color</label>
+              <input type="text" id="post-color-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-city-input">Quantity</label>
+              <input type="number" id="post-quantity-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-city-input">Last Updated</label>
+              <input type="text" id="post-updated-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-city-input">Notes</label>
+              <input type="text" id="post-notes-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-city-input">Printer Name</label>
+              <input type="text" id="post-name-input">
+            </div>
+
+            <div class="post-input-element">
+              <label for="post-city-input">Location</label>
+              <input type="text" id="post-location-input">
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
+            <button type="button" id="modal-accept" class="action-button">Create New Printer</button>
+          </div>
+
+        </div>
+    </section>
+  </main>
+
+</body>
+
+</html>
