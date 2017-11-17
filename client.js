@@ -1,15 +1,13 @@
 var printerTable = document.getElementById('printer-table');
-var addPrinter = document.getElementById('add-new-item');
 var content = document.querySelector('.content');
 var close = document.getElementById('modal-close');
 var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
-var backdropModal = document.getElementById('modal-backdrop')
+var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
 
-addPrinter.addEventListener("click", openmodal);
-close.addEventListener("click", closemodal);
-cancel.addEventListener("click", closemodal);
+close.addEventListener("click", closeModal);
+cancel.addEventListener("click", closeModal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
 
@@ -33,12 +31,12 @@ function windowCloseModal(event) {
     }
 }
 
-function openmodal(event) {
+function openModal(event) {
     backdropModal.style.display = "block";
     modal.style.display = "block";
 }
 
-function closemodal(event) {
+function closeModal(event) {
     backdropModal.style.display = "none";
     modal.style.display = "none";
     clearModal();
@@ -59,7 +57,7 @@ function clearModal() {
 }
 
 
-function submit(event) {
+function addNewPrinter(event) {
     var brand = document.getElementById('post-brand-input').value;
     var type = document.getElementById('post-type-input').value;
     var code = document.getElementById('post-code-input').value;
@@ -108,6 +106,9 @@ function contentClick(event) {
     }
     else if (target.id === 'reset-button') {
         resetTable(target)
+    }
+    else if (target.id === 'add-new-item') {
+        addNewPrinter();
     }
 }
 
