@@ -9,7 +9,7 @@ var post = document.getElementById('modal-accept');
 close.addEventListener("click", closeModal);
 cancel.addEventListener("click", closeModal);
 document.addEventListener("click", windowCloseModal);
-post.addEventListener("click", submit);
+post.addEventListener("click", addNewPrinter);
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
