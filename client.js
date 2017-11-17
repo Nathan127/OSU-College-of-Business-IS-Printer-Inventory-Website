@@ -21,9 +21,28 @@ reset.addEventListener("click", resetTable);
 console.log(reset);
 
 function resetTable(event){
+
+  var i, j;
+  var start = 2;
+  var td;
+  var quantity;
   var tr = table.getElementsByTagName('TR');
-  console.log(tr);
-  console.log(tr);
+  var numRows = tr.length;
+
+  for (i = start; i < numRows - 1; i++) {
+
+      td = tr[i].getElementsByTagName('TD');
+      quantity = td[4].getElementsByClassName('quantity');
+
+      for (j = 0; j < quantity.length; j++) {
+          // reset all rows back to normal
+          td[2].children[j].style.display = 'block';
+          td[3].children[j].style.display = 'block';
+          quantity[j].style.display = 'block';
+          quantity[j].nextElementSibling.style.display = 'block';
+          td[5].children[j].style.display = 'block';
+      }
+  }
 }
 
 function windowCloseModal(event) {
