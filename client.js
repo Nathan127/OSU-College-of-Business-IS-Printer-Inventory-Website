@@ -6,46 +6,15 @@ var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
 var reset = document.getElementById('reset-button');
-var submitCodeAmt = document.getElementById('add-codeamt-item');
+var open = document.getElementById('add-new-item');
 var defaultSort = null;
 
-close.addEventListener("click", closeModal);
-cancel.addEventListener("click", closeModal);
+open.addEventListener("click", openmodal);
+close.addEventListener("click", closemodal);
+cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
 reset.addEventListener("click", resetTable);
-// submitCodeAmt.addEventListener("click", createCodeAmt);
-
-
-// function createCodeAmt(event){
-//   var modalForm = document.getElementById('modal-body');
-//   var code = document.getElementById('post-codeamt-input').value;
-//   for(var i = 1; i <= code; i++){
-//     var printerDiv = document.createElement('div');
-//     printerDiv.classList.add('post-input-element');
-//     var label = document.createElement('label');
-//     label.setAttribute('for', 'post-text-input');
-//     label.textContent = 'Code #' + i;
-//     printerDiv.appendChild(label);
-//     var input = document.createElement('input');
-//     input.type = "text";
-//     input.setAttribute('id', 'post-code-input');
-//     printerDiv.appendChild(input);
-//     modalForm.appendChild(printerDiv);
-//     var printerDiv = document.createElement('div');
-//     printerDiv.classList.add('post-input-element');
-//     var label = document.createElement('label');
-//     label.setAttribute('for', 'post-text-input');
-//     label.textContent = 'Color for Code #' + i;
-//     printerDiv.appendChild(label);
-//     var input = document.createElement('input');
-//     input.type = "text";
-//     input.setAttribute('id', 'post-color-input');
-//     printerDiv.appendChild(input);
-//     modalForm.appendChild(printerDiv);
-//     console.log(modalForm);
-//   }
-// }
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
