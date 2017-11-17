@@ -1,10 +1,41 @@
 var printerTable = document.getElementById('printer-table');
-  
+var button = document.getElementById('add-new-item');
 var content = document.querySelector('.content');
 var table = document.getElementById('printer-table');
+var modal = document.getElementById('sell-something-modal');
+var backdropModal = document.getElementById('modal-backdrop')
+var close = document.getElementById('modal-close');
+var cancel = document.getElementById('modal-cancel');
 
-var defaultSort = null;
+button.addEventListener("click", openmodal);
+close.addEventListener("click", closemodal);
+cancel.addEventListener("click", closemodal);
+document.addEventListener("click", windowCloseModal);
 
+function windowCloseModal(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    backdropModal.style.display = "none";
+    clearModal();
+  }
+}
+
+function openmodal(event) {
+  backdropModal.style.display = "block";
+  modal.style.display = "block";
+}
+
+function closemodal(event) {
+  backdropModal.style.display = "none";
+  modal.style.display = "none";
+  clearModal();
+
+}
+
+function openmodal(event) {
+  backdropModal.style.display = "block";
+  modal.style.display = "block";
+}
 
 function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
     this.searchKey = searchKey;
@@ -14,11 +45,22 @@ function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
     this.color = color;
 }
 
-function contentClick (event) {    
+function clearModal() {
+    document.getElementById('post-brand-input').value = "";
+    document.getElementById('post-type-input').value = "";
+    document.getElementById('post-code-input').value = "";
+    document.getElementById('post-color-input').value = "";
+    document.getElementById('post-quantity-input').value = "";
+    document.getElementById('post-updated-input').value = "";
+    document.getElementById('post-name-input').value = "";
+    document.getElementById('post-location-input').value = "";
+}
+
+function contentClick (event) {
     var target = event.target;
 
     if (target.id == 'change') {
-        changeQuantity(target);   
+        changeQuantity(target);
     }
     else if (target.id == 'edit') {
         editNotes(target);
@@ -31,8 +73,6 @@ function contentClick (event) {
     //     console.log(document.getElementById('sort-type').value);
     //     sort(event.currentTarget);
     // }// add a submit button to the sort
-
-    
 }
 
 function changeQuantity(target) {
@@ -48,8 +88,8 @@ function changeQuantity(target) {
     else {
         quantity -= 1;
     }
-    
-    target.parentNode.previousElementSibling.textContent = quantity;   
+
+    target.parentNode.previousElementSibling.textContent = quantity;
 }
 
 function editNotes (target) {
@@ -83,7 +123,7 @@ function filter (target) {
     var key = new RegExp(filter.searchKey, 'i');
 
     // Search key
-    for (i = start; i < numRows - 1; i++) {    
+    for (i = start; i < numRows - 1; i++) {
         foundMatch = false;
         td = tr[i].getElementsByTagName('TD');
         for (j = 0; j < td.length; j++) {
@@ -91,16 +131,16 @@ function filter (target) {
                 foundMatch = true;
                 tr[i].style.display = 'table-row';
                 break;
-            }  
+            }
         }
         if (!foundMatch) {
             tr[i].style.display = 'none';
-        }          
+        }
     }
-    
+
     // min Quantity and max quantity filter
     for (i = start; i < numRows - 1; i++) {
-        
+
         td = tr[i].getElementsByTagName('TD');
         quantity = td[4].getElementsByClassName('quantity');
 
@@ -127,7 +167,7 @@ function filter (target) {
                 td[5].children[j].style.display = 'none';
 
                 // The commented out code below is in case we decide that we would rather change the color of the match
-                //      instead of the display value 
+                //      instead of the display value
 
                 // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
                 //     quantity[j].style.color = 'white';
@@ -152,14 +192,14 @@ function filter (target) {
             if (!foundMatch) {
                 tr[i].style.display = 'none';
             }
-            
+
         }
     }
 
     // Color filter
     // For HTML add an attribute that will give the color
     for (i = start; i < numRows - 1; i++) {
-        
+
         td = tr[i].getElementsByTagName('TD');
         color = td[3].getElementsByClassName('color');
 
@@ -177,23 +217,23 @@ function filter (target) {
                     color[j].style.display = 'none';
                     td[4].children[j].style.display = 'none';
                     td[5].children[j].style.display = 'none';
-    
+
                     // The commented out code below is in case we decide that we would rather change the color of the match
-                    //      instead of the display value 
-    
+                    //      instead of the display value
+
                     // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
                     //     quantity[j].style.color = 'white';
                     // }
                     // quantity[j].style.backgroundColor = quantity[j].getAttribute('color');
                 }
-            
+
             }
         }
 
-            
+
     }
 
-    
+
 }
 content.addEventListener('click', contentClick);
 
@@ -208,7 +248,7 @@ content.addEventListener('click', contentClick);
 
 
 // function sortAlpha (table) {
-    
+
 //     // var numOfPrinters = null;
 //     // var start = 2;
 //     // var j = start;
@@ -221,34 +261,34 @@ content.addEventListener('click', contentClick);
 //         console.log(table.rows[i]);
 //     }
 //     return table.rows;
-    
+
 //     // for (var x = 0; x < i; x++) {
 //     //     rows.shift();
 //     // }
 // }
 // function selectionSort(items){
-    
+
 //         var len = items.length,
 //             min;
-    
+
 //         for (i=2; i < len; i++){
-    
+
 //             //set minimum to this position
 //             min = i;
-    
+
 //             //check the rest of the array to see if anything is smaller
 //             for (j=i+1; j < len; j++){
 //                 if (items[j].cells[0].textContent < items[min].cells[0].textContent){
 //                     min = j;
 //                 }
 //             }
-    
+
 //             //if the minimum isn't in the position, swap it
 //             if (i != min){
 //                 swap(items, i, min);
 //             }
 //         }
-    
+
 //         return items;
 // }
 // function swap(items, firstIndex, secondIndex){
@@ -256,7 +296,7 @@ content.addEventListener('click', contentClick);
 //     items[firstIndex] = items[secondIndex];
 //     items[secondIndex] = temp;
 // }
-// 
+//
 /*  while (i < rows.length) {
         for (var j = i + 1; j < rows.length; j++) {
             if (rows[j].cells[0].textContent < rows[i].cells[0].textContent) {
@@ -269,7 +309,7 @@ content.addEventListener('click', contentClick);
         }
         i++;
     }
-    
+
 
     var tempRow = rows[j];
     var xRowspan, jRowspan;
@@ -286,13 +326,13 @@ content.addEventListener('click', contentClick);
                     if (xRowspan > jRowspan) {
                         rowSpanGT = xRowspan;
                         rowSpanLT = jRowspan;
-                    }  
+                    }
                     else  {
                         rowSpanGT = jRowspan;
                         rowSpanLT = xRowspan;
                     }
-                        
-                   
+
+
                     for (var k = 0; k <= rowSpanGT; k++) {
                         if (j + k > rowSpanLT) {
                             for (var z = x + rowSpanGT; z > x; z--) {
@@ -306,7 +346,7 @@ content.addEventListener('click', contentClick);
                             rows[j + k] = rows[x + k];
                             rows[x + k] = tempRow;
                         }
-                        
+
                     }
                     }
                 }
