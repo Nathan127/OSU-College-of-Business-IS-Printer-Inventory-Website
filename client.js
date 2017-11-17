@@ -5,17 +5,13 @@ var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
-<<<<<<< HEAD
 var reset = document.getElementById('reset-button');
 var submitCodeAmt = document.getElementById('add-codeamt-item');
 var defaultSort = null;
-=======
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
 
 close.addEventListener("click", closeModal);
 cancel.addEventListener("click", closeModal);
 document.addEventListener("click", windowCloseModal);
-<<<<<<< HEAD
 post.addEventListener("click", submit);
 reset.addEventListener("click", resetTable);
 // submitCodeAmt.addEventListener("click", createCodeAmt);
@@ -50,9 +46,6 @@ reset.addEventListener("click", resetTable);
 //     console.log(modalForm);
 //   }
 // }
-=======
-post.addEventListener("click", addNewPrinter);
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -74,20 +67,12 @@ function windowCloseModal(event) {
     }
 }
 
-<<<<<<< HEAD
 function openmodal(event) {
-=======
-function openModal(event) {
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
     backdropModal.style.display = "block";
     modal.style.display = "block";
 }
 
-<<<<<<< HEAD
 function closemodal(event) {
-=======
-function closeModal(event) {
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
     backdropModal.style.display = "none";
     modal.style.display = "none";
     clearModal();
@@ -108,11 +93,7 @@ function clearModal() {
 }
 
 
-<<<<<<< HEAD
 function submit(event) {
-=======
-function addNewPrinter(event) {
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
     var brand = document.getElementById('post-brand-input').value;
     var type = document.getElementById('post-type-input').value;
     var code = document.getElementById('post-code-input').value;
@@ -131,7 +112,6 @@ function addNewPrinter(event) {
         return item.trim();
     });
 
-<<<<<<< HEAD
     var arrayQuantity = quantity.split(",").map(function(item) {
         return item.trim();
     });
@@ -245,13 +225,6 @@ function addNewPrinter(event) {
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
         console.log(printerTable);
-=======
-    if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
-        alert("Not all fields have been completed, please fill out all fields and then submit.")
-    }
-
-    else {
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
         modal.style.display = "none";
         backdropModal.style.display = "none";
         clearModal();
@@ -284,12 +257,6 @@ function contentClick(event) {
     else if (target.id === 'reset-button') {
         resetTable(target)
     }
-<<<<<<< HEAD
-=======
-    else if (target.id === 'add-new-item') {
-        addNewPrinter();
-    }
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
 }
 
 function changeQuantity(target) {
@@ -314,11 +281,7 @@ function editNotes(target) {
 }
 
 function filter(target) {
-<<<<<<< HEAD
     var i, j;
-=======
-    var i, j, matchesFound = 0;
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
     var start = 2;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity;
@@ -370,10 +333,6 @@ function filter(target) {
 
         td = tr[i].getElementsByTagName('TD');
         quantity = td[columns['Quantity']].getElementsByClassName('quantity');
-<<<<<<< HEAD
-=======
-        matchesFound = 0;
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
 
         for (j = 0; j < quantity.length; j++) {
             // reset all rows back to normal
@@ -394,15 +353,6 @@ function filter(target) {
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
                 td[columns['Last-Updated']].children[j].style.display = 'none';
-<<<<<<< HEAD
-=======
-
-                matchesFound++;
-            }
-
-            if (matchesFound === td[columns['Color']].children.length) {
-                tr[i].style.display = 'none';
->>>>>>> f3b0d4c98fc2e4e2aedaab3ce171a6143b6e654a
             }
         }
     }
