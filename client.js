@@ -1,16 +1,15 @@
 var printerTable = document.getElementById('printer-table');
-
-function tableClick (event) {    
+  
 var content = document.querySelector('.content');
 var table = document.getElementById('printer-table');
-console.log(table);
 
 var defaultSort = null;
 
+
 function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
     this.searchKey = searchKey;
-    this.minQuantity = minQuantity;
-    this.maxQuantity = maxQuantity;
+    this.minQuantity = Number(minQuantity);
+    this.maxQuantity = Number(maxQuantity);
     this.brand = brand;
     this.color = color;
 }
@@ -62,13 +61,10 @@ function filter (target) {
     var i, j;
     var start = 2;
     var td;
+    var quantity;
     var foundMatch = false;
     var tr = table.getElementsByTagName('tr');
     var numRows = tr.length;
-
-    for (i = start; i < numRows; i++) {
-        tr[i].style.display = 'table-row';
-    }
 
     var filter = new Filter(
         document.getElementById('filter-search').value,
@@ -77,27 +73,90 @@ function filter (target) {
         document.querySelectorAll('input[name="filter-brand"]:checked'),
         document.getElementById('filter-color')
     );
+
+    for (i = start; i < numRows - 1; i++) {
+        tr[i].style.display = 'table-row';
+    }
+
     console.log(filter);
     var key = new RegExp(filter.searchKey, 'i');
 
-    if (filter.searchKey.length > 0) {
+    // Search key
+    for (i = start; i < numRows - 1; i++) {    
+        foundMatch = false;
+        td = tr[i].getElementsByTagName('TD');
+        for (j = 0; j < td.length; j++) {
+            if (td[j].textContent.search(key) != -1) {
+                foundMatch = true;
+                tr[i].style.display = 'table-row';
+                break;
+            }  
+        }
+        if (!foundMatch) {
+            tr[i].style.display = 'none';
+        }          
+    }
+    
+    // min Quantity and max quantity filter
+    for (i = start; i < numRows - 1; i++) {
+        
+        td = tr[i].getElementsByTagName('TD');
+        quantity = td[4].getElementsByClassName('quantity');
+
+        for (j = 0; j < quantity.length; j++) {
+            // reset all rows back to normal
+            td[2].children[j].style.display = 'block';
+            td[3].children[j].style.display = 'block';
+            quantity[j].style.display = 'block';
+            quantity[j].nextElementSibling.style.display = 'block';
+            td[5].children[j].style.display = 'block';
+
+            if (filter.maxQuantity == 0) {
+                filter.maxQuantity = 9999999;
+            }
+
+            if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
+                console.log(Number(quantity[j].textContent));
+                console.log(filter.minQuantity);
+                // set the display of all rows not meeting quantity standards to 'none'
+                td[2].children[j].style.display = 'none';
+                td[3].children[j].style.display = 'none';
+                quantity[j].style.display = 'none';
+                quantity[j].nextElementSibling.style.display = 'none';
+                td[5].children[j].style.display = 'none';
+
+                // The commented out code below is in case we decide that we would rather change the color of the match
+                //      instead of the display value 
+
+                // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
+                //     quantity[j].style.color = 'white';
+                // }
+                // quantity[j].style.backgroundColor = quantity[j].getAttribute('color');
+            }
+        }
+    }
+
+    // Brand filter
+    if (filter.brand.length > 0) {
         for (i = start; i < numRows - 1; i++) {
-            foundMatch = false;
             td = tr[i].getElementsByTagName('TD');
-            for (j = 0; j < td.length; j++) {
-                if (td[j].textContent.search(key) != -1) {
+            var brandName = td[0].textContent.toLowerCase();
+            foundMatch = false;
+            for (j = 0; j < filter.brand.length; j++) {
+                if (brandName == filter.brand[j].value) {
                     foundMatch = true;
-                    tr[i].style.display = 'table-row';
                     break;
-                }  
+                }
             }
             if (!foundMatch) {
                 tr[i].style.display = 'none';
-            }          
+            }
+            
         }
     }
     
 }
+content.addEventListener('click', contentClick);
 
 
 
@@ -158,62 +217,59 @@ function filter (target) {
 //     items[firstIndex] = items[secondIndex];
 //     items[secondIndex] = temp;
 // }
-//     // while (i < rows.length) {
-//     //     for (var j = i + 1; j < rows.length; j++) {
-//     //         if (rows[j].cells[0].textContent < rows[i].cells[0].textContent) {
-//     //             tempRow = rows[i];
-//     //             rows[i] = rows[j];
-//     //             rows[j] = tempRow;
-//     //             j++;
-//     //             i++;
-//     //         }
-//     //     }
-//     //     i++;
-//     // }
+// 
+/*  while (i < rows.length) {
+        for (var j = i + 1; j < rows.length; j++) {
+            if (rows[j].cells[0].textContent < rows[i].cells[0].textContent) {
+                tempRow = rows[i];
+                rows[i] = rows[j];
+                rows[j] = tempRow;
+                j++;
+                i++;
+            }
+        }
+        i++;
+    }
     
 
-//     // var tempRow = rows[j];
-//     // var xRowspan, jRowspan;
+    var tempRow = rows[j];
+    var xRowspan, jRowspan;
 
-//     // while (j < rows.length) {
-//     //     x = j + jRowspan
-//     //     xRowspan = rows[x].cells[0].rowSpan;
-//     //     jRowspan = rows[j].cells[0].rowSpan;
+    while (j < rows.length) {
+        x = j + jRowspan
+        xRowspan = rows[x].cells[0].rowSpan;
+        jRowspan = rows[j].cells[0].rowSpan;
 
-//     //     while (x >= j) {
-//     //         if (rows[x].cells[0].textContent < rows[j].cells[0].textContent) {
-//     //             if (xRowspan > jRowspan) {
-//     //                 var rowSpanGT, rowSpanLT;
-//     //                 if (xRowspan > jRowspan) {
-//     //                     rowSpanGT = xRowspan;
-//     //                     rowSpanLT = jRowspan;
-//     //                 }  
-//     //                 else  {
-//     //                     rowSpanGT = jRowspan;
-//     //                     rowSpanLT = xRowspan;
-//     //                 }
+        while (x >= j) {
+            if (rows[x].cells[0].textContent < rows[j].cells[0].textContent) {
+                if (xRowspan > jRowspan) {
+                    var rowSpanGT, rowSpanLT;
+                    if (xRowspan > jRowspan) {
+                        rowSpanGT = xRowspan;
+                        rowSpanLT = jRowspan;
+                    }  
+                    else  {
+                        rowSpanGT = jRowspan;
+                        rowSpanLT = xRowspan;
+                    }
                         
                    
-//     //                 for (var k = 0; k <= rowSpanGT; k++) {
-//     //                     if (j + k > rowSpanLT) {
-//     //                         for (var z = x + rowSpanGT; z > x; z--) {
-//     //                             tempRow = rows[x + rowSpanGT - z];
-//     //                             rows[x + rowSpanGT - z] = rows[rowSpanGT];
-//     //                             rows[rowSpanGT] = tempRow;
-//     //                         }
-//     //                     }
-//     //                     else {
-//     //                         tempRow = rows[j + k];
-//     //                         rows[j + k] = rows[x + k];
-//     //                         rows[x + k] = tempRow;
-//     //                     }
+                    for (var k = 0; k <= rowSpanGT; k++) {
+                        if (j + k > rowSpanLT) {
+                            for (var z = x + rowSpanGT; z > x; z--) {
+                                tempRow = rows[x + rowSpanGT - z];
+                                rows[x + rowSpanGT - z] = rows[rowSpanGT];
+                                rows[rowSpanGT] = tempRow;
+                            }
+                        }
+                        else {
+                            tempRow = rows[j + k];
+                            rows[j + k] = rows[x + k];
+                            rows[x + k] = tempRow;
+                        }
                         
-//     //                 }
-//             //         }
-//             //     }
-//             // }
-                    
-content.addEventListener('click', contentClick);
-
-
-
+                    }
+                    }
+                }
+            }
+            */
