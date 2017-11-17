@@ -1,5 +1,5 @@
 var printerTable = document.getElementById('printer-table');
-  
+
 var content = document.querySelector('.content');
 var table = document.getElementById('printer-table');
 
@@ -14,18 +14,18 @@ function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
     this.color = color;
 }
 
-function contentClick (event) {    
+function contentClick (event) {
     var target = event.target;
 
     if (target.id == 'change') {
-        changeQuantity(target);   
+        changeQuantity(target);
     }
     else if (target.id == 'edit') {
         editNotes(target);
     }
     else if (target.id == 'filter-update-button') {
         filter(target);
-    }   
+    }
 }
 
 function changeQuantity(target) {
@@ -41,8 +41,8 @@ function changeQuantity(target) {
     else {
         quantity -= 1;
     }
-    
-    target.parentNode.previousElementSibling.textContent = quantity;   
+
+    target.parentNode.previousElementSibling.textContent = quantity;
 }
 
 function editNotes (target) {
@@ -81,7 +81,7 @@ function filter (target) {
     var key = new RegExp(filter.searchKey, 'i');
 
     // Search filter
-    for (i = start; i < numRows - 1; i++) {    
+    for (i = start; i < numRows - 1; i++) {
         foundMatch = false;
         td = tr[i].getElementsByTagName('TD');
         for (j = 0; j < td.length; j++) {
@@ -89,16 +89,16 @@ function filter (target) {
                 foundMatch = true;
                 tr[i].style.display = 'table-row';
                 break;
-            }  
+            }
         }
         if (!foundMatch) {
             tr[i].style.display = 'none';
-        }          
+        }
     }
-    
+
     // min Quantity and max quantity filter
     for (i = start; i < numRows - 1; i++) {
-        
+
         td = tr[i].getElementsByTagName('TD');
         quantity = td[4].getElementsByClassName('quantity');
 
@@ -109,7 +109,7 @@ function filter (target) {
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
             td[5].children[j].style.display = 'block';
-            
+
             if (filter.maxQuantity === 0) {
                 filter.maxQuantity = 9999999;
             }
@@ -123,7 +123,7 @@ function filter (target) {
                 td[5].children[j].style.display = 'none';
                 console.log(quantity[j].style.display + '  ' + i);
                 // The commented out code below is in case we decide that we would rather change the color of the match
-                //      instead of the display value 
+                //      instead of the display value
 
                 // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
                 //     quantity[j].style.color = 'white';
@@ -148,7 +148,7 @@ function filter (target) {
             if (!foundMatch) {
                 tr[i].style.display = 'none';
             }
-            
+
         }
     }
 
@@ -156,17 +156,17 @@ function filter (target) {
     // For HTML add an attribute that will give the color
     if (filter.color != '') {
         for (i = start; i < numRows - 1; i++) {
-            
+
             td = tr[i].getElementsByTagName('TD');
             color = td[3].getElementsByClassName('color');
-    
+
             for (j = 0; j < color.length; j++) {
                 // reset all rows back to normal
                 td[2].children[j].style.display = 'block';
                 color[j].style.display = 'block';
                 td[4].children[j].style.display = 'block';
                 td[5].children[j].style.display = 'block';
-                
+
                 if (filter.color != '') {
                     if (color[j].textContent.search(filter.color) === -1) {
                         // set the display of all rows not meeting quantity standards to 'none'
@@ -174,24 +174,24 @@ function filter (target) {
                         color[j].style.display = 'none';
                         td[4].children[j].style.display = 'none';
                         td[5].children[j].style.display = 'none';
-        
+
                         // The commented out code below is in case we decide that we would rather change the color of the match
                         //      instead of the display value 
-        
+
                         // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
                         //     quantity[j].style.color = 'white';
                         // }
                         // quantity[j].style.backgroundColor = quantity[j].getAttribute('color');
                     }
-                
+
                 }
             }
-    
-                
+
+
         }
     }
-    
 
-    
+
+
 }
 content.addEventListener('click', contentClick);
