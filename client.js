@@ -1,23 +1,17 @@
 var printerTable = document.getElementById('printer-table');
-var button = document.getElementById('add-new-item');
+var addPrinter = document.getElementById('add-new-item');
 var content = document.querySelector('.content');
 var close = document.getElementById('modal-close');
 var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop')
 var post = document.getElementById('modal-accept');
-var reset = document.getElementById('reset-button');
-var defaultSort = null;
 
-
-button.addEventListener("click", openmodal);
+addPrinter.addEventListener("click", openmodal);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
-reset.addEventListener("click", resetTable);
-
-console.log(reset);
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -139,7 +133,7 @@ function editNotes(target) {
 }
 
 function filter(target) {
-    var i, j;
+    var i, j, matchesFound = 0;
     var start = 2;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity;
@@ -191,6 +185,7 @@ function filter(target) {
 
         td = tr[i].getElementsByTagName('TD');
         quantity = td[columns['Quantity']].getElementsByClassName('quantity');
+        matchesFound = 0;
 
         for (j = 0; j < quantity.length; j++) {
             // reset all rows back to normal
@@ -211,6 +206,12 @@ function filter(target) {
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
                 td[columns['Last-Updated']].children[j].style.display = 'none';
+
+                matchesFound++;
+            }
+
+            if (matchesFound === td[columns['Color']].children.length) {
+                tr[i].style.display = 'none';
             }
         }
     }
@@ -256,14 +257,6 @@ function filter(target) {
                         color[j].style.display = 'none';
                         td[4].children[j].style.display = 'none';
                         td[5].children[j].style.display = 'none';
-
-                        // The commented out code below is in case we decide that we would rather change the color of the match
-                        //      instead of the display value
-
-                        // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
-                        //     quantity[j].style.color = 'white';
-                        // }
-                        // quantity[j].style.backgroundColor = quantity[j].getAttribute('color');
                     }
 
                 }
@@ -272,8 +265,5 @@ function filter(target) {
 
         }
     }
-
-
-
 }
 content.addEventListener('click', contentClick);
