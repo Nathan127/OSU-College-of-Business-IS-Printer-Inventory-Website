@@ -6,6 +6,8 @@ var close = document.getElementById('modal-close');
 var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop')
+var post = document.getElementById('modal-accept');
+var reset = document.getElementById('reset-button');
 var defaultSort = null;
 
 
@@ -13,8 +15,16 @@ button.addEventListener("click", openmodal);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
+post.addEventListener("click", submit);
+reset.addEventListener("click", resetTable);
 
+console.log(reset);
 
+function resetTable(event){
+  var tr = table.getElementsByTagName('TR');
+  console.log(tr);
+  console.log(tr);
+}
 
 function windowCloseModal(event) {
   if (event.target == modal) {
@@ -46,6 +56,33 @@ function clearModal() {
   document.getElementById('post-updated-input').value = "";
   document.getElementById('post-name-input').value = "";
   document.getElementById('post-location-input').value = "";
+  document.getElementById('post-notes-input').value = "";
+}
+
+
+function submit(event) {
+  var brand = document.getElementById('post-brand-input').value;
+  var type = document.getElementById('post-type-input').value;
+  var code = document.getElementById('post-code-input').value;
+  var color = document.getElementById('post-color-input').value;
+  var quantity = document.getElementById('post-quantity-input').value;
+  var updated = document.getElementById('post-updated-input').value;
+  var name = document.getElementById('post-name-input').value;
+  var location = document.getElementById('post-location-input').value;
+  var notes = document.getElementById('post-notes-input').value;
+
+
+
+  if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
+    alert("Not all fields have been completed, please fill out all fields and then submit.")
+  }
+
+  else{
+    modal.style.display = "none";
+    backdropModal.style.display = "none";
+    clearModal();
+  }
+
 }
 
 
