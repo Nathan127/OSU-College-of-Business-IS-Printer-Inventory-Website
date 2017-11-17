@@ -19,93 +19,80 @@ reset.addEventListener("click", resetTable);
 
 console.log(reset);
 
-function resetTable(event){
-
-  var i, j;
-  var start = 2;
-  var td;
-  var quantity;
-  var tr = table.getElementsByTagName('TR');
-  var numRows = tr.length;
-
-  for (i = start; i < numRows - 1; i++) {
-
-      td = tr[i].getElementsByTagName('TD');
-      quantity = td[4].getElementsByClassName('quantity');
-
-      for (j = 0; j < quantity.length; j++) {
-          // reset all rows back to normal
-          td[2].children[j].style.display = 'block';
-          td[3].children[j].style.display = 'block';
-          quantity[j].style.display = 'block';
-          quantity[j].nextElementSibling.style.display = 'block';
-          td[5].children[j].style.display = 'block';
-      }
-  }
+function resetTable(target) {
+    document.getElementById('filter-search').value = '';
+    document.getElementById('filter-min-quantity').value = '';
+    document.getElementById('filter-max-quantity').value = '';
+    var brandFilter = document.querySelectorAll('input[name="filter-brand"]');
+    for (i = 0; i < brandFilter.length; i++) {
+        brandFilter[i].checked = false;
+    }
+    document.getElementById('filter-color').value = '';
+    filter();
 }
 
 function windowCloseModal(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-    backdropModal.style.display = "none";
-    clearModal();
-  }
+    if (event.target == modal) {
+        modal.style.display = "none";
+        backdropModal.style.display = "none";
+        clearModal();
+    }
 }
 
 function openmodal(event) {
-  backdropModal.style.display = "block";
-  modal.style.display = "block";
+    backdropModal.style.display = "block";
+    modal.style.display = "block";
 }
 
 function closemodal(event) {
-  backdropModal.style.display = "none";
-  modal.style.display = "none";
-  clearModal();
+    backdropModal.style.display = "none";
+    modal.style.display = "none";
+    clearModal();
 
 }
 
 
 function clearModal() {
-  document.getElementById('post-brand-input').value = "";
-  document.getElementById('post-type-input').value = "";
-  document.getElementById('post-code-input').value = "";
-  document.getElementById('post-color-input').value = "";
-  document.getElementById('post-quantity-input').value = "";
-  document.getElementById('post-updated-input').value = "";
-  document.getElementById('post-name-input').value = "";
-  document.getElementById('post-location-input').value = "";
-  document.getElementById('post-notes-input').value = "";
+    document.getElementById('post-brand-input').value = "";
+    document.getElementById('post-type-input').value = "";
+    document.getElementById('post-code-input').value = "";
+    document.getElementById('post-color-input').value = "";
+    document.getElementById('post-quantity-input').value = "";
+    document.getElementById('post-updated-input').value = "";
+    document.getElementById('post-name-input').value = "";
+    document.getElementById('post-location-input').value = "";
+    document.getElementById('post-notes-input').value = "";
 }
 
 
 function submit(event) {
-  var brand = document.getElementById('post-brand-input').value;
-  var type = document.getElementById('post-type-input').value;
-  var code = document.getElementById('post-code-input').value;
-  var color = document.getElementById('post-color-input').value;
-  var quantity = document.getElementById('post-quantity-input').value;
-  var updated = document.getElementById('post-updated-input').value;
-  var name = document.getElementById('post-name-input').value;
-  var location = document.getElementById('post-location-input').value;
-  var notes = document.getElementById('post-notes-input').value;
+    var brand = document.getElementById('post-brand-input').value;
+    var type = document.getElementById('post-type-input').value;
+    var code = document.getElementById('post-code-input').value;
+    var color = document.getElementById('post-color-input').value;
+    var quantity = document.getElementById('post-quantity-input').value;
+    var updated = document.getElementById('post-updated-input').value;
+    var name = document.getElementById('post-name-input').value;
+    var location = document.getElementById('post-location-input').value;
+    var notes = document.getElementById('post-notes-input').value;
 
 
 
-  if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
-    alert("Not all fields have been completed, please fill out all fields and then submit.")
-  }
+    if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
+        alert("Not all fields have been completed, please fill out all fields and then submit.")
+    }
 
-  else{
-    modal.style.display = "none";
-    backdropModal.style.display = "none";
-    clearModal();
-  }
+    else {
+        modal.style.display = "none";
+        backdropModal.style.display = "none";
+        clearModal();
+    }
 
 }
 
 
 
-function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
+function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
     this.searchKey = searchKey;
     this.minQuantity = Number(minQuantity);
     this.maxQuantity = Number(maxQuantity);
@@ -113,17 +100,20 @@ function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
     this.color = color;
 }
 
-function contentClick (event) {
+function contentClick(event) {
     var target = event.target;
 
-    if (target.id == 'change') {
+    if (target.id === 'change') {
         changeQuantity(target);
     }
-    else if (target.id == 'edit') {
+    else if (target.id === 'edit') {
         editNotes(target);
     }
-    else if (target.id == 'filter-update-button') {
+    else if (target.id === 'filter-update-button') {
         filter(target);
+    }
+    else if (target.id === 'reset-button') {
+        resetTable(target)
     }
 }
 
@@ -144,11 +134,11 @@ function changeQuantity(target) {
     target.parentNode.previousElementSibling.textContent = quantity;
 }
 
-function editNotes (target) {
+function editNotes(target) {
     var text = target.parentNode.previousElementSibling.textContent;
 }
 
-function filter (target) {
+function filter(target) {
     var i, j;
     var start = 2;
     var td, th, tr = printerTable.getElementsByTagName('TR');
@@ -166,13 +156,13 @@ function filter (target) {
         document.getElementById('filter-color').value
     );
 
-    
+
 
     th = tr[1].getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
         columns[th[i].textContent] = i;
     }
-  
+
     // Show each row to start
     for (i = start; i < numRows - 1; i++) {
         tr[i].style.display = 'table-row';
@@ -213,7 +203,7 @@ function filter (target) {
             if (filter.maxQuantity === 0) {
                 filter.maxQuantity = 9999999;
             }
-            
+
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
                 // set the display of all rows not meeting quantity standards to 'none'
                 td[columns['# Code']].children[j].style.display = 'none';
