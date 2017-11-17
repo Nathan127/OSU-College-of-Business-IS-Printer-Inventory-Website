@@ -75,11 +75,11 @@
       </div>
 
       <button id="filter-update-button" class="action-button">Update</button>
-      <button id="filter-update-button" class="action-button">Reset</button>
+      <button id="filter-reset-button" class="action-button">Reset</button>
 
     </aside>
     <section id="printers">
-      <table>
+      <table id="printer-table">
         <tr class="sorting-type">
           <div class="sorting-container">
             <label for="sort-type">Sort-By</label>
@@ -107,20 +107,31 @@
         <tr>
           <td>HP</td>
           <td>503A</td>
-          <td>Q7582A</td>
-          <td>Yellow
-            <div class="color-icon-yellow">
-
+          <td>
+            <div class="code" type="503A" color = "Yellow">
+              Q7582A
             </div>
           </td>
-          <td>1
+          <td>
+            <div class="color" type="503A" code="Q7582A">
+              Yellow
+              <div class="color-icon-yellow">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="503A" color="Yellow" code="Q7582A">
+              1
+            </div>
             <div class="change-quantity">
               <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
               <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
             </div>
           </td>
-          <td>11/9/17</td>
-
+          <div class="Last-Updated" type="503A" color="Yellow" code="Q7582A">
+            11/9/17
+          </div>
           <td>
             <div class="notes">
               Notes:
@@ -355,19 +366,33 @@
         <tr>
           <td>HP</td>
           <td>96A</td>
-          <td>C4096A</td>
-          <td>Unknown
-            <div class="color-icon-none">
-
+          <td>
+            <div class="code" type="96A" color="Unknown">
+              C4096A
             </div>
           </td>
-          <td>5
+          <td>
+            <div class="color" type="96A" code="C4096A">
+              Unknown
+              <div class="color-icon-none">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="96A" color="Unknown" code="C4096A">
+              5
+            </div>
             <div class="change-quantity">
               <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
               <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
             </div>
           </td>
-          <td>11/9/17</td>
+          <td>
+            <div class="Last-Updated" type="96A" color="Unknown" code="C4096A">
+              11/9/17
+            </div>
+          </td>
 
           <td>
             <div class="notes">
@@ -390,19 +415,33 @@
         <tr>
           <td>HP</td>
           <td>25X</td>
-          <td>CF325X</td>
-          <td>Black
-            <div class="color-icon">
-
+          <td>
+            <div class="code" type="25X" color="Black">
+              CF325X
             </div>
           </td>
-          <td>2
+          <td>
+            <div class="color" type="25X" code="CF325X">
+              Black
+              <div class="color-icon">
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="quantity" type="25X" color="Black" code="CF325X">
+              2
+            </div>
             <div class="change-quantity">
               <button type="button" id="change"><i class="fa fa-plus"></i>(+1)</button>
               <button type="button" id="change"><i class="fa fa-plus"></i>(-1)</button>
             </div>
           </td>
-          <td>11/9/17</td>
+          <td>
+            <div class="Last-Updated" type="25X" color="Black" code="CF325X">
+              11/9/17
+            </div>
+          </td>
 
           <td>
             <div class="notes">
@@ -747,7 +786,7 @@
         <tr>
           <td>
             <div class="add-option">
-              <button type="button" id="add-item"><i class="fa fa-plus"></i>Add New Item</button>
+              <button type="button" id="add-new-item"><i class="fa fa-plus"></i>Add New Item</button>
             </div>
           </td>
           </th>
@@ -768,42 +807,42 @@
 
             <div class="post-input-element">
               <label for="post-text-input">Brand</label>
-              <input type="text" id="post-text-input"></input>
+              <input type="text" id="post-brand-input"></input>
             </div>
 
             <div class="post-input-element">
               <label for="post-photo-input">Type</label>
-              <input type="text" id="post-photo-input">
+              <input type="text" id="post-type-input">
             </div>
 
             <div class="post-input-element">
               <label for="post-price-input">Code #</label>
-              <input type="text" id="post-price-input">
+              <input type="text" id="post-code-input">
             </div>
 
             <div class="post-input-element">
               <label for="post-city-input">Color</label>
-              <input type="text" id="post-city-input">
+              <input type="text" id="post-color-input">
             </div>
 
             <div class="post-input-element">
               <label for="post-city-input">Quantity</label>
-              <input type="number" id="post-city-input">
+              <input type="number" id="post-quantity-input">
             </div>
 
             <div class="post-input-element">
               <label for="post-city-input">Last Updated</label>
-              <input type="text" id="post-city-input">
+              <input type="text" id="post-updated-input">
             </div>
 
             <div class="post-input-element">
               <label for="post-city-input">Printer Name</label>
-              <input type="text" id="post-city-input">
+              <input type="text" id="post-name-input">
             </div>
 
             <div class="post-input-element">
               <label for="post-city-input">Location</label>
-              <input type="text" id="post-city-input">
+              <input type="text" id="post-location-input">
             </div>
 
           </div>

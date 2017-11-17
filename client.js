@@ -1,9 +1,53 @@
 var printerTable = document.getElementById('printer-table');
-
+var button = document.getElementById('add-new-item');
 var content = document.querySelector('.content');
 var table = document.getElementById('printer-table');
-
+var close = document.getElementById('modal-close');
+var cancel = document.getElementById('modal-cancel');
+var modal = document.getElementById('sell-something-modal');
+var backdropModal = document.getElementById('modal-backdrop')
 var defaultSort = null;
+
+
+button.addEventListener("click", openmodal);
+close.addEventListener("click", closemodal);
+cancel.addEventListener("click", closemodal);
+document.addEventListener("click", windowCloseModal);
+
+
+
+function windowCloseModal(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    backdropModal.style.display = "none";
+    clearModal();
+  }
+}
+
+function openmodal(event) {
+  backdropModal.style.display = "block";
+  modal.style.display = "block";
+}
+
+function closemodal(event) {
+  backdropModal.style.display = "none";
+  modal.style.display = "none";
+  clearModal();
+
+}
+
+
+function clearModal() {
+  document.getElementById('post-brand-input').value = "";
+  document.getElementById('post-type-input').value = "";
+  document.getElementById('post-code-input').value = "";
+  document.getElementById('post-color-input').value = "";
+  document.getElementById('post-quantity-input').value = "";
+  document.getElementById('post-updated-input').value = "";
+  document.getElementById('post-name-input').value = "";
+  document.getElementById('post-location-input').value = "";
+}
+
 
 
 function Filter (searchKey, minQuantity, maxQuantity, brand, color) {
@@ -176,7 +220,7 @@ function filter (target) {
                         td[5].children[j].style.display = 'none';
 
                         // The commented out code below is in case we decide that we would rather change the color of the match
-                        //      instead of the display value 
+                        //      instead of the display value
 
                         // if (quantity[j].getAttribute('color').toLowerCase() == 'black') {
                         //     quantity[j].style.color = 'white';
