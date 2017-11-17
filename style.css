@@ -137,7 +137,7 @@ table th {
   float:left;
 }
 
-.color-icon{
+.color-icon-black{
   width: 3px;
   background-color: black;
   padding: 10px;
@@ -260,7 +260,7 @@ table th {
   cursor: pointer;
 }
 
-.modal-body {
+#modal-body {
   padding: 20px;
 }
 
