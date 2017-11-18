@@ -5,13 +5,6 @@ var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
-<<<<<<< HEAD
-
-close.addEventListener("click", closeModal);
-cancel.addEventListener("click", closeModal);
-document.addEventListener("click", windowCloseModal);
-post.addEventListener("click", addNewPrinter);
-=======
 var open = document.getElementById('add-new-item');
 
 open.addEventListener("click", openmodal);
@@ -19,7 +12,6 @@ close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
->>>>>>> JS
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -41,20 +33,12 @@ function windowCloseModal(event) {
     }
 }
 
-<<<<<<< HEAD
-function openModal(event) {
-=======
 function openmodal(event) {
->>>>>>> JS
     backdropModal.style.display = "block";
     modal.style.display = "block";
 }
 
-<<<<<<< HEAD
-function closeModal(event) {
-=======
 function closemodal(event) {
->>>>>>> JS
     backdropModal.style.display = "none";
     modal.style.display = "none";
     clearModal();
@@ -75,11 +59,7 @@ function clearModal() {
 }
 
 
-<<<<<<< HEAD
-function addNewPrinter(event) {
-=======
 function submit(event) {
->>>>>>> JS
     var brand = document.getElementById('post-brand-input').value;
     var type = document.getElementById('post-type-input').value;
     var code = document.getElementById('post-code-input').value;
@@ -90,8 +70,6 @@ function submit(event) {
     var location = document.getElementById('post-location-input').value;
     var notes = document.getElementById('post-notes-input').value;
 
-<<<<<<< HEAD
-=======
     var arrayCode = code.split(",").map(function(item) {
         return item.trim();
     });
@@ -108,7 +86,6 @@ function submit(event) {
         return item.trim();
     });
 
->>>>>>> JS
 
 
     if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
@@ -116,8 +93,6 @@ function submit(event) {
     }
 
     else {
-<<<<<<< HEAD
-=======
         var tr = document.createElement('tr');
         tr.classList.add("table-info")
         var tdBrand = document.createElement('td');
@@ -216,7 +191,6 @@ function submit(event) {
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
         console.log(printerTable);
->>>>>>> JS
         modal.style.display = "none";
         backdropModal.style.display = "none";
         clearModal();
@@ -236,12 +210,7 @@ function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
 
 function contentClick(event) {
     var target = event.target;
-<<<<<<< HEAD
-
-    if (target.id === 'change') {
-=======
     if (target.className === 'change') {
->>>>>>> JS
         changeQuantity(target);
     }
     else if (target.id === 'edit') {
@@ -253,21 +222,6 @@ function contentClick(event) {
     else if (target.id === 'reset-button') {
         resetTable(target)
     }
-<<<<<<< HEAD
-    else if (target.id === 'add-new-item') {
-        addNewPrinter();
-    }
-}
-
-function changeQuantity(target) {
-    var text = target.parentNode.previousElementSibling.textContent;
-    var quantity = Number(text);
-
-    if (target.textContent == '(+1)') { //figure out why this isn't working...
-        quantity += 1;
-    }
-    else if (target.textContent == '(-1)' && quantity <= 0) {
-=======
 }
 
 function changeQuantity(target) {
@@ -276,7 +230,6 @@ function changeQuantity(target) {
         quantity += 1;
     }
     else if (target.value === 'minus' && quantity <= 0) {
->>>>>>> JS
         alert("Toner quantity cannot be lower than 0");
     }
     else {
@@ -291,11 +244,7 @@ function editNotes(target) {
 }
 
 function filter(target) {
-<<<<<<< HEAD
-    var i, j, matchesFound = 0;
-=======
     var i, j;
->>>>>>> JS
     var start = 2;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity;
@@ -303,10 +252,7 @@ function filter(target) {
     var numRows = tr.length;
     var color;
     var columns = {};
-<<<<<<< HEAD
-=======
     var matchesFound;
->>>>>>> JS
 
     var filter = new Filter(
         document.getElementById('filter-search').value,
@@ -331,11 +277,7 @@ function filter(target) {
     var key = new RegExp(filter.searchKey, 'i');
 
     // Search filter
-<<<<<<< HEAD
-    for (i = start; i < numRows - 1; i++) {
-=======
     for (i = start; i < numRows; i++) {
->>>>>>> JS
         foundMatch = false;
         td = tr[i].getElementsByTagName('TD');
         for (j = 0; j < td.length; j++) {
@@ -351,24 +293,16 @@ function filter(target) {
     }
 
     // min Quantity and max quantity filter
-<<<<<<< HEAD
-    for (i = start; i < numRows - 1; i++) {
-=======
     for (i = start; i < numRows; i++) {
->>>>>>> JS
 
         td = tr[i].getElementsByTagName('TD');
-        quantity = td[columns['Quantity']].getElementsByClassName('quantity');
+        quantity = td[columns.Quantity].getElementsByClassName('quantity');
         matchesFound = 0;
 
         for (j = 0; j < quantity.length; j++) {
-<<<<<<< HEAD
-            // reset all rows back to normal
-=======
             // reset all columns and rows back to normal
->>>>>>> JS
             td[columns['# Code']].children[j].style.display = 'block';
-            td[columns['Color']].children[j].style.display = 'block';
+            td[columns.Color].children[j].style.display = 'block';
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
             td[columns['Last-Updated']].children[j].style.display = 'block';
@@ -380,21 +314,13 @@ function filter(target) {
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
                 // set the display of all rows not meeting quantity standards to 'none'
                 td[columns['# Code']].children[j].style.display = 'none';
-                td[columns['Color']].children[j].style.display = 'none';
+                td[columns.Color].children[j].style.display = 'none';
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
                 td[columns['Last-Updated']].children[j].style.display = 'none';
-<<<<<<< HEAD
-
-                matchesFound++;
-            }
-
-            if (matchesFound === td[columns['Color']].children.length) {
-=======
                 matchesFound++;
             }
             if (matchesFound === quantity.length) {
->>>>>>> JS
                 tr[i].style.display = 'none';
             }
         }
@@ -402,13 +328,9 @@ function filter(target) {
 
     // Brand filter
     if (filter.brand.length > 0) {
-<<<<<<< HEAD
-        for (i = start; i < numRows - 1; i++) {
-=======
         for (i = start; i < numRows; i++) {
->>>>>>> JS
             td = tr[i].getElementsByTagName('TD');
-            var brandName = td[0].textContent.toLowerCase();
+            var brandName = td[columns.Brand].textContent.toLowerCase();
             foundMatch = false;
             for (j = 0; j < filter.brand.length; j++) {
                 if (brandName == filter.brand[j].value) {
@@ -426,33 +348,6 @@ function filter(target) {
     // Color filter
     // For HTML add an attribute that will give the color
     if (filter.color != '') {
-<<<<<<< HEAD
-        for (i = start; i < numRows - 1; i++) {
-
-            td = tr[i].getElementsByTagName('TD');
-            color = td[3].getElementsByClassName('color');
-
-            for (j = 0; j < color.length; j++) {
-                // reset all rows back to normal
-                td[2].children[j].style.display = 'block';
-                color[j].style.display = 'block';
-                td[4].children[j].style.display = 'block';
-                td[5].children[j].style.display = 'block';
-
-                if (filter.color != '') {
-                    if (color[j].textContent.search(filter.color) === -1) {
-                        // set the display of all rows not meeting quantity standards to 'none'
-                        td[2].children[j].style.display = 'none';
-                        color[j].style.display = 'none';
-                        td[4].children[j].style.display = 'none';
-                        td[5].children[j].style.display = 'none';
-                    }
-
-                }
-            }
-
-
-=======
         for (i = start; i < numRows; i++) {
 
             td = tr[i].getElementsByTagName('TD');
@@ -483,7 +378,6 @@ function filter(target) {
                     tr[i].style.display = 'none';
                 }
             }
->>>>>>> JS
         }
     }
 }
