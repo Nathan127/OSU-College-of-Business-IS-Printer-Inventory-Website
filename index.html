@@ -48,23 +48,12 @@
       </div>
 
       <div class="filter-input">
-        <fieldset id="filter-brand" class="filter-fieldset">
-          <legend>Brand</legend>
-          <div>
-            <input type="checkbox" name="filter-brand" id="filter-brand-hp" value="hp">
-            <label for="filter-condition-hp">HP</label>
-          </div>
-          <div>
-            <input type="checkbox" name="filter-brand" id="filter-brand-dell" value="dell">
-            <label for="filter-brand-dell">Dell</label>
-          </div>
-          <div>
-            <input type="checkbox" name="filter-brand" id="filter-brand-other" value="other">
-            <label for="filter-brand-other">Other</label>
-          </div>
-          <button type="button" id="add-item">
-            <i class="fa fa-plus"></i>Add New Brand</button>
-        </fieldset>
+          <label for="filter-brand">Brand</label>
+          <select id="filter-brand" class="filter-input" name="filter-brand">
+            <option selected value="">Any</option>
+            <option>HP</option>
+            <option>Dell</option>
+          </select>
       </div>
 
 
@@ -87,7 +76,7 @@
     </aside>
     <section id="printers">
       <table id="printer-table">
-        <tr class="sorting-type">
+        <!-- <tr class="sorting-type">
           <div class="sorting-container">
             <label for="sort-type">Sort-By</label>
             <select id="sort-type" class="filter-input" name="filter-input">
@@ -99,7 +88,7 @@
             </select>
           </div>
 
-        </tr>
+        </tr> -->
         <tr class="table-row-type">
           <th>Brand</th>
           <th>Type</th>

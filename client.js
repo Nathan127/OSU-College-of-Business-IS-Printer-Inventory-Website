@@ -112,6 +112,8 @@ function submit(event) {
     }
 
     else {
+        var brandFilter = document.getElementById('filter-brand');
+        var noBrand = 0;
         var tr = document.createElement('tr');
         tr.classList.add("table-info")
         var tdBrand = document.createElement('td');
@@ -238,6 +240,26 @@ function submit(event) {
         console.log(printerTable);
         modal.style.display = "none";
         backdropModal.style.display = "none";
+        function titleCase(city){
+          printer.brand = printer.brand.toLowerCase();
+          printer.brand = printer.brand.split(' ');
+          for (var i = 0; i < printer.brand.length; i++) {
+            printer.brand[i] = printer.brand[i].charAt(0).toUpperCase() + printer.brand[i].slice(1);
+          }
+          return printer.brand.join(' ');
+        }
+        for(var i = 0; i < brandFilter.options.length; i++){
+            if((printer.brand === "") || (printer.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())){
+              noBrand = 1;
+            }
+          }
+
+          if(noBrand === 0){
+            var newBrand = document.createElement('option');
+            newBrand.textContent = titleCase(printer.brand);
+            brandFilter.appendChild(newBrand);
+            noBrand = 0;
+          }
         clearModal();
     }
 
