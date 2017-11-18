@@ -82,7 +82,7 @@ function submit(event) {
         document.getElementById('post-location-input').value,
         document.getElementById('post-notes-input').value
     );
-     
+
 
     var arrayCode = printer.code.split(",").map(function(item) {
         return item.trim();
@@ -177,7 +177,7 @@ function submit(event) {
           minusQuantity.setAttribute('type', 'button');
           minusQuantity.setAttribute('class', 'change');
           minusQuantity.setAttribute('value', 'minus');
-          
+
           var createButtonMinus = document.createElement('i');
           createButtonMinus.classList.add('fa', 'fa-plus');
           minusQuantity.appendChild(createButtonMinus);
@@ -220,10 +220,18 @@ function submit(event) {
         tr.appendChild(tdNotes);
 
         var tdName = document.createElement('td');
-        tdName.textContent = printer.name;
+        var createPrinterNameDiv = document.createElement('div');
+        createPrinterNameDiv.classList.add('printer-name');
+        createPrinterNameDiv.setAttribute("type", "503A")
+        createPrinterNameDiv.textContent = printer.name;
+        tdName.appendChild(createPrinterNameDiv);
         tr.appendChild(tdName);
         var tdLocation = document.createElement('td');
-        tdLocation.textContent = printer.location;
+        var createLocationDiv = document.createElement('div');
+        createLocationDiv.classList.add('location');
+        createLocationDiv.setAttribute('type', '503A');
+        createLocationDiv.textContent = printer.location;
+        tdLocation.appendChild(createLocationDiv);
         tr.appendChild(tdLocation);
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
@@ -394,16 +402,16 @@ function filter(target) {
             for (j = 0; j < color.length; j++) {
                 // reset all rows back to normal
                 td[columns['# Code']].children[j].style.display = 'block';
-                color[j].style.display = 'block';           
+                color[j].style.display = 'block';
                 quantity[j].style.display = 'block';
                 quantity[j].nextElementSibling.style.display = 'block';
                 td[columns['Last-Updated']].children[j].style.display = 'block';
 
-                
+
                 if (color[j].textContent.search(filter.color) === -1) {
                     // set the display of all rows not meeting quantity standards to 'none'
                     td[columns['# Code']].children[j].style.display = 'none';
-                    color[j].style.display = 'none';                   
+                    color[j].style.display = 'none';
                     quantity[j].style.display = 'none';
                     quantity[j].nextElementSibling.style.display = 'none';
                     td[columns['Last-Updated']].children[j].style.display = 'none';
