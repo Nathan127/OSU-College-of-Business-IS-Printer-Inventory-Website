@@ -58,37 +58,56 @@ function clearModal() {
     document.getElementById('post-notes-input').value = "";
 }
 
+function Printer(brand, type, code, color, quantity, updated, name, location, notes) {
+    this.brand = brand;
+    this.type = type;
+    this.code = code;
+    this.color = color;
+    this.quantity = quantity;
+    this.updated = updated;
+    this.name = name;
+    this.location = location;
+    this.notes = notes;
+}
 
 function submit(event) {
-    var brand = document.getElementById('post-brand-input').value;
-    var type = document.getElementById('post-type-input').value;
-    var code = document.getElementById('post-code-input').value;
-    var color = document.getElementById('post-color-input').value;
-    var quantity = document.getElementById('post-quantity-input').value;
-    var updated = document.getElementById('post-updated-input').value;
-    var name = document.getElementById('post-name-input').value;
-    var location = document.getElementById('post-location-input').value;
-    var notes = document.getElementById('post-notes-input').value;
+    var printer = new Printer(
+        document.getElementById('post-brand-input').value,
+        document.getElementById('post-type-input').value,
+        document.getElementById('post-code-input').value,
+        document.getElementById('post-color-input').value,
+        document.getElementById('post-quantity-input').value,
+        document.getElementById('post-updated-input').value,
+        document.getElementById('post-name-input').value,
+        document.getElementById('post-location-input').value,
+        document.getElementById('post-notes-input').value
+    );
+     
 
-    var arrayCode = code.split(",").map(function(item) {
+    var arrayCode = printer.code.split(",").map(function(item) {
         return item.trim();
     });
 
-    var arrayColor = color.split(",").map(function(item) {
+    var arrayColor = printer.color.split(",").map(function(item) {
         return item.trim();
     });
 
-    var arrayQuantity = quantity.split(",").map(function(item) {
+    var arrayQuantity = printer.quantity.split(",").map(function(item) {
         return item.trim();
     });
 
-    var arrayUpdated = updated.split(",").map(function(item) {
+    var arrayUpdated = printer.updated.split(",").map(function(item) {
         return item.trim();
     });
 
-
-
-    if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
+    var filledOut = true;
+    for (var i in printer) {
+        if (printer[i] === "") {
+            filledOut = false;
+            break;
+        }
+    }
+    if (!filledOut) {
         alert("Not all fields have been completed, please fill out all fields and then submit.")
     }
 
@@ -96,55 +115,69 @@ function submit(event) {
         var tr = document.createElement('tr');
         tr.classList.add("table-info")
         var tdBrand = document.createElement('td');
-        tdBrand.textContent = brand;
+        tdBrand.textContent = printer.brand;
         tr.appendChild(tdBrand);
         var tdType = document.createElement('td');
-        tdType.textContent = type;
+        tdType.textContent = printer.type;
         tr.appendChild(tdType);
         var tdCode = document.createElement('td');
+
         for(var i = 0; i < arrayCode.length; i++){
           var createDiv = document.createElement('div');
           createDiv.classList.add('code');
-          createDiv.setAttribute('type', type);
+          createDiv.setAttribute('type', printer.type);
           createDiv.setAttribute('color', arrayColor[i]);
           createDiv.textContent = arrayCode[i];
           tdCode.appendChild(createDiv);
         }
+
         tr.appendChild(tdCode);
         var tdColor = document.createElement('td');
+
         for(var i = 0; i < arrayColor.length; i++){
           var createDiv = document.createElement('div');
           createDiv.classList.add('color');
-          createDiv.setAttribute("type", type);
+          createDiv.setAttribute("type", printer.type);
           createDiv.setAttribute("code", arrayCode[i]);
           createDiv.textContent = arrayColor[i];
+
           var createColorDiv = document.createElement('div');
           createColorDiv.classList.add('color-icon-'+ arrayColor[i].toLowerCase());
           createDiv.appendChild(createColorDiv);
           tdColor.appendChild(createDiv);
         }
+
         tr.appendChild(tdColor);
         var tdQuantity = document.createElement('td');
+
         for(var i = 0; i < arrayQuantity.length; i++){
+
           var createDiv = document.createElement('div');
           createDiv.classList.add('quantity');
-          createDiv.setAttribute("type", type);
-          createDiv.setAttribute("color", color[i]);
-          createDiv.setAttribute("type", code[i]);
+          createDiv.setAttribute("type", printer.type);
+          createDiv.setAttribute("color", arrayColor[i]);
+          createDiv.setAttribute("type", arrayCode[i]);
           createDiv.textContent = arrayQuantity[i];
           tdQuantity.appendChild(createDiv);
+
           var createChangeQuantityDiv = document.createElement('div');
           createChangeQuantityDiv.classList.add('change-quantity');
+
           var addQuantity = document.createElement('button');
           addQuantity.setAttribute('type', 'button');
-          addQuantity.setAttribute('id', 'change');
+          addQuantity.setAttribute('class', 'change');
+          addQuantity.setAttribute('value', 'add')
+
           var createButtonPlus = document.createElement('i');
           createButtonPlus.classList.add('fa', 'fa-plus');
           addQuantity.appendChild(createButtonPlus);
           addQuantity.textContent = '(+1)';
+
           var minusQuantity = document.createElement('button');
           minusQuantity.setAttribute('type', 'button');
-          minusQuantity.setAttribute('id', 'change');
+          minusQuantity.setAttribute('class', 'change');
+          minusQuantity.setAttribute('value', 'minus');
+          
           var createButtonMinus = document.createElement('i');
           createButtonMinus.classList.add('fa', 'fa-plus');
           minusQuantity.appendChild(createButtonMinus);
@@ -153,23 +186,26 @@ function submit(event) {
           createChangeQuantityDiv.appendChild(minusQuantity);
           tdQuantity.appendChild(createChangeQuantityDiv);
         }
+
         tr.appendChild(tdQuantity);
         var tdUpdated = document.createElement('td');
         for(var i = 0; i < arrayUpdated.length; i++){
           var createDiv = document.createElement('div');
           createDiv.classList.add('Last-Updated');
-          createDiv.setAttribute('type', type);
+          createDiv.setAttribute('type', printer.type);
           createDiv.setAttribute('color', arrayColor[i]);
           createDiv.setAttribute('code', arrayCode[i]);
           createDiv.textContent = arrayUpdated[i];
           tdUpdated.appendChild(createDiv);
         }
+
         tr.appendChild(tdUpdated);
         var tdNotes = document.createElement('td');
         var createNotesDiv = document.createElement('div');
         createNotesDiv.classList.add('notes');
-        createNotesDiv.textContent = "Notes: " + notes;
+        createNotesDiv.textContent = "Notes: " + printer.notes;
         tdNotes.appendChild(createNotesDiv);
+
         var createNotesButton = document.createElement('div');
         createNotesButton.classList.add('edit');
         var editButton = document.createElement('button');
@@ -182,11 +218,12 @@ function submit(event) {
         createNotesButton.appendChild(editButton);
         tdNotes.appendChild(createNotesButton);
         tr.appendChild(tdNotes);
+
         var tdName = document.createElement('td');
-        tdName.textContent = name;
+        tdName.textContent = printer.name;
         tr.appendChild(tdName);
         var tdLocation = document.createElement('td');
-        tdLocation.textContent = location;
+        tdLocation.textContent = printer.location;
         tr.appendChild(tdLocation);
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
@@ -247,10 +284,9 @@ function filter(target) {
     var i, j;
     var start = 2;
     var td, th, tr = printerTable.getElementsByTagName('TR');
-    var quantity;
+    var quantity, color;
     var foundMatch = false;
     var numRows = tr.length;
-    var color;
     var columns = {};
     var matchesFound;
 
@@ -270,7 +306,7 @@ function filter(target) {
     }
 
     // Show each row to start
-    for (i = start; i < numRows - 1; i++) {
+    for (i = start; i < numRows; i++) {
         tr[i].style.display = 'table-row';
     }
 
