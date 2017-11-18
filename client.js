@@ -5,11 +5,21 @@ var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
+<<<<<<< HEAD
 
 close.addEventListener("click", closeModal);
 cancel.addEventListener("click", closeModal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", addNewPrinter);
+=======
+var open = document.getElementById('add-new-item');
+
+open.addEventListener("click", openmodal);
+close.addEventListener("click", closemodal);
+cancel.addEventListener("click", closemodal);
+document.addEventListener("click", windowCloseModal);
+post.addEventListener("click", submit);
+>>>>>>> JS
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -31,12 +41,20 @@ function windowCloseModal(event) {
     }
 }
 
+<<<<<<< HEAD
 function openModal(event) {
+=======
+function openmodal(event) {
+>>>>>>> JS
     backdropModal.style.display = "block";
     modal.style.display = "block";
 }
 
+<<<<<<< HEAD
 function closeModal(event) {
+=======
+function closemodal(event) {
+>>>>>>> JS
     backdropModal.style.display = "none";
     modal.style.display = "none";
     clearModal();
@@ -57,7 +75,11 @@ function clearModal() {
 }
 
 
+<<<<<<< HEAD
 function addNewPrinter(event) {
+=======
+function submit(event) {
+>>>>>>> JS
     var brand = document.getElementById('post-brand-input').value;
     var type = document.getElementById('post-type-input').value;
     var code = document.getElementById('post-code-input').value;
@@ -68,6 +90,25 @@ function addNewPrinter(event) {
     var location = document.getElementById('post-location-input').value;
     var notes = document.getElementById('post-notes-input').value;
 
+<<<<<<< HEAD
+=======
+    var arrayCode = code.split(",").map(function(item) {
+        return item.trim();
+    });
+
+    var arrayColor = color.split(",").map(function(item) {
+        return item.trim();
+    });
+
+    var arrayQuantity = quantity.split(",").map(function(item) {
+        return item.trim();
+    });
+
+    var arrayUpdated = updated.split(",").map(function(item) {
+        return item.trim();
+    });
+
+>>>>>>> JS
 
 
     if ((brand === "") || (type === "") || (code === "") || (color === "") || (quantity === "") || (updated === "") || (name === "") || (location === "") || (notes === "")) {
@@ -75,6 +116,107 @@ function addNewPrinter(event) {
     }
 
     else {
+<<<<<<< HEAD
+=======
+        var tr = document.createElement('tr');
+        tr.classList.add("table-info")
+        var tdBrand = document.createElement('td');
+        tdBrand.textContent = brand;
+        tr.appendChild(tdBrand);
+        var tdType = document.createElement('td');
+        tdType.textContent = type;
+        tr.appendChild(tdType);
+        var tdCode = document.createElement('td');
+        for(var i = 0; i < arrayCode.length; i++){
+          var createDiv = document.createElement('div');
+          createDiv.classList.add('code');
+          createDiv.setAttribute('type', type);
+          createDiv.setAttribute('color', arrayColor[i]);
+          createDiv.textContent = arrayCode[i];
+          tdCode.appendChild(createDiv);
+        }
+        tr.appendChild(tdCode);
+        var tdColor = document.createElement('td');
+        for(var i = 0; i < arrayColor.length; i++){
+          var createDiv = document.createElement('div');
+          createDiv.classList.add('color');
+          createDiv.setAttribute("type", type);
+          createDiv.setAttribute("code", arrayCode[i]);
+          createDiv.textContent = arrayColor[i];
+          var createColorDiv = document.createElement('div');
+          createColorDiv.classList.add('color-icon-'+ arrayColor[i].toLowerCase());
+          createDiv.appendChild(createColorDiv);
+          tdColor.appendChild(createDiv);
+        }
+        tr.appendChild(tdColor);
+        var tdQuantity = document.createElement('td');
+        for(var i = 0; i < arrayQuantity.length; i++){
+          var createDiv = document.createElement('div');
+          createDiv.classList.add('quantity');
+          createDiv.setAttribute("type", type);
+          createDiv.setAttribute("color", color[i]);
+          createDiv.setAttribute("type", code[i]);
+          createDiv.textContent = arrayQuantity[i];
+          tdQuantity.appendChild(createDiv);
+          var createChangeQuantityDiv = document.createElement('div');
+          createChangeQuantityDiv.classList.add('change-quantity');
+          var addQuantity = document.createElement('button');
+          addQuantity.setAttribute('type', 'button');
+          addQuantity.setAttribute('id', 'change');
+          var createButtonPlus = document.createElement('i');
+          createButtonPlus.classList.add('fa', 'fa-plus');
+          addQuantity.appendChild(createButtonPlus);
+          addQuantity.textContent = '(+1)';
+          var minusQuantity = document.createElement('button');
+          minusQuantity.setAttribute('type', 'button');
+          minusQuantity.setAttribute('id', 'change');
+          var createButtonMinus = document.createElement('i');
+          createButtonMinus.classList.add('fa', 'fa-plus');
+          minusQuantity.appendChild(createButtonMinus);
+          minusQuantity.textContent = '(-1)';
+          createChangeQuantityDiv.appendChild(addQuantity);
+          createChangeQuantityDiv.appendChild(minusQuantity);
+          tdQuantity.appendChild(createChangeQuantityDiv);
+        }
+        tr.appendChild(tdQuantity);
+        var tdUpdated = document.createElement('td');
+        for(var i = 0; i < arrayUpdated.length; i++){
+          var createDiv = document.createElement('div');
+          createDiv.classList.add('Last-Updated');
+          createDiv.setAttribute('type', type);
+          createDiv.setAttribute('color', arrayColor[i]);
+          createDiv.setAttribute('code', arrayCode[i]);
+          createDiv.textContent = arrayUpdated[i];
+          tdUpdated.appendChild(createDiv);
+        }
+        tr.appendChild(tdUpdated);
+        var tdNotes = document.createElement('td');
+        var createNotesDiv = document.createElement('div');
+        createNotesDiv.classList.add('notes');
+        createNotesDiv.textContent = "Notes: " + notes;
+        tdNotes.appendChild(createNotesDiv);
+        var createNotesButton = document.createElement('div');
+        createNotesButton.classList.add('edit');
+        var editButton = document.createElement('button');
+        editButton.setAttribute("type", "button");
+        editButton.setAttribute('id', 'edit');
+        var createButton = document.createElement('i');
+        createButton.classList.add('fa', 'fa-plus');
+        editButton.appendChild(createButton);
+        editButton.textContent = "Edit";
+        createNotesButton.appendChild(editButton);
+        tdNotes.appendChild(createNotesButton);
+        tr.appendChild(tdNotes);
+        var tdName = document.createElement('td');
+        tdName.textContent = name;
+        tr.appendChild(tdName);
+        var tdLocation = document.createElement('td');
+        tdLocation.textContent = location;
+        tr.appendChild(tdLocation);
+        var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
+        printerTable.appendChild(tr);
+        console.log(printerTable);
+>>>>>>> JS
         modal.style.display = "none";
         backdropModal.style.display = "none";
         clearModal();
@@ -94,8 +236,12 @@ function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
 
 function contentClick(event) {
     var target = event.target;
+<<<<<<< HEAD
 
     if (target.id === 'change') {
+=======
+    if (target.className === 'change') {
+>>>>>>> JS
         changeQuantity(target);
     }
     else if (target.id === 'edit') {
@@ -107,6 +253,7 @@ function contentClick(event) {
     else if (target.id === 'reset-button') {
         resetTable(target)
     }
+<<<<<<< HEAD
     else if (target.id === 'add-new-item') {
         addNewPrinter();
     }
@@ -120,6 +267,16 @@ function changeQuantity(target) {
         quantity += 1;
     }
     else if (target.textContent == '(-1)' && quantity <= 0) {
+=======
+}
+
+function changeQuantity(target) {
+    var quantity = Number(target.parentNode.previousElementSibling.textContent);
+    if (target.value === 'add') { //figure out why this isn't working...
+        quantity += 1;
+    }
+    else if (target.value === 'minus' && quantity <= 0) {
+>>>>>>> JS
         alert("Toner quantity cannot be lower than 0");
     }
     else {
@@ -134,7 +291,11 @@ function editNotes(target) {
 }
 
 function filter(target) {
+<<<<<<< HEAD
     var i, j, matchesFound = 0;
+=======
+    var i, j;
+>>>>>>> JS
     var start = 2;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity;
@@ -142,6 +303,10 @@ function filter(target) {
     var numRows = tr.length;
     var color;
     var columns = {};
+<<<<<<< HEAD
+=======
+    var matchesFound;
+>>>>>>> JS
 
     var filter = new Filter(
         document.getElementById('filter-search').value,
@@ -166,7 +331,11 @@ function filter(target) {
     var key = new RegExp(filter.searchKey, 'i');
 
     // Search filter
+<<<<<<< HEAD
     for (i = start; i < numRows - 1; i++) {
+=======
+    for (i = start; i < numRows; i++) {
+>>>>>>> JS
         foundMatch = false;
         td = tr[i].getElementsByTagName('TD');
         for (j = 0; j < td.length; j++) {
@@ -182,14 +351,22 @@ function filter(target) {
     }
 
     // min Quantity and max quantity filter
+<<<<<<< HEAD
     for (i = start; i < numRows - 1; i++) {
+=======
+    for (i = start; i < numRows; i++) {
+>>>>>>> JS
 
         td = tr[i].getElementsByTagName('TD');
         quantity = td[columns['Quantity']].getElementsByClassName('quantity');
         matchesFound = 0;
 
         for (j = 0; j < quantity.length; j++) {
+<<<<<<< HEAD
             // reset all rows back to normal
+=======
+            // reset all columns and rows back to normal
+>>>>>>> JS
             td[columns['# Code']].children[j].style.display = 'block';
             td[columns['Color']].children[j].style.display = 'block';
             quantity[j].style.display = 'block';
@@ -207,11 +384,17 @@ function filter(target) {
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
                 td[columns['Last-Updated']].children[j].style.display = 'none';
+<<<<<<< HEAD
 
                 matchesFound++;
             }
 
             if (matchesFound === td[columns['Color']].children.length) {
+=======
+                matchesFound++;
+            }
+            if (matchesFound === quantity.length) {
+>>>>>>> JS
                 tr[i].style.display = 'none';
             }
         }
@@ -219,7 +402,11 @@ function filter(target) {
 
     // Brand filter
     if (filter.brand.length > 0) {
+<<<<<<< HEAD
         for (i = start; i < numRows - 1; i++) {
+=======
+        for (i = start; i < numRows; i++) {
+>>>>>>> JS
             td = tr[i].getElementsByTagName('TD');
             var brandName = td[0].textContent.toLowerCase();
             foundMatch = false;
@@ -239,6 +426,7 @@ function filter(target) {
     // Color filter
     // For HTML add an attribute that will give the color
     if (filter.color != '') {
+<<<<<<< HEAD
         for (i = start; i < numRows - 1; i++) {
 
             td = tr[i].getElementsByTagName('TD');
@@ -264,6 +452,38 @@ function filter(target) {
             }
 
 
+=======
+        for (i = start; i < numRows; i++) {
+
+            td = tr[i].getElementsByTagName('TD');
+            color = td[columns.Color].getElementsByClassName('color');
+            quantity = td[columns.Quantity].getElementsByClassName('quantity');
+            matchesFound = 0;
+
+            for (j = 0; j < color.length; j++) {
+                // reset all rows back to normal
+                td[columns['# Code']].children[j].style.display = 'block';
+                color[j].style.display = 'block';           
+                quantity[j].style.display = 'block';
+                quantity[j].nextElementSibling.style.display = 'block';
+                td[columns['Last-Updated']].children[j].style.display = 'block';
+
+                
+                if (color[j].textContent.search(filter.color) === -1) {
+                    // set the display of all rows not meeting quantity standards to 'none'
+                    td[columns['# Code']].children[j].style.display = 'none';
+                    color[j].style.display = 'none';                   
+                    quantity[j].style.display = 'none';
+                    quantity[j].nextElementSibling.style.display = 'none';
+                    td[columns['Last-Updated']].children[j].style.display = 'none';
+                    matchesFound++;
+                }
+
+                if (matchesFound === color.length) {
+                    tr[i].style.display = 'none';
+                }
+            }
+>>>>>>> JS
         }
     }
 }
