@@ -17,10 +17,7 @@ function resetTable(target) {
     document.getElementById('filter-search').value = '';
     document.getElementById('filter-min-quantity').value = '';
     document.getElementById('filter-max-quantity').value = '';
-    var brandFilter = document.querySelectorAll('input[name="filter-brand"]');
-    for (i = 0; i < brandFilter.length; i++) {
-        brandFilter[i].checked = false;
-    }
+    document.getElementById('filter-brand').value = '';
     document.getElementById('filter-color').value = '';
     filter();
 }
@@ -269,9 +266,19 @@ function submit(event) {
 
 function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
     this.searchKey = searchKey;
-    this.minQuantity = Number(minQuantity);
-    this.maxQuantity = Number(maxQuantity);
-    this.brand = brand;
+    if (minQuantity === '') {
+        this.minQuantity = 0;
+    }
+    else {
+        this.minQuantity = minQuantity;
+    }
+    if (maxQuantity === '') {
+        this.maxQuantity = 9999999;
+    }
+    else {
+        this.maxQuantity = maxQuantity;
+    }    
+    this.brand = brand.toUpperCase();
     this.color = color;
 }
 
@@ -312,7 +319,7 @@ function editNotes(target) {
 
 function filter(target) {
     var i, j;
-    var start = 2;
+    var start = 1;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity, color;
     var foundMatch = false;
@@ -324,13 +331,11 @@ function filter(target) {
         document.getElementById('filter-search').value,
         document.getElementById('filter-min-quantity').value,
         document.getElementById('filter-max-quantity').value,
-        document.querySelectorAll('input[name="filter-brand"]:checked'),
+        document.getElementById('filter-brand').value,
         document.getElementById('filter-color').value
     );
 
-
-
-    th = tr[1].getElementsByTagName('TH');
+    th = tr[0].getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
         columns[th[i].textContent] = i;
     }
@@ -343,21 +348,23 @@ function filter(target) {
     var key = new RegExp(filter.searchKey, 'i');
 
     // Search filter
-    for (i = start; i < numRows; i++) {
-        foundMatch = false;
-        td = tr[i].getElementsByTagName('TD');
-        for (j = 0; j < td.length; j++) {
-            if (td[j].textContent.search(key) != -1) {
-                foundMatch = true;
-                tr[i].style.display = 'table-row';
-                break;
+    if (filter.searchKey.length > 0) {
+        for (i = start; i < numRows; i++) {
+            foundMatch = false;
+            td = tr[i].getElementsByTagName('TD');
+            for (j = 0; j < td.length; j++) {
+                if (td[j].textContent.search(key) != -1) {
+                    foundMatch = true;
+                    tr[i].style.display = 'table-row';
+                    break;
+                }
+            }
+            if (!foundMatch) {
+                tr[i].style.display = 'none';
             }
         }
-        if (!foundMatch) {
-            tr[i].style.display = 'none';
-        }
+    
     }
-
     // min Quantity and max quantity filter
     for (i = start; i < numRows; i++) {
 
@@ -372,13 +379,10 @@ function filter(target) {
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
             td[columns['Last-Updated']].children[j].style.display = 'block';
-
-            if (filter.maxQuantity === 0) {
-                filter.maxQuantity = 9999999;
-            }
+            console.log(filter.minQuantity + ' ' + filter.maxQuantity);
 
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
-                // set the display of all rows not meeting quantity standards to 'none'
+                    // set the display of all rows not meeting quantity standards to 'none'
                 td[columns['# Code']].children[j].style.display = 'none';
                 td[columns.Color].children[j].style.display = 'none';
                 quantity[j].style.display = 'none';
@@ -389,6 +393,7 @@ function filter(target) {
             if (matchesFound === quantity.length) {
                 tr[i].style.display = 'none';
             }
+               
         }
     }
 
@@ -396,18 +401,11 @@ function filter(target) {
     if (filter.brand.length > 0) {
         for (i = start; i < numRows; i++) {
             td = tr[i].getElementsByTagName('TD');
-            var brandName = td[columns.Brand].textContent.toLowerCase();
-            foundMatch = false;
-            for (j = 0; j < filter.brand.length; j++) {
-                if (brandName == filter.brand[j].value) {
-                    foundMatch = true;
-                    break;
-                }
-            }
-            if (!foundMatch) {
+            var brandName = td[columns.Brand].textContent.toUpperCase();
+            
+            if (brandName != filter.brand) {
                 tr[i].style.display = 'none';
             }
-
         }
     }
 
