@@ -19,18 +19,13 @@ for(var i = 0; i < removeItem.length; i++){
   removeItem[i].addEventListener("click", (function(i) {
     return function(){
       var tableInfo = document.querySelectorAll('.table-info');
-      console.log(tableInfo);
-      tableInfo[i].style.display = "none";
+      // console.log(tableInfo);
+      tableInfo[i].parentNode.removeChild(tableInfo[i]);
     };
   }(i)));
 }
 
 
-
-function removePrinterItem(event){
-  var test = holdI();
-  console.log(test);
-}
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -63,6 +58,16 @@ function closemodal(event) {
 
 
 function clearModal() {
+  removeItem = document.querySelectorAll('#remove-item');
+  for(var i = 0; i < removeItem.length; i++){
+    removeItem[i].addEventListener("click", (function(i) {
+      return function(){
+        var tableInfo = document.querySelectorAll('.table-info');
+        // console.log(tableInfo);
+        tableInfo[i].parentNode.removeChild(tableInfo[i]);
+      };
+    }(i)));
+  }
     document.getElementById('post-brand-input').value = "";
     document.getElementById('post-type-input').value = "";
     document.getElementById('post-code-input').value = "";
@@ -240,17 +245,34 @@ function submit(event) {
         var tdName = document.createElement('td');
         var createPrinterNameDiv = document.createElement('div');
         createPrinterNameDiv.classList.add('printer-name');
-        createPrinterNameDiv.setAttribute("type", "503A")
+        createPrinterNameDiv.setAttribute("type", printer.type)
         createPrinterNameDiv.textContent = printer.name;
         tdName.appendChild(createPrinterNameDiv);
         tr.appendChild(tdName);
         var tdLocation = document.createElement('td');
         var createLocationDiv = document.createElement('div');
         createLocationDiv.classList.add('location');
-        createLocationDiv.setAttribute('type', '503A');
+        createLocationDiv.setAttribute('type', printer.type);
         createLocationDiv.textContent = printer.location;
         tdLocation.appendChild(createLocationDiv);
         tr.appendChild(tdLocation);
+        var tdRemoveButton = document.createElement('td');
+        var createRemovePrinterDiv = document.createElement('div');
+        createRemovePrinterDiv.classList.add('remove-printer');
+        createRemovePrinterDiv.setAttribute('type', printer.type);
+        createRemovePrinterDiv.setAttribute('brand', printer.brand);
+        var removeButton = document.createElement('button');
+        removeButton.setAttribute("type", "button");
+        removeButton.setAttribute("id", "remove-item");
+        var removeActualButton = document.createElement('i');
+        removeActualButton.classList.add('fa', 'fa-plus');
+        removeButton.appendChild(removeActualButton);
+        removeButton.textContent = "Remove Printer";
+        createRemovePrinterDiv.appendChild(removeButton);
+        tdRemoveButton.appendChild(createRemovePrinterDiv);
+        tr.appendChild(tdRemoveButton);
+
+
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
         console.log(printerTable);
@@ -355,14 +377,14 @@ function editNotes(target) {
     submitEditButton.textContent = 'Submit';
     console.log(submitEditButton);
     console.log(cancelEditButton);
-    
+
     // changing display values to none for textDiv and edit button
     textDiv.style.display = 'none';
     target.parentNode.style.display = 'none';
     textDiv.parentNode.insertBefore(input, textDiv.nextElementSibling);
     textDiv.parentNode.insertBefore(cancelEditButton, input.nextElementSibling);
     textDiv.parentNode.insertBefore(submitEditButton, cancelEditButton.nextElementSibling);
-    
+
 
     submitEditButton.addEventListener('click', function (event) {
 
@@ -370,17 +392,17 @@ function editNotes(target) {
         textDiv.parentNode.removeChild(input);
         textDiv.parentNode.removeChild(cancelEditButton);
         textDiv.parentNode.removeChild(submitEditButton);
-    
+
         textDiv.style.display = 'block';
         target.parentNode.style.display = 'block';
-        
+
     });
 
     cancelEditButton.addEventListener('click', function (event) {
         textDiv.parentNode.removeChild(input);
         textDiv.parentNode.removeChild(cancelEditButton);
         textDiv.parentNode.removeChild(submitEditButton);
-        
+
         textDiv.style.display = 'block';
         target.parentNode.style.display = 'block';
     });
