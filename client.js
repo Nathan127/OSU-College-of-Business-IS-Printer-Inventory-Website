@@ -227,6 +227,7 @@ function submit(event) {
         createPrinterNameDiv.textContent = printer.name;
         tdName.appendChild(createPrinterNameDiv);
         tr.appendChild(tdName);
+
         var tdLocation = document.createElement('td');
         var createLocationDiv = document.createElement('div');
         createLocationDiv.classList.add('location');
@@ -234,6 +235,7 @@ function submit(event) {
         createLocationDiv.textContent = printer.location;
         tdLocation.appendChild(createLocationDiv);
         tr.appendChild(tdLocation);
+
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
         var tdRemoveButton = document.createElement('td');
@@ -251,6 +253,7 @@ function submit(event) {
         createRemovePrinterDiv.appendChild(removeButton);
         tdRemoveButton.appendChild(createRemovePrinterDiv);
         tr.appendChild(tdRemoveButton);
+
         modal.style.display = "none";
         backdropModal.style.display = "none";
 
