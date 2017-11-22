@@ -6,22 +6,14 @@ var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
 var open = document.getElementById('add-new-item');
-var removeItem = document.querySelectorAll('.remove-item');
+
 
 open.addEventListener("click", openmodal);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
-for(var i = 0; i < removeItem.length; i++){
-  removeItem[i].addEventListener("click", (function(i) {
-    return function(){
-      var tableInfo = document.querySelectorAll('.table-info');
-      // console.log(tableInfo);
-      tableInfo[i].parentNode.removeChild(tableInfo[i]);
-    };
-  }(i)));
-}
+
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -54,16 +46,6 @@ function closemodal(event) {
 
 
 function clearModal() {
-  removeItem = document.querySelectorAll('.remove-item');
-for(var i = 0; i < removeItem.length; i++){
-  removeItem[i].addEventListener("click", (function(i) {
-    return function(){
-      var tableInfo = document.querySelectorAll('.table-info');
-      // console.log(tableInfo);
-      tableInfo[i].parentNode.removeChild(tableInfo[i]);
-    };
-  }(i)));
-}
     document.getElementById('post-brand-input').value = "";
     document.getElementById('post-type-input').value = "";
     document.getElementById('post-code-input').value = "";
@@ -331,9 +313,9 @@ function contentClick(event) {
     else if (target.id === 'reset-button') {
         resetTable(target)
     }
-    // else if (target.className === 'remove-item') {
-    //     removeRowFromDOM(target);
-    // }
+    else if (target.className === 'remove-item') {
+        removeRowFromDOM(target);
+    }
 }
 
 function changeQuantity(target) {
@@ -401,10 +383,10 @@ function editNotes(target) {
 
 }
 
-// function removeRowFromDOM (target) {
-//     var row = target.parentNode.parentNode.parentNode;
-//     row.parentNode.removeChild(row);
-// }
+function removeRowFromDOM (target) {
+    var row = target.parentNode.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
 
 function filter(target) {
     var i, j;
