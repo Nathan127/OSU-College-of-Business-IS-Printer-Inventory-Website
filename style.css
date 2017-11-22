@@ -187,6 +187,10 @@ table th {
   margin-bottom: 15px;
 }
 
+.cancel-edit-button {
+  margin-right: 2px;
+}
+
 .error-container {
   font-family: serif;
   text-align: center;
