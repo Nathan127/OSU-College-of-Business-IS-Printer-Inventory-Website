@@ -338,23 +338,51 @@ function changeQuantity(target) {
 function editNotes(target) {
     var textDiv = target.parentNode.previousElementSibling;
     var text = textDiv.textContent.trim();
+    //creating input text box
     var input = document.createElement('textarea');
     input.classList.add('edit-notes-field');
     input.value = text.slice(7, text.length);
     input.rows = 10;
     input.cols = 20;
-    target.parentNode.previousElementSibling.style.display = 'none';
+
+    // creating both the cancel and submit buttons
+    var cancelEditButton = document.createElement('button');
+    cancelEditButton.classList.add('cancel-edit-button');
+    cancelEditButton.textContent = 'Cancel';
+
+    var submitEditButton = document.createElement('button');
+    submitEditButton.classList.add('submit-edit-button');
+    submitEditButton.textContent = 'Submit';
+    console.log(submitEditButton);
+    console.log(cancelEditButton);
+    
+    // changing display values to none for textDiv and edit button
+    textDiv.style.display = 'none';
     target.parentNode.style.display = 'none';
     textDiv.parentNode.insertBefore(input, textDiv.nextElementSibling);
+    textDiv.parentNode.insertBefore(cancelEditButton, input.nextElementSibling);
+    textDiv.parentNode.insertBefore(submitEditButton, cancelEditButton.nextElementSibling);
+    
 
-    input.addEventListener('keypress', function (event) {
-        var key = event.which || event.keyCode;
-        if (key === 13){
-            textDiv.textContent = 'Notes: ' + input.value;
-            textDiv.parentNode.removeChild(input);
-            target.parentNode.previousElementSibling.style.display = 'block';
-            target.parentNode.style.display = 'block';
-        }
+    submitEditButton.addEventListener('click', function (event) {
+
+        textDiv.textContent = 'Notes: ' + input.value;
+        textDiv.parentNode.removeChild(input);
+        textDiv.parentNode.removeChild(cancelEditButton);
+        textDiv.parentNode.removeChild(submitEditButton);
+    
+        textDiv.style.display = 'block';
+        target.parentNode.style.display = 'block';
+        
+    });
+
+    cancelEditButton.addEventListener('click', function (event) {
+        textDiv.parentNode.removeChild(input);
+        textDiv.parentNode.removeChild(cancelEditButton);
+        textDiv.parentNode.removeChild(submitEditButton);
+        
+        textDiv.style.display = 'block';
+        target.parentNode.style.display = 'block';
     });
 
 }
