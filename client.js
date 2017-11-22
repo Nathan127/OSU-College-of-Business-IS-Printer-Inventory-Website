@@ -6,12 +6,31 @@ var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
 var open = document.getElementById('add-new-item');
+var removeItem = document.querySelectorAll('#remove-item');
+
+console.log(removeItem);
 
 open.addEventListener("click", openmodal);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
+for(var i = 0; i < removeItem.length; i++){
+  removeItem[i].addEventListener("click", (function(i) {
+    return function(){
+      var tableInfo = document.querySelectorAll('.table-info');
+      console.log(tableInfo);
+      tableInfo[i].style.display = "none";
+    };
+  }(i)));
+}
+
+
+
+function removePrinterItem(event){
+  var test = holdI();
+  console.log(test);
+}
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -277,7 +296,7 @@ function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
     }
     else {
         this.maxQuantity = maxQuantity;
-    }    
+    }
     this.brand = brand.toUpperCase();
     this.color = color;
 }
@@ -337,7 +356,7 @@ function editNotes(target) {
             target.parentNode.style.display = 'block';
         }
     });
-    
+
 }
 
 function filter(target) {
@@ -386,7 +405,7 @@ function filter(target) {
                 tr[i].style.display = 'none';
             }
         }
-    
+
     }
     // min Quantity and max quantity filter
     for (i = start; i < numRows; i++) {
@@ -416,7 +435,7 @@ function filter(target) {
             if (matchesFound === quantity.length) {
                 tr[i].style.display = 'none';
             }
-               
+
         }
     }
 
@@ -425,7 +444,7 @@ function filter(target) {
         for (i = start; i < numRows; i++) {
             td = tr[i].getElementsByTagName('TD');
             var brandName = td[columns.Brand].textContent.toUpperCase();
-            
+
             if (brandName != filter.brand) {
                 tr[i].style.display = 'none';
             }
