@@ -234,9 +234,10 @@ function submit(event) {
         tr.appendChild(tdLocation);
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
-        console.log(printerTable);
+        
         modal.style.display = "none";
         backdropModal.style.display = "none";
+
         function titleCase(city){
           printer.brand = printer.brand.toLowerCase();
           printer.brand = printer.brand.split(' ');
@@ -287,7 +288,7 @@ function contentClick(event) {
     if (target.className === 'change') {
         changeQuantity(target);
     }
-    else if (target.id === 'edit') {
+    else if (target.className === 'edit-notes-button') {
         editNotes(target);
     }
     else if (target.id === 'filter-update-button') {
@@ -295,6 +296,9 @@ function contentClick(event) {
     }
     else if (target.id === 'reset-button') {
         resetTable(target)
+    }
+    else if (target.className === 'remove-item') {
+        removeRowFromDOM(target);
     }
 }
 
@@ -314,12 +318,64 @@ function changeQuantity(target) {
 }
 
 function editNotes(target) {
-    var text = target.parentNode.previousElementSibling.textContent;
+    var textDiv = target.parentNode.previousElementSibling;
+    var text = textDiv.textContent.trim();
+    //creating input text box
+    var input = document.createElement('textarea');
+    input.classList.add('edit-notes-field');
+    input.value = text.slice(7, text.length);
+    input.rows = 10;
+    input.cols = 20;
+
+    // creating both the cancel and submit buttons
+    var cancelEditButton = document.createElement('button');
+    cancelEditButton.classList.add('cancel-edit-button');
+    cancelEditButton.textContent = 'Cancel';
+
+    var submitEditButton = document.createElement('button');
+    submitEditButton.classList.add('submit-edit-button');
+    submitEditButton.textContent = 'Submit';
+    
+    // changing display values to none for textDiv and edit button
+    textDiv.style.display = 'none';
+    target.parentNode.style.display = 'none';
+    textDiv.parentNode.insertBefore(input, textDiv.nextElementSibling);
+    textDiv.parentNode.insertBefore(cancelEditButton, input.nextElementSibling);
+    textDiv.parentNode.insertBefore(submitEditButton, cancelEditButton.nextElementSibling);
+    
+
+    submitEditButton.addEventListener('click', function (event) {
+
+        textDiv.textContent = 'Notes: ' + input.value;
+        textDiv.parentNode.removeChild(input);
+        textDiv.parentNode.removeChild(cancelEditButton);
+        textDiv.parentNode.removeChild(submitEditButton);
+    
+        textDiv.style.display = 'block';
+        target.parentNode.style.display = 'block';
+        
+    });
+
+    cancelEditButton.addEventListener('click', function (event) {
+        textDiv.parentNode.removeChild(input);
+        textDiv.parentNode.removeChild(cancelEditButton);
+        textDiv.parentNode.removeChild(submitEditButton);
+        
+        textDiv.style.display = 'block';
+        target.parentNode.style.display = 'block';
+    });
+    
+}
+
+function removeRowFromDOM (target) {
+    var row = target.parentNode.parentNode.parentNode;
+    row.parentNode.removeChild(row);
 }
 
 function filter(target) {
     var i, j;
-    var start = 1;
+    var tbody = printerTable.querySelector('tbody');
+    var start = tbody.firstElementChild.rowIndex;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity, color;
     var foundMatch = false;
@@ -379,7 +435,6 @@ function filter(target) {
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
             td[columns['Last-Updated']].children[j].style.display = 'block';
-            console.log(filter.minQuantity + ' ' + filter.maxQuantity);
 
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
                     // set the display of all rows not meeting quantity standards to 'none'
