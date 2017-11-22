@@ -221,20 +221,34 @@ function submit(event) {
         var tdName = document.createElement('td');
         var createPrinterNameDiv = document.createElement('div');
         createPrinterNameDiv.classList.add('printer-name');
-        createPrinterNameDiv.setAttribute("type", "503A")
+        createPrinterNameDiv.setAttribute("type", printer.type)
         createPrinterNameDiv.textContent = printer.name;
         tdName.appendChild(createPrinterNameDiv);
         tr.appendChild(tdName);
         var tdLocation = document.createElement('td');
         var createLocationDiv = document.createElement('div');
         createLocationDiv.classList.add('location');
-        createLocationDiv.setAttribute('type', '503A');
+        createLocationDiv.setAttribute('type', printer.type);
         createLocationDiv.textContent = printer.location;
         tdLocation.appendChild(createLocationDiv);
         tr.appendChild(tdLocation);
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
-        
+        var tdRemoveButton = document.createElement('td');
+        var createRemovePrinterDiv = document.createElement('div');
+        createRemovePrinterDiv.classList.add('remove-printer');
+        createRemovePrinterDiv.setAttribute('type', printer.type);
+        createRemovePrinterDiv.setAttribute('brand', printer.brand);
+        var removeButton = document.createElement('button');
+        removeButton.setAttribute("type", "button");
+        removeButton.setAttribute("id", "remove-item");
+        var removeActualButton = document.createElement('i');
+        removeActualButton.classList.add('fa', 'fa-plus');
+        removeButton.appendChild(removeActualButton);
+        removeButton.textContent = "Remove Printer";
+        createRemovePrinterDiv.appendChild(removeButton);
+        tdRemoveButton.appendChild(createRemovePrinterDiv);
+        tr.appendChild(tdRemoveButton);
         modal.style.display = "none";
         backdropModal.style.display = "none";
 
@@ -278,7 +292,7 @@ function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
     }
     else {
         this.maxQuantity = maxQuantity;
-    }    
+    }
     this.brand = brand.toUpperCase();
     this.color = color;
 }
@@ -335,14 +349,14 @@ function editNotes(target) {
     var submitEditButton = document.createElement('button');
     submitEditButton.classList.add('submit-edit-button');
     submitEditButton.textContent = 'Submit';
-    
+
     // changing display values to none for textDiv and edit button
     textDiv.style.display = 'none';
     target.parentNode.style.display = 'none';
     textDiv.parentNode.insertBefore(input, textDiv.nextElementSibling);
     textDiv.parentNode.insertBefore(cancelEditButton, input.nextElementSibling);
     textDiv.parentNode.insertBefore(submitEditButton, cancelEditButton.nextElementSibling);
-    
+
 
     submitEditButton.addEventListener('click', function (event) {
 
@@ -350,21 +364,21 @@ function editNotes(target) {
         textDiv.parentNode.removeChild(input);
         textDiv.parentNode.removeChild(cancelEditButton);
         textDiv.parentNode.removeChild(submitEditButton);
-    
+
         textDiv.style.display = 'block';
         target.parentNode.style.display = 'block';
-        
+
     });
 
     cancelEditButton.addEventListener('click', function (event) {
         textDiv.parentNode.removeChild(input);
         textDiv.parentNode.removeChild(cancelEditButton);
         textDiv.parentNode.removeChild(submitEditButton);
-        
+
         textDiv.style.display = 'block';
         target.parentNode.style.display = 'block';
     });
-    
+
 }
 
 function removeRowFromDOM (target) {
@@ -419,7 +433,7 @@ function filter(target) {
                 tr[i].style.display = 'none';
             }
         }
-    
+
     }
     // min Quantity and max quantity filter
     for (i = start; i < numRows; i++) {
@@ -448,7 +462,7 @@ function filter(target) {
             if (matchesFound === quantity.length) {
                 tr[i].style.display = 'none';
             }
-               
+
         }
     }
 
@@ -457,7 +471,7 @@ function filter(target) {
         for (i = start; i < numRows; i++) {
             td = tr[i].getElementsByTagName('TD');
             var brandName = td[columns.Brand].textContent.toUpperCase();
-            
+
             if (brandName != filter.brand) {
                 tr[i].style.display = 'none';
             }
