@@ -234,7 +234,7 @@ function submit(event) {
         tr.appendChild(tdLocation);
         var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
         printerTable.appendChild(tr);
-        console.log(printerTable);
+        
         modal.style.display = "none";
         backdropModal.style.display = "none";
 
@@ -335,8 +335,6 @@ function editNotes(target) {
     var submitEditButton = document.createElement('button');
     submitEditButton.classList.add('submit-edit-button');
     submitEditButton.textContent = 'Submit';
-    console.log(submitEditButton);
-    console.log(cancelEditButton);
     
     // changing display values to none for textDiv and edit button
     textDiv.style.display = 'none';
@@ -376,7 +374,8 @@ function removeRowFromDOM (target) {
 
 function filter(target) {
     var i, j;
-    var start = 1;
+    var tbody = printerTable.querySelector('tbody');
+    var start = tbody.firstElementChild.rowIndex;
     var td, th, tr = printerTable.getElementsByTagName('TR');
     var quantity, color;
     var foundMatch = false;
@@ -436,7 +435,6 @@ function filter(target) {
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
             td[columns['Last-Updated']].children[j].style.display = 'block';
-            console.log(filter.minQuantity + ' ' + filter.maxQuantity);
 
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
                     // set the display of all rows not meeting quantity standards to 'none'
