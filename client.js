@@ -241,7 +241,7 @@ function submit(event) {
         createRemovePrinterDiv.setAttribute('brand', printer.brand);
         var removeButton = document.createElement('button');
         removeButton.setAttribute("type", "button");
-        removeButton.setAttribute("id", "remove-item");
+        removeButton.classList.add("remove-item");
         var removeActualButton = document.createElement('i');
         removeActualButton.classList.add('fa', 'fa-plus');
         removeButton.appendChild(removeActualButton);
