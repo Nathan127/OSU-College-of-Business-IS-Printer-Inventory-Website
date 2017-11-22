@@ -209,7 +209,7 @@ function submit(event) {
         createNotesButton.classList.add('edit');
         var editButton = document.createElement('button');
         editButton.setAttribute("type", "button");
-        editButton.setAttribute('id', 'edit');
+        editButton.classList.add('edit-notes-button')
         var createButton = document.createElement('i');
         createButton.classList.add('fa', 'fa-plus');
         editButton.appendChild(createButton);
