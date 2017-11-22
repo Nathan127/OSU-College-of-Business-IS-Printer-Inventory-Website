@@ -6,13 +6,14 @@ var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
 var open = document.getElementById('add-new-item');
-var removeItem = document.querySelectorAll('.remove-item');
+
 
 open.addEventListener("click", openmodal);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
+<<<<<<< HEAD
 // for(var i = 0; i < removeItem.length; i++){
 //   removeItem[i].addEventListener("click", (function(i) {
 //     return function(){
@@ -22,6 +23,9 @@ post.addEventListener("click", submit);
 //     };
 //   }(i)));
 // }
+=======
+
+>>>>>>> d74611a9c0cce2df9aa3786dd3cd6f6b0f1b2f6f
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -54,16 +58,6 @@ function closemodal(event) {
 
 
 function clearModal() {
-  removeItem = document.querySelectorAll('.remove-item');
-for(var i = 0; i < removeItem.length; i++){
-  removeItem[i].addEventListener("click", (function(i) {
-    return function(){
-      var tableInfo = document.querySelectorAll('.table-info');
-      // console.log(tableInfo);
-      tableInfo[i].parentNode.removeChild(tableInfo[i]);
-    };
-  }(i)));
-}
     document.getElementById('post-brand-input').value = "";
     document.getElementById('post-type-input').value = "";
     document.getElementById('post-code-input').value = "";
