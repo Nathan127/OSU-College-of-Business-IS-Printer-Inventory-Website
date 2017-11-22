@@ -13,15 +13,15 @@ close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
-for(var i = 0; i < removeItem.length; i++){
-  removeItem[i].addEventListener("click", (function(i) {
-    return function(){
-      var tableInfo = document.querySelectorAll('.table-info');
-      // console.log(tableInfo);
-      tableInfo[i].parentNode.removeChild(tableInfo[i]);
-    };
-  }(i)));
-}
+// for(var i = 0; i < removeItem.length; i++){
+//   removeItem[i].addEventListener("click", (function(i) {
+//     return function(){
+//       var tableInfo = document.querySelectorAll('.table-info');
+//       // console.log(tableInfo);
+//       tableInfo[i].parentNode.removeChild(tableInfo[i]);
+//     };
+//   }(i)));
+// }
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -331,9 +331,9 @@ function contentClick(event) {
     else if (target.id === 'reset-button') {
         resetTable(target)
     }
-    // else if (target.className === 'remove-item') {
-    //     removeRowFromDOM(target);
-    // }
+    else if (target.className === 'remove-item') {
+        removeRowFromDOM(target);
+    }
 }
 
 function changeQuantity(target) {
@@ -401,10 +401,10 @@ function editNotes(target) {
 
 }
 
-// function removeRowFromDOM (target) {
-//     var row = target.parentNode.parentNode.parentNode;
-//     row.parentNode.removeChild(row);
-// }
+function removeRowFromDOM (target) {
+    var row = target.parentNode.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
 
 function filter(target) {
     var i, j;
