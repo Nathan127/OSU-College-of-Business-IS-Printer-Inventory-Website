@@ -287,7 +287,7 @@ function contentClick(event) {
     if (target.className === 'change') {
         changeQuantity(target);
     }
-    else if (target.id === 'edit') {
+    else if (target.className === 'edit-notes-button') {
         editNotes(target);
     }
     else if (target.id === 'filter-update-button') {
@@ -296,6 +296,9 @@ function contentClick(event) {
     else if (target.id === 'reset-button') {
         resetTable(target)
     }
+    // else if (target.className === 'edit-notes-button') {
+    //     editNotes(target);
+    // }
 }
 
 function changeQuantity(target) {
@@ -314,7 +317,27 @@ function changeQuantity(target) {
 }
 
 function editNotes(target) {
-    var text = target.parentNode.previousElementSibling.textContent;
+    var textDiv = target.parentNode.previousElementSibling;
+    var text = textDiv.textContent.trim();
+    var input = document.createElement('textarea');
+    input.classList.add('edit-notes-field');
+    input.value = text.slice(7, text.length);
+    input.rows = 10;
+    input.cols = 20;
+    target.parentNode.previousElementSibling.style.display = 'none';
+    target.parentNode.style.display = 'none';
+    textDiv.parentNode.insertBefore(input, textDiv.nextElementSibling);
+
+    input.addEventListener('keypress', function (event) {
+        var key = event.which || event.keyCode;
+        if (key === 13){
+            textDiv.textContent = 'Notes: ' + input.value;
+            textDiv.parentNode.removeChild(input);
+            target.parentNode.previousElementSibling.style.display = 'block';
+            target.parentNode.style.display = 'block';
+        }
+    });
+    
 }
 
 function filter(target) {

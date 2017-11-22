@@ -96,6 +96,8 @@ th, td {
     font-weight: 900;
     font-size: 20px;
     font-family: 'Open sans',sans-serif;
+    max-width: 200px;
+    word-wrap: break-word;
 }
 
 th {
