@@ -14,7 +14,6 @@ cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
 
-
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
     document.getElementById('filter-min-quantity').value = '';
