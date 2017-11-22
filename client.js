@@ -13,19 +13,6 @@ close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
-<<<<<<< HEAD
-// for(var i = 0; i < removeItem.length; i++){
-//   removeItem[i].addEventListener("click", (function(i) {
-//     return function(){
-//       var tableInfo = document.querySelectorAll('.table-info');
-//       // console.log(tableInfo);
-//       tableInfo[i].parentNode.removeChild(tableInfo[i]);
-//     };
-//   }(i)));
-// }
-=======
-
->>>>>>> d74611a9c0cce2df9aa3786dd3cd6f6b0f1b2f6f
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
