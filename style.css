@@ -66,6 +66,10 @@ li {
   background-color: rgb(237, 140, 140);
 }
 
+table input[type=number] {
+  width: 100%;
+  margin: auto;
+}
 
 section{
   padding-top: 12px;
@@ -97,7 +101,7 @@ table, th, td {
     border-collapse: collapse;
 }
 th, td {
-    /*padding: 5px;*/
+    padding: 5px;
     text-align: left;
     font-weight: 900;
     font-size: 15px;
