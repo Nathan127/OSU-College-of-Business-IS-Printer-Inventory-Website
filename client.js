@@ -19,23 +19,23 @@ close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
-for(var i = 0; i < lowquan.length; i++){
-  lowquan[i].addEventListener('change', (function(i) {
-      return function(){
-        var quantityAmtLocation = document.getElementById('printer-table').rows[i+1].cells[4];
-        for(var j = 0; j < quantityAmtLocation.getElementsByClassName('quantity').length; j++){
-          quantityAmtLocation.getElementsByClassName('quantity')[j].removeAttribute("id");
-          array[j] = quantityAmtLocation.getElementsByClassName('quantity')[j].textContent;
-          console.log(parseInt(array[j]));
-          console.log(lowquan[i].value);
-          if(parseInt(array[j]) < parseInt(lowquan[i].value)){
-            console.log("hello");
-            quantityAmtLocation.getElementsByClassName('quantity')[j].setAttribute("id", "highlight-text")
-          }
-        }
 
-      };
-    }(i)));
+for(var i = 0; i < lowquan.length; i++){
+  lowquan[i].addEventListener('input', handleLowAlertChange);
+}
+
+function handleLowAlertChange (event) {
+    var row = event.target.parentNode.parentNode.parentNode;
+    row.setAttribute('min-alert', event.target.value);
+    var quantity = row.children[4].getElementsByClassName('quantity');
+    console.log(quantity);
+    console.log(row);
+    for (var j = 0; j < quantity.length; j++) {
+        quantity[j].removeAttribute('highlight');
+        if (Number(quantity[j].textContent) <= event.target.value) {
+            quantity[j].setAttribute('highlight', 'red');
+        }
+    }
 }
 
 // function test(event){

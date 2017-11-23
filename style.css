@@ -62,7 +62,7 @@ li {
     border-right: 1px solid #bbb;
 }
 
-#highlight-text{
+.quantity[highlight='red']{
   background-color: rgb(237, 140, 140);
 }
 
