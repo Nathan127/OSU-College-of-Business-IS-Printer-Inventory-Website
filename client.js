@@ -70,7 +70,6 @@ function closemodal(event) {
     backdropModal.style.display = "none";
     modal.style.display = "none";
     clearModal();
-
 }
 
 
@@ -82,11 +81,12 @@ function clearModal() {
     document.getElementById('post-quantity-input').value = "";
     document.getElementById('post-updated-input').value = "";
     document.getElementById('post-name-input').value = "";
+    document.getElementById('post-min-quantity-warning').value = "";
     document.getElementById('post-location-input').value = "";
     document.getElementById('post-notes-input').value = "";
 }
 
-function Printer(brand, type, code, color, quantity, updated, name, location, notes) {
+function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning) {
     this.brand = brand;
     this.type = type;
     this.code = code;
@@ -96,6 +96,7 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
     this.name = name;
     this.location = location;
     this.notes = notes;
+    this.warning = warning;
 }
 
 function submit(event) {
@@ -108,7 +109,8 @@ function submit(event) {
         document.getElementById('post-updated-input').value,
         document.getElementById('post-name-input').value,
         document.getElementById('post-location-input').value,
-        document.getElementById('post-notes-input').value
+        document.getElementById('post-notes-input').value,
+        document.getElementById('post-min-quantity-warning').value
     );
 
 
@@ -440,7 +442,8 @@ function editPrinter(target) {
         td[columns['Last-Updated']].children,
         td[columns['Printer Name']].firstElementChild.textContent.trim(),
         td[columns.Location].firstElementChild.textContent.trim(),
-        td[columns.Notes].firstElementChild.textContent.trim().slice(7)
+        td[columns.Notes].firstElementChild.textContent.trim().slice(7),
+        row.getAttribute('min-alert')
     );
 
     openmodal();
@@ -450,7 +453,8 @@ function editPrinter(target) {
     document.getElementById('post-notes-input').value = printer.notes;
     document.getElementById('post-name-input').value = printer.name;
     document.getElementById('post-location-input').value = printer.location;
-    document.getElementById('post-min-quantity-warning').value = row.getAttribute('min-alert');
+    document.getElementById('post-min-quantity-warning').value = printer.warning;
+    
     var codeInput = document.getElementById('post-code-input');
     var colorInput = document.getElementById('post-color-input');
     var quantityInput = document.getElementById('post-quantity-input');
