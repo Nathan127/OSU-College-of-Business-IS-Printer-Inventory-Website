@@ -6,13 +6,43 @@ var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
 var post = document.getElementById('modal-accept');
 var open = document.getElementById('add-new-item');
+var lowquan = document.querySelectorAll('.post-low-input');
+var array = [];
+// var quantityAmtLocation = document.getElementById('printer-table').rows[2].cells[4];
+// quantityAmtLocation = quantityAmtLocation.getElementsByClassName('quantity')[1].textContent;
 
+console.log(lowquan);
+// console.log(quantityAmtLocation);
 
 open.addEventListener("click", openmodal);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
 post.addEventListener("click", submit);
+for(var i = 0; i < lowquan.length; i++){
+  lowquan[i].addEventListener('change', (function(i) {
+      return function(){
+        var quantityAmtLocation = document.getElementById('printer-table').rows[i+1].cells[4];
+        for(var j = 0; j < quantityAmtLocation.getElementsByClassName('quantity').length; j++){
+          quantityAmtLocation.getElementsByClassName('quantity')[j].removeAttribute("id");
+          array[j] = quantityAmtLocation.getElementsByClassName('quantity')[j].textContent;
+          console.log(parseInt(array[j]));
+          console.log(lowquan[i].value);
+          if(parseInt(array[j]) < parseInt(lowquan[i].value)){
+            console.log("hello");
+            quantityAmtLocation.getElementsByClassName('quantity')[j].setAttribute("id", "highlight-text")
+          }
+        }
+
+      };
+    }(i)));
+}
+
+// function test(event){
+//   var hold = event.currentTarget.value;
+//   console.log(hold);
+//
+// }
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';

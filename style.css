@@ -62,6 +62,10 @@ li {
     border-right: 1px solid #bbb;
 }
 
+#highlight-text{
+  background-color: rgb(237, 140, 140);
+}
+
 
 section{
   padding-top: 12px;
