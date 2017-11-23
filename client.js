@@ -315,6 +315,9 @@ function contentClick(event) {
     else if (target.className === 'remove-item') {
         removeRowFromDOM(target);
     }
+    else if (target.className === 'edit-printer-button') {
+        editPrinter(target);
+    }
 }
 
 function changeQuantity(target) {
@@ -380,6 +383,68 @@ function editNotes(target) {
         target.parentNode.style.display = 'block';
     });
 
+}
+
+function editPrinter(target) {
+    var i;
+    var row = target.parentNode.parentNode.parentNode;
+    var td, th, tr = printerTable.getElementsByTagName('TR');
+    var columns = {};
+
+    th = tr[0].getElementsByTagName('TH');
+    for (i = 0; i < th.length; i++) {
+        columns[th[i].textContent] = i;
+    }
+
+    td = row.getElementsByTagName('TD');
+
+    var printer = new Printer(
+        td[columns.Brand].textContent.trim(),
+        td[columns.Type].textContent.trim(),
+        td[columns['# Code']].children,
+        td[columns.Color].getElementsByClassName('color'),
+        td[columns.Quantity].getElementsByClassName('quantity'),
+        td[columns['Last-Updated']].children,
+        td[columns['Printer Name']].firstElementChild.textContent.trim(),
+        td[columns.Location].firstElementChild.textContent.trim(),
+        td[columns.Notes].firstElementChild.textContent.trim().slice(7)
+    );
+
+    openmodal();
+
+    document.getElementById('post-brand-input').value = printer.brand;
+    document.getElementById('post-type-input').value = printer.type;
+    document.getElementById('post-notes-input').value = printer.notes;
+    document.getElementById('post-name-input').value = printer.name;
+    document.getElementById('post-location-input').value = printer.location;
+    document.getElementById('post-min-quantity-warning').value = row.getAttribute('min-alert');
+    var codeInput = document.getElementById('post-code-input');
+    var colorInput = document.getElementById('post-color-input');
+    var quantityInput = document.getElementById('post-quantity-input');
+    var updatedInput = document.getElementById('post-updated-input');
+    
+    var tempCodes = "";
+    var tempColor = "";
+    var tempQuantity = "";
+    var tempUpdated = "";
+    for (i = 0; i < printer.code.length; i++) {
+        if (i < printer.code.length - 1) {
+            tempCodes += printer.code[i].textContent.trim() + ', ';
+            tempColor += printer.color[i].textContent.trim() + ', ';
+            tempQuantity += printer.quantity[i].textContent.trim() + ', ';
+            tempUpdated += printer.updated[i].textContent.trim() + ', ';
+        }
+        else {
+            tempCodes += printer.code[i].textContent.trim();
+            tempColor += printer.color[i].textContent.trim();
+            tempQuantity += printer.quantity[i].textContent.trim();
+            tempUpdated += printer.updated[i].textContent.trim();
+        }
+    }
+    codeInput.value = tempCodes;
+    colorInput.value = tempColor;
+    quantityInput.value = tempQuantity;
+    updatedInput.value = tempUpdated; 
 }
 
 function removeRowFromDOM (target) {

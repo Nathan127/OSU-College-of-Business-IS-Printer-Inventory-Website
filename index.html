@@ -90,7 +90,7 @@
 
         </tr> -->
         <thead>
-          <tr class="table-row-type">
+          <tr class="table-row-type" >
             <th>Brand</th>
             <th>Type</th>
             <th># Code</th>
@@ -104,7 +104,7 @@
         </thead>
 
         <tbody>
-          <tr class="table-info">
+          <tr class="table-info" min-alert=5>
             <td>HP</td>
             <td>503A</td>
             <td>
@@ -165,7 +165,7 @@
 
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>HP</td>
             <td>307A</td>
             <td>
@@ -291,7 +291,7 @@
 
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>HP</td>
             <td>643A</td>
             <td>
@@ -416,7 +416,7 @@
             </td>
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>HP</td>
             <td>96A</td>
             <td>
@@ -478,7 +478,7 @@
 
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>HP</td>
             <td>25X</td>
             <td>
@@ -540,7 +540,7 @@
 
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>HP</td>
             <td>970XL</td>
             <td>
@@ -665,7 +665,7 @@
 
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>HP</td>
             <td>711</td>
             <td>
@@ -791,7 +791,7 @@
 
           </tr>
 
-          <tr class="table-info">
+          <tr class="table-info" min-alert=4>
             <td>Dell</td>
             <td>3110cn/3115cn</td>
             <td>
@@ -912,6 +912,10 @@
                 <button type="button" class="remove-item">
                   <i class="fa fa-plus"></i>Remove Printer</button>
               </div>
+              <div class="edit-printer" type="3110cn/3115cn" brand="Dell">
+                <button type="button" class="edit-printer-button">
+                  <i class="fa fa-plus"></i>Edit Printer</button>
+              </div>
             </td>
 
 
@@ -968,6 +972,11 @@
             </div>
 
             <div class="post-input-element">
+              <label for="post-min-quantity-warning">Min Quantity Alert</label>
+              <input type="number" id="post-min-quantity-warning">
+            </div>
+
+            <div class="post-input-element">
               <label for="post-city-input">Last Updated</label>
               <input type="text" id="post-updated-input">
             </div>
@@ -991,7 +1000,7 @@
 
           <div class="modal-footer">
             <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
-            <button type="button" id="modal-accept" class="action-button">Create New Printer</button>
+            <button type="button" id="modal-accept" class="action-button">Submit</button>
           </div>
 
         </div>
