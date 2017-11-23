@@ -89,16 +89,18 @@ li a:hover:not(.active) {
 
 table {
     width:100%;
+    border-spacing: 0 px;
+    border-collapse: collapse;
 }
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 th, td {
-    padding: 5px;
+    /*padding: 5px;*/
     text-align: left;
     font-weight: 900;
-    font-size: 20px;
+    font-size: 15px;
     font-family: 'Open sans',sans-serif;
     max-width: 200px;
     word-wrap: break-word;
@@ -113,7 +115,7 @@ table th {
     color: white;
     border-right: 1px solid #bbb;
     font-weight: 900;
-    font-size: 20px;
+    font-size: 15px;
     font-family: 'Open sans',sans-serif;
 }
 
