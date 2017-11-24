@@ -66,6 +66,10 @@ li {
   background-color: rgb(237, 140, 140);
 }
 
+.action-button {
+  margin-right: 5px;
+}
+
 table input[type=number] {
   width: 100%;
   margin: auto;
@@ -276,8 +280,16 @@ table th {
   cursor: pointer;
 }
 
+.edit-printer-button,
+.remove-item {
+  width: 100%;
+}
 #modal-body {
   padding: 20px;
+}
+
+.change {
+  width: 42px;
 }
 
 .post-input-element {
@@ -311,14 +323,10 @@ table th {
   padding: 10px 10px 20px 10px;
 }
 
-#modal-cancel,
-#modal-accept {
-  margin-right: 20px;
-}
-
 #modal-cancel {
   color: #333;
   background-color: #fff;
+  margin-right: 10px;
 }
 
 #modal-cancel:hover {

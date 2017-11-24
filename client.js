@@ -246,6 +246,20 @@ function addPrinter(row, newPrinter) {
     row.appendChild(tdLocation);
 
     var tdRemoveButton = document.createElement('td');
+    var editPrinterDiv = document.createElement('div');
+    editPrinterDiv.classList.add('edit-printer');
+    editPrinterDiv.setAttribute('type', newPrinter.type);
+    editPrinterDiv.setAttribute('brand', newPrinter.brand);
+    var editPrinterButton = document.createElement('button');
+    editPrinterButton.setAttribute('type', 'button');
+    editPrinterButton.classList.add('edit-printer-button');
+    var removeActualButton = document.createElement('i');
+    removeActualButton.classList.add('fa', 'fa-plus');
+    editPrinterButton.appendChild(removeActualButton);
+    editPrinterButton.textContent = 'Edit Printer';
+    editPrinterDiv.appendChild(editPrinterButton);
+    tdRemoveButton.appendChild(editPrinterDiv);
+    
     var createRemovePrinterDiv = document.createElement('div');
     createRemovePrinterDiv.classList.add('remove-printer');
     createRemovePrinterDiv.setAttribute('type', newPrinter.type);
@@ -253,12 +267,11 @@ function addPrinter(row, newPrinter) {
     var removeButton = document.createElement('button');
     removeButton.setAttribute("type", "button");
     removeButton.classList.add('remove-item');
-    var removeActualButton = document.createElement('i');
-    removeActualButton.classList.add('fa', 'fa-plus');
     removeButton.appendChild(removeActualButton);
     removeButton.textContent = "Remove Printer";
     createRemovePrinterDiv.appendChild(removeButton);
     tdRemoveButton.appendChild(createRemovePrinterDiv);
+
     row.appendChild(tdRemoveButton);
 
     modal.style.display = "none";
