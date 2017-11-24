@@ -4,27 +4,15 @@ var close = document.getElementById('modal-close');
 var cancel = document.getElementById('modal-cancel');
 var modal = document.getElementById('sell-something-modal');
 var backdropModal = document.getElementById('modal-backdrop');
-var post = document.getElementById('modal-accept');
 var open = document.getElementById('add-new-item');
 var lowquan = document.querySelectorAll('.post-low-input');
 var array = [];
-// var quantityAmtLocation = document.getElementById('printer-table').rows[2].cells[4];
-// quantityAmtLocation = quantityAmtLocation.getElementsByClassName('quantity')[1].textContent;
 
-console.log(lowquan);
-// console.log(quantityAmtLocation);
-
-open.addEventListener("click", openmodal);
-close.addEventListener("click", closemodal);
-cancel.addEventListener("click", closemodal);
-document.addEventListener("click", windowCloseModal);
-post.addEventListener("click", submit);
-
-for(var i = 0; i < lowquan.length; i++){
-  lowquan[i].addEventListener('input', handleLowAlertChange);
+for (var i = 0; i < lowquan.length; i++) {
+    lowquan[i].addEventListener('input', handleLowAlertChange);
 }
 
-function handleLowAlertChange (event) {
+function handleLowAlertChange(event) {
     var row = event.target.parentNode.parentNode.parentNode;
     row.setAttribute('min-alert', event.target.value);
     var quantity = row.children[4].getElementsByClassName('quantity');
@@ -61,9 +49,19 @@ function windowCloseModal(event) {
     }
 }
 
-function openmodal(event) {
+function openmodal(event, source) {
     backdropModal.style.display = "block";
     modal.style.display = "block";
+    var post = document.getElementById('modal-accept');
+    if (source === "edit") {
+        post.addEventListener("click", function (e) {
+            editPrinter(event);
+        });
+    }
+    else {
+        post.addEventListener("click", submit);
+    }
+
 }
 
 function closemodal(event) {
@@ -74,6 +72,7 @@ function closemodal(event) {
 
 
 function clearModal() {
+    document.getElementById('modal-accept').setAttribute('name', 'add-printer');
     document.getElementById('post-brand-input').value = "";
     document.getElementById('post-type-input').value = "";
     document.getElementById('post-code-input').value = "";
@@ -84,6 +83,9 @@ function clearModal() {
     document.getElementById('post-min-quantity-warning').value = "";
     document.getElementById('post-location-input').value = "";
     document.getElementById('post-notes-input').value = "";
+    var post = document.getElementById('modal-accept');
+    post.removeEventListener("click", submit);
+
 }
 
 function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning) {
@@ -99,6 +101,226 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
     this.warning = warning;
 }
 
+function addPrinter(row, newPrinter) {
+    var columns = {};
+    var th, td, tr = document.getElementById('printer-table').querySelector('TR')
+
+    th = tr.getElementsByTagName('TH');
+    for (i = 0; i < th.length; i++) {
+        columns[th[i].textContent] = i;
+    }
+
+    var arrayCode = newPrinter.code.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayColor = newPrinter.color.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayQuantity = newPrinter.quantity.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayUpdated = newPrinter.updated.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var filledOut = true;
+
+    for (i in newPrinter) {
+        if (newPrinter[i] === '') {
+            filledOut = false;
+            break;
+        }
+    }
+    if (!filledOut) {
+        alert("Not all fields have been completed, please fill out all fields and then submit.");
+    }
+
+    else {
+        var brandFilter = document.getElementById('filter-brand');
+        var noBrand = 0;
+
+        var tdBrand = document.createElement('td');
+        tdBrand.textContent = newPrinter.brand;
+        row.appendChild(tdBrand);
+        var tdType = document.createElement('td');
+        tdType.textContent = newPrinter.type;
+        row.appendChild(tdType);
+        var tdCode = document.createElement('td');
+
+        for (var i = 0; i < arrayCode.length; i++) {
+            var createDiv = document.createElement('div');
+            createDiv.classList.add('code');
+            createDiv.setAttribute('type', newPrinter.type);
+            createDiv.setAttribute('color', arrayColor[i]);
+            createDiv.textContent = arrayCode[i];
+            tdCode.appendChild(createDiv);
+        }
+
+        row.appendChild(tdCode);
+        var tdColor = document.createElement('td');
+
+        for (var i = 0; i < arrayColor.length; i++) {
+            var createDiv = document.createElement('div');
+            createDiv.classList.add('color');
+            createDiv.setAttribute("type", newPrinter.type);
+            createDiv.setAttribute("code", arrayCode[i]);
+            createDiv.textContent = arrayColor[i];
+
+            var createColorDiv = document.createElement('div');
+            createColorDiv.classList.add('color-icon-' + arrayColor[i].toLowerCase());
+            createDiv.appendChild(createColorDiv);
+            tdColor.appendChild(createDiv);
+        }
+
+        row.appendChild(tdColor);
+        var tdQuantity = document.createElement('td');
+
+        for (var i = 0; i < arrayQuantity.length; i++) {
+
+            var createDiv = document.createElement('div');
+            createDiv.classList.add('quantity');
+            createDiv.setAttribute("type", newPrinter.type);
+            createDiv.setAttribute("color", arrayColor[i]);
+            createDiv.setAttribute("type", arrayCode[i]);
+            createDiv.textContent = arrayQuantity[i];
+            tdQuantity.appendChild(createDiv);
+
+            var createChangeQuantityDiv = document.createElement('div');
+            createChangeQuantityDiv.classList.add('change-quantity');
+
+            var addQuantity = document.createElement('button');
+            addQuantity.setAttribute('type', 'button');
+            addQuantity.setAttribute('class', 'change');
+            addQuantity.setAttribute('value', 'add')
+
+            var createButtonPlus = document.createElement('i');
+            createButtonPlus.classList.add('fa', 'fa-plus');
+            addQuantity.appendChild(createButtonPlus);
+            addQuantity.textContent = '(+1)';
+
+            var minusQuantity = document.createElement('button');
+            minusQuantity.setAttribute('type', 'button');
+            minusQuantity.setAttribute('class', 'change');
+            minusQuantity.setAttribute('value', 'minus');
+
+            var createButtonMinus = document.createElement('i');
+            createButtonMinus.classList.add('fa', 'fa-plus');
+            minusQuantity.appendChild(createButtonMinus);
+            minusQuantity.textContent = '(-1)';
+            createChangeQuantityDiv.appendChild(addQuantity);
+            createChangeQuantityDiv.appendChild(minusQuantity);
+            tdQuantity.appendChild(createChangeQuantityDiv);
+        }
+
+        row.appendChild(tdQuantity);
+        var tdUpdated = document.createElement('td');
+        for (var i = 0; i < arrayUpdated.length; i++) {
+            var createDiv = document.createElement('div');
+            createDiv.classList.add('Last-Updated');
+            createDiv.setAttribute('type', newPrinter.type);
+            createDiv.setAttribute('color', arrayColor[i]);
+            createDiv.setAttribute('code', arrayCode[i]);
+            createDiv.textContent = arrayUpdated[i];
+            tdUpdated.appendChild(createDiv);
+        }
+
+        row.appendChild(tdUpdated);
+        var tdNotes = document.createElement('td');
+        var createNotesDiv = document.createElement('div');
+        createNotesDiv.classList.add('notes');
+        createNotesDiv.textContent = "Notes: " + newPrinter.notes;
+        tdNotes.appendChild(createNotesDiv);
+
+        var createNotesButton = document.createElement('div');
+        createNotesButton.classList.add('edit');
+        var editButton = document.createElement('button');
+        editButton.setAttribute("type", "button");
+        editButton.classList.add('edit-notes-button')
+        var createButton = document.createElement('i');
+        createButton.classList.add('fa', 'fa-plus');
+        editButton.appendChild(createButton);
+        editButton.textContent = "Edit";
+        createNotesButton.appendChild(editButton);
+        tdNotes.appendChild(createNotesButton);
+        row.appendChild(tdNotes);
+
+        var tdName = document.createElement('td');
+        var createPrinterNameDiv = document.createElement('div');
+        createPrinterNameDiv.classList.add('newPrinter-name');
+        createPrinterNameDiv.setAttribute("type", newPrinter.type)
+        createPrinterNameDiv.textContent = newPrinter.name;
+        tdName.appendChild(createPrinterNameDiv);
+        row.appendChild(tdName);
+
+        var tdLocation = document.createElement('td');
+        var createLocationDiv = document.createElement('div');
+        createLocationDiv.classList.add('location');
+        createLocationDiv.setAttribute('type', newPrinter.type);
+        createLocationDiv.textContent = newPrinter.location;
+        tdLocation.appendChild(createLocationDiv);
+        row.appendChild(tdLocation);
+
+        var tdRemoveButton = document.createElement('td');
+        var createRemovePrinterDiv = document.createElement('div');
+        createRemovePrinterDiv.classList.add('remove-printer');
+        createRemovePrinterDiv.setAttribute('type', newPrinter.type);
+        createRemovePrinterDiv.setAttribute('brand', newPrinter.brand);
+        var removeButton = document.createElement('button');
+        removeButton.setAttribute("type", "button");
+        removeButton.classList.add('remove-item');
+        var removeActualButton = document.createElement('i');
+        removeActualButton.classList.add('fa', 'fa-plus');
+        removeButton.appendChild(removeActualButton);
+        removeButton.textContent = "Remove Printer";
+        createRemovePrinterDiv.appendChild(removeButton);
+        tdRemoveButton.appendChild(createRemovePrinterDiv);
+        row.appendChild(tdRemoveButton);
+
+        modal.style.display = "none";
+        backdropModal.style.display = "none";
+
+        var lowWarningTD = document.createElement('td');
+        var lowWarningDiv = document.createElement('div');
+        lowWarningDiv.classList.add('low-threshold');
+        lowWarningDiv.setAttribute('type', newPrinter.type);
+        lowWarningDiv.setAttribute('brand', newPrinter.brand);
+
+        var lowWarningInput = document.createElement('input');
+        lowWarningInput.setAttribute('type', 'number');
+        lowWarningInput.classList.add('post-low-input');
+        lowWarningDiv.appendChild(lowWarningInput);
+        lowWarningTD.appendChild(lowWarningDiv);
+        row.appendChild(lowWarningTD);
+
+        lowWarningInput.addEventListener('input', handleLowAlertChange);
+
+        function titleCase(city) {
+            newPrinter.brand = newPrinter.brand.toLowerCase();
+            newPrinter.brand = newPrinter.brand.split(' ');
+            for (var i = 0; i < newPrinter.brand.length; i++) {
+                newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
+            }
+            return newPrinter.brand.join(' ');
+        }
+
+        for (var i = 0; i < brandFilter.options.length; i++) {
+            if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
+                noBrand = 1;
+            }
+        }
+
+        if (noBrand === 0) {
+            var newBrand = document.createElement('option');
+            newBrand.textContent = titleCase(newPrinter.brand);
+            brandFilter.appendChild(newBrand);
+            noBrand = 0;
+        }
+        clearModal();
+    }
+}
 function submit(event) {
     var printer = new Printer(
         document.getElementById('post-brand-input').value,
@@ -113,203 +335,10 @@ function submit(event) {
         document.getElementById('post-min-quantity-warning').value
     );
 
+    var tr = printerTable.insertRow(-1);
+    tr.classList.add("table-info");
 
-    var arrayCode = printer.code.split(",").map(function(item) {
-        return item.trim();
-    });
-
-    var arrayColor = printer.color.split(",").map(function(item) {
-        return item.trim();
-    });
-
-    var arrayQuantity = printer.quantity.split(",").map(function(item) {
-        return item.trim();
-    });
-
-    var arrayUpdated = printer.updated.split(",").map(function(item) {
-        return item.trim();
-    });
-
-    var filledOut = true;
-    for (var i in printer) {
-        if (printer[i] === "") {
-            filledOut = false;
-            break;
-        }
-    }
-    if (!filledOut) {
-        alert("Not all fields have been completed, please fill out all fields and then submit.")
-    }
-
-    else {
-        var brandFilter = document.getElementById('filter-brand');
-        var noBrand = 0;
-        var tr = document.createElement('tr');
-        tr.classList.add("table-info")
-        var tdBrand = document.createElement('td');
-        tdBrand.textContent = printer.brand;
-        tr.appendChild(tdBrand);
-        var tdType = document.createElement('td');
-        tdType.textContent = printer.type;
-        tr.appendChild(tdType);
-        var tdCode = document.createElement('td');
-
-        for(var i = 0; i < arrayCode.length; i++){
-          var createDiv = document.createElement('div');
-          createDiv.classList.add('code');
-          createDiv.setAttribute('type', printer.type);
-          createDiv.setAttribute('color', arrayColor[i]);
-          createDiv.textContent = arrayCode[i];
-          tdCode.appendChild(createDiv);
-        }
-
-        tr.appendChild(tdCode);
-        var tdColor = document.createElement('td');
-
-        for(var i = 0; i < arrayColor.length; i++){
-          var createDiv = document.createElement('div');
-          createDiv.classList.add('color');
-          createDiv.setAttribute("type", printer.type);
-          createDiv.setAttribute("code", arrayCode[i]);
-          createDiv.textContent = arrayColor[i];
-
-          var createColorDiv = document.createElement('div');
-          createColorDiv.classList.add('color-icon-'+ arrayColor[i].toLowerCase());
-          createDiv.appendChild(createColorDiv);
-          tdColor.appendChild(createDiv);
-        }
-
-        tr.appendChild(tdColor);
-        var tdQuantity = document.createElement('td');
-
-        for(var i = 0; i < arrayQuantity.length; i++){
-
-          var createDiv = document.createElement('div');
-          createDiv.classList.add('quantity');
-          createDiv.setAttribute("type", printer.type);
-          createDiv.setAttribute("color", arrayColor[i]);
-          createDiv.setAttribute("type", arrayCode[i]);
-          createDiv.textContent = arrayQuantity[i];
-          tdQuantity.appendChild(createDiv);
-
-          var createChangeQuantityDiv = document.createElement('div');
-          createChangeQuantityDiv.classList.add('change-quantity');
-
-          var addQuantity = document.createElement('button');
-          addQuantity.setAttribute('type', 'button');
-          addQuantity.setAttribute('class', 'change');
-          addQuantity.setAttribute('value', 'add')
-
-          var createButtonPlus = document.createElement('i');
-          createButtonPlus.classList.add('fa', 'fa-plus');
-          addQuantity.appendChild(createButtonPlus);
-          addQuantity.textContent = '(+1)';
-
-          var minusQuantity = document.createElement('button');
-          minusQuantity.setAttribute('type', 'button');
-          minusQuantity.setAttribute('class', 'change');
-          minusQuantity.setAttribute('value', 'minus');
-
-          var createButtonMinus = document.createElement('i');
-          createButtonMinus.classList.add('fa', 'fa-plus');
-          minusQuantity.appendChild(createButtonMinus);
-          minusQuantity.textContent = '(-1)';
-          createChangeQuantityDiv.appendChild(addQuantity);
-          createChangeQuantityDiv.appendChild(minusQuantity);
-          tdQuantity.appendChild(createChangeQuantityDiv);
-        }
-
-        tr.appendChild(tdQuantity);
-        var tdUpdated = document.createElement('td');
-        for(var i = 0; i < arrayUpdated.length; i++){
-          var createDiv = document.createElement('div');
-          createDiv.classList.add('Last-Updated');
-          createDiv.setAttribute('type', printer.type);
-          createDiv.setAttribute('color', arrayColor[i]);
-          createDiv.setAttribute('code', arrayCode[i]);
-          createDiv.textContent = arrayUpdated[i];
-          tdUpdated.appendChild(createDiv);
-        }
-
-        tr.appendChild(tdUpdated);
-        var tdNotes = document.createElement('td');
-        var createNotesDiv = document.createElement('div');
-        createNotesDiv.classList.add('notes');
-        createNotesDiv.textContent = "Notes: " + printer.notes;
-        tdNotes.appendChild(createNotesDiv);
-
-        var createNotesButton = document.createElement('div');
-        createNotesButton.classList.add('edit');
-        var editButton = document.createElement('button');
-        editButton.setAttribute("type", "button");
-        editButton.classList.add('edit-notes-button')
-        var createButton = document.createElement('i');
-        createButton.classList.add('fa', 'fa-plus');
-        editButton.appendChild(createButton);
-        editButton.textContent = "Edit";
-        createNotesButton.appendChild(editButton);
-        tdNotes.appendChild(createNotesButton);
-        tr.appendChild(tdNotes);
-
-        var tdName = document.createElement('td');
-        var createPrinterNameDiv = document.createElement('div');
-        createPrinterNameDiv.classList.add('printer-name');
-        createPrinterNameDiv.setAttribute("type", printer.type)
-        createPrinterNameDiv.textContent = printer.name;
-        tdName.appendChild(createPrinterNameDiv);
-        tr.appendChild(tdName);
-
-        var tdLocation = document.createElement('td');
-        var createLocationDiv = document.createElement('div');
-        createLocationDiv.classList.add('location');
-        createLocationDiv.setAttribute('type', printer.type);
-        createLocationDiv.textContent = printer.location;
-        tdLocation.appendChild(createLocationDiv);
-        tr.appendChild(tdLocation);
-
-        var printerTable = document.getElementById('printer-table').getElementsByTagName('tbody')[0];
-        printerTable.appendChild(tr);
-        var tdRemoveButton = document.createElement('td');
-        var createRemovePrinterDiv = document.createElement('div');
-        createRemovePrinterDiv.classList.add('remove-printer');
-        createRemovePrinterDiv.setAttribute('type', printer.type);
-        createRemovePrinterDiv.setAttribute('brand', printer.brand);
-        var removeButton = document.createElement('button');
-        removeButton.setAttribute("type", "button");
-        removeButton.classList.add('remove-item');
-        var removeActualButton = document.createElement('i');
-        removeActualButton.classList.add('fa', 'fa-plus');
-        removeButton.appendChild(removeActualButton);
-        removeButton.textContent = "Remove Printer";
-        createRemovePrinterDiv.appendChild(removeButton);
-        tdRemoveButton.appendChild(createRemovePrinterDiv);
-        tr.appendChild(tdRemoveButton);
-
-        modal.style.display = "none";
-        backdropModal.style.display = "none";
-
-        function titleCase(city){
-          printer.brand = printer.brand.toLowerCase();
-          printer.brand = printer.brand.split(' ');
-          for (var i = 0; i < printer.brand.length; i++) {
-            printer.brand[i] = printer.brand[i].charAt(0).toUpperCase() + printer.brand[i].slice(1);
-          }
-          return printer.brand.join(' ');
-        }
-        for(var i = 0; i < brandFilter.options.length; i++){
-            if((printer.brand === "") || (printer.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())){
-              noBrand = 1;
-            }
-          }
-
-          if(noBrand === 0){
-            var newBrand = document.createElement('option');
-            newBrand.textContent = titleCase(printer.brand);
-            brandFilter.appendChild(newBrand);
-            noBrand = 0;
-          }
-        clearModal();
-    }
+    addPrinter(tr, printer);
 
 }
 
@@ -351,7 +380,7 @@ function contentClick(event) {
         removeRowFromDOM(target);
     }
     else if (target.className === 'edit-printer-button') {
-        editPrinter(target);
+        setModalDefaultValues(target);
     }
 }
 
@@ -420,20 +449,19 @@ function editNotes(target) {
 
 }
 
-function editPrinter(target) {
-    var i;
+function setModalDefaultValues(target) {
     var row = target.parentNode.parentNode.parentNode;
-    var td, th, tr = printerTable.getElementsByTagName('TR');
     var columns = {};
-
-    th = tr[0].getElementsByTagName('TH');
+    var th, td, tr = document.getElementById('printer-table').querySelector('TR')
+    console.log(row);
+    th = tr.getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
         columns[th[i].textContent] = i;
     }
 
     td = row.getElementsByTagName('TD');
 
-    var printer = new Printer(
+    var oldPrinter = new Printer(
         td[columns.Brand].textContent.trim(),
         td[columns.Type].textContent.trim(),
         td[columns['# Code']].children,
@@ -446,45 +474,70 @@ function editPrinter(target) {
         row.getAttribute('min-alert')
     );
 
-    openmodal();
+    /* ------ SETTING UP MODAL TO HAVE DEFAULT VALUES ------- */
+    document.getElementById('post-brand-input').value = oldPrinter.brand;
+    document.getElementById('post-type-input').value = oldPrinter.type;
+    document.getElementById('post-notes-input').value = oldPrinter.notes;
+    document.getElementById('post-name-input').value = oldPrinter.name;
+    document.getElementById('post-location-input').value = oldPrinter.location;
+    document.getElementById('post-min-quantity-warning').value = oldPrinter.warning;
 
-    document.getElementById('post-brand-input').value = printer.brand;
-    document.getElementById('post-type-input').value = printer.type;
-    document.getElementById('post-notes-input').value = printer.notes;
-    document.getElementById('post-name-input').value = printer.name;
-    document.getElementById('post-location-input').value = printer.location;
-    document.getElementById('post-min-quantity-warning').value = printer.warning;
-    
     var codeInput = document.getElementById('post-code-input');
     var colorInput = document.getElementById('post-color-input');
     var quantityInput = document.getElementById('post-quantity-input');
     var updatedInput = document.getElementById('post-updated-input');
-    
+
     var tempCodes = "";
     var tempColor = "";
     var tempQuantity = "";
     var tempUpdated = "";
-    for (i = 0; i < printer.code.length; i++) {
-        if (i < printer.code.length - 1) {
-            tempCodes += printer.code[i].textContent.trim() + ', ';
-            tempColor += printer.color[i].textContent.trim() + ', ';
-            tempQuantity += printer.quantity[i].textContent.trim() + ', ';
-            tempUpdated += printer.updated[i].textContent.trim() + ', ';
+    for (i = 0; i < oldPrinter.code.length; i++) {
+        if (i < oldPrinter.code.length - 1) {
+            tempCodes += oldPrinter.code[i].textContent.trim() + ', ';
+            tempColor += oldPrinter.color[i].textContent.trim() + ', ';
+            tempQuantity += oldPrinter.quantity[i].textContent.trim() + ', ';
+            tempUpdated += oldPrinter.updated[i].textContent.trim() + ', ';
         }
         else {
-            tempCodes += printer.code[i].textContent.trim();
-            tempColor += printer.color[i].textContent.trim();
-            tempQuantity += printer.quantity[i].textContent.trim();
-            tempUpdated += printer.updated[i].textContent.trim();
+            tempCodes += oldPrinter.code[i].textContent.trim();
+            tempColor += oldPrinter.color[i].textContent.trim();
+            tempQuantity += oldPrinter.quantity[i].textContent.trim();
+            tempUpdated += oldPrinter.updated[i].textContent.trim();
         }
     }
     codeInput.value = tempCodes;
     colorInput.value = tempColor;
     quantityInput.value = tempQuantity;
-    updatedInput.value = tempUpdated; 
+    updatedInput.value = tempUpdated;
+
+    openmodal(target, "edit");
 }
 
-function removeRowFromDOM (target) {
+function editPrinter(target) {
+    /* ----- UPDATING CHANGES TO TABLE ----- */
+    var row = target.parentNode.parentNode.parentNode;
+    var editedPrinter = new Printer(
+        document.getElementById('post-brand-input').value,
+        document.getElementById('post-type-input').value,
+        document.getElementById('post-code-input').value,
+        document.getElementById('post-color-input').value,
+        document.getElementById('post-quantity-input').value,
+        document.getElementById('post-updated-input').value,
+        document.getElementById('post-name-input').value,
+        document.getElementById('post-location-input').value,
+        document.getElementById('post-notes-input').value,
+        document.getElementById('post-min-quantity-warning').value
+    );
+
+    while (row.hasChildNodes()) {
+        row.removeChild(row.lastChild);
+    }
+
+    addPrinter(row, editedPrinter);
+
+}
+
+function removeRowFromDOM(target) {
     var row = target.parentNode.parentNode.parentNode;
     row.parentNode.removeChild(row);
 }
@@ -554,7 +607,7 @@ function filter(target) {
             td[columns['Last-Updated']].children[j].style.display = 'block';
 
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
-                    // set the display of all rows not meeting quantity standards to 'none'
+                // set the display of all rows not meeting quantity standards to 'none'
                 td[columns['# Code']].children[j].style.display = 'none';
                 td[columns.Color].children[j].style.display = 'none';
                 quantity[j].style.display = 'none';
@@ -618,3 +671,7 @@ function filter(target) {
     }
 }
 content.addEventListener('click', contentClick);
+open.addEventListener("click", openmodal);
+close.addEventListener("click", closemodal);
+cancel.addEventListener("click", closemodal);
+document.addEventListener("click", windowCloseModal);
