@@ -1,0 +1,13 @@
+<section id="printers">
+    <table id="printer-table" cellspacing="0" cellpadding="0">
+        {{> headerRow}} 
+        {{#each rows}} 
+            {{> bodyRow}} 
+        {{/each}}
+    </table>
+    <div class="add-option">
+        <button type="button" id="add-new-item">
+            <i class="fa fa-plus"></i>Add New Item</button>
+    </div>
+    {{> modal}}
+</section>

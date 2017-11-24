@@ -1,0 +1,58 @@
+<tbody>
+    <tr class="table-info" min-alert={{min-alert}}>
+        <td>{{brand}}</td>
+        <td>{{type}}</td>
+        <td>
+            {{#each codes}} {{> codesTemplate}} {{/each}}
+        </td>
+        <td>
+            {{#each colors}} {{> colorTemplate}} {{/each}}
+        </td>
+        <td>
+            {{#each quantities}} {{> quantityTemplate}} {{/each}}
+        </td>
+        <td>
+            {{#each updated}}
+            <div class="Last-Updated" type={{type}} color={{color}} code={{code}}>
+                {{lastUpdated}}
+            </div>
+            {{/each}}
+        </td>
+        <td>
+            <div class="notes">
+                {{notes}}
+            </div>
+            <div class="edit">
+                <button type="button" class="edit-notes-button">
+                    <i class="fa fa-plus"></i>Edit</button>
+            </div>
+        </td>
+        <td>
+            <div class="printer-name" type={{type}}>
+                {{name}}
+            </div>
+        </td>
+        <td>
+            <div class="location" type={{type}}>
+                {{location}}
+            </div>
+        </td>
+        <td>
+            <div class="edit-printer" type={{type}} brand={{brand}}>
+                <button type="button" class="edit-printer-button">
+                    <i class="fa fa-plus"></i>Edit Printer</button>
+            </div>
+            <div class="remove-printer" type={{type}} brand={{brand}}>
+                <button type="button" class="remove-item">
+                    <i class="fa fa-plus"></i>Remove Printer</button>
+            </div>
+        </td>
+        <td>
+            <div class="low-threshold" type={{type}} brand={{brand}}>
+                <input type="number" class="post-low-input">
+            </div>
+        </td>
+
+
+    </tr>
+</tbody>
