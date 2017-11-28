@@ -15,12 +15,13 @@ app.use(express.static('./'))
 app.get('/', function(req, res)
 {
   res.status(200);
-  res.sendfile("index.html");
+  res.sendFile("index.html");
 });
 
 app.use('*', function (req, res)
 {
-  res.status(404).render('404');
+  res.status(404);
+  res.sendFile(__dirname + "/404.html");
 });
 
 app.listen(port, function ()
