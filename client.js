@@ -13,6 +13,12 @@ var array = [];
 for (var i = 0; i < lowquan.length; i++) {
     lowquan[i].addEventListener('input', handleLowAlertChange);
 }
+/*
+function createPrinter(printer) {
+    var printerHTML = Handlebars.templates.printer(printer);
+    return printerHTML;
+}
+*/
 
 function handleLowAlertChange(event) {
     var row = event.target.parentNode.parentNode.parentNode;
@@ -291,6 +297,32 @@ function addPrinter(row, newPrinter) {
     row.appendChild(lowWarningTD);
 
     lowWarningInput.addEventListener('input', handleLowAlertChange);
+    /* ******************************************************************** 
+        For when we implement server side requests and responses
+
+
+    var postRequest = new XMLHttpRequest();
+    var postURL = '/addPrinter';
+    postRequest.open('POST', postURL);
+
+    var requestBody = JSON.stringify(newPrinter);
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+
+    postRequest.addEventListener('load', function (event) {
+        if (event.target.status !== 200) {
+            alert("Error storing photo in database:" + event.target.response);
+        }
+        else {
+            var printer = createPost(newPrinter);
+            row.insertAdjacentHTML('beforeend', printer);
+        }
+    });
+
+    postRequest.send(requestBody);
+
+    **************************************************************************** */
+
+    
 
     function titleCase(city) {
         newPrinter.brand = newPrinter.brand.toLowerCase();
