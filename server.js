@@ -10,9 +10,12 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 
+app.use(express.static('./'))
+
 app.get('/', function(req, res)
 {
-  res.status(200).render('homePage');
+  res.status(200);
+  res.sendfile("index.html");
 });
 
 app.use('*', function (req, res)
