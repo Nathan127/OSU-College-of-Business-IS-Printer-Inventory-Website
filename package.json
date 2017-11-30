@@ -11,13 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "handlebars ./views/partials/bodyRow.handlebars -f ./client.js",
-    "build": "handlebars ./views/partials/codesTemplate.handlebars -f ./client.js",
-    "build": "handlebars ./views/partials/colorTemplate.handlebars -f ./client.js",
-    "build": "handlebars ./views/partials/headerRow.handlebars -f ./client.js",
-    "build": "handlebars ./views/partials/modal.handlebars -f ./client.js",
-    "build": "handlebars ./views/partials/quantityTemplate.handlebars -f ./client.js",
-    "build": "handlebars ./views/partials/table.handlebars -f ./client.js",
+    "build": "handlebars ./views/partials/bodyRow.handlebars -f ./printerTemplate.js",
     "start": "node server.js",
     "prestart": "npm run build"
 
