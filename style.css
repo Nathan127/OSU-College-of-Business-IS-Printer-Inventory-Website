@@ -106,12 +106,15 @@ table, th, td {
 }
 th, td {
     padding: 5px;
-    text-align: left;
     font-weight: 900;
     font-size: 15px;
     font-family: 'Open sans',sans-serif;
     max-width: 200px;
     word-wrap: break-word;
+}
+
+td .change-quantity{
+  display: inline-block;
 }
 
 th {
@@ -289,7 +292,8 @@ table th {
 }
 
 .change {
-  width: 42px;
+  width: 45px;
+  float:right;
 }
 
 .post-input-element {
