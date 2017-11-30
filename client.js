@@ -7,32 +7,19 @@ var backdropModal = document.getElementById('modal-backdrop');
 var open = document.getElementById('add-new-item');
 var addNew = document.getElementById('modal-add-new');
 var edit = document.getElementById('modal-edit');
-var lowquan = document.querySelectorAll('.post-low-input');
-var array = [];
 
-for (var i = 0; i < lowquan.length; i++) {
-    lowquan[i].addEventListener('input', handleLowAlertChange);
-}
-
-function handleLowAlertChange(event) {
-    var row = event.target.parentNode.parentNode.parentNode;
-    row.setAttribute('min-alert', event.target.value);
-    var quantity = row.children[4].getElementsByClassName('quantity');
-    console.log(quantity);
-    console.log(row);
-    for (var j = 0; j < quantity.length; j++) {
-        quantity[j].removeAttribute('highlight');
-        if (Number(quantity[j].textContent) <= event.target.value) {
-            quantity[j].setAttribute('highlight', 'red');
+function checkQuantitiesForLowWarning(row, printer) {
+    var minAlert = row.getAttribute('min-alert');
+    var quantities = row.children[4].getElementsByClassName('quantity');
+    for (var i = 0; i < quantities.length; i++) {
+        if (printer.quantity[i] <= minAlert) {
+            quantities[i].setAttribute('highlight', 'red');
+        }
+        else {
+            quantities[i].removeAttribute('highlight');            
         }
     }
 }
-
-// function test(event){
-//   var hold = event.currentTarget.value;
-//   console.log(hold);
-//
-// }
 
 function resetTable(target) {
     document.getElementById('filter-search').value = '';
@@ -89,16 +76,41 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
     this.code = code;
     this.color = color;
     this.quantity = quantity;
-    this.updated = updated;
+    this.lastUpdated = updated;
     this.name = name;
     this.location = location;
     this.notes = notes;
-    this.warning = warning;
+    this.minAlert = Number(warning);
 }
 
+// function createPrinter (printer) {
+//     var printerHandlebars = Handlebars.templates.printer(printer);
+//     return printerHandlebars;
+// }
+
 function addPrinter(row, newPrinter) {
+    
+    // var postRequest = new XMLHttpRequest();
+    // var postURL = '/addPrinter';
+    // postRequest.open('POST', postURL);
+
+    // var requestBody = JSON.stringify(newPrinter);
+    // postRequest.setRequestHeader('Content-Type', 'application/json');
+
+    // postRequest.addEventListener('load', function (event) {
+    //     if (event.target.status !== 200) {
+    //         alert("Error storing photo in database:" + event.target.response);
+    //     }
+    //     else {
+    //         var printer = createPrinter(newPrinter);
+    //         row.insertAdjacentHTML('beforeend', printer);
+    //     }
+    // });
+
+    // postRequest.send(requestBody);   
+    // checkQuantitiesForLowWarning(row, newPrinter);
     var columns = {};
-    var th, td, tr = document.getElementById('printer-table').querySelector('TR')
+    var th, td, tr = printerTable.querySelector('TR')
 
     th = tr.getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
@@ -117,7 +129,7 @@ function addPrinter(row, newPrinter) {
         return item.trim();
     });
 
-    var arrayUpdated = newPrinter.updated.split(",").map(function (item) {
+    var arrayUpdated = newPrinter.lastUpdated.split(",").map(function (item) {
         return item.trim();
     });
 
@@ -277,46 +289,7 @@ function addPrinter(row, newPrinter) {
     modal.style.display = "none";
     backdropModal.style.display = "none";
 
-    var lowWarningTD = document.createElement('td');
-    var lowWarningDiv = document.createElement('div');
-    lowWarningDiv.classList.add('low-threshold');
-    lowWarningDiv.setAttribute('type', newPrinter.type);
-    lowWarningDiv.setAttribute('brand', newPrinter.brand);
-
-    var lowWarningInput = document.createElement('input');
-    lowWarningInput.setAttribute('type', 'number');
-    lowWarningInput.classList.add('post-low-input');
-    lowWarningDiv.appendChild(lowWarningInput);
-    lowWarningTD.appendChild(lowWarningDiv);
-    row.appendChild(lowWarningTD);
-
-    lowWarningInput.addEventListener('input', handleLowAlertChange);
-    /* ******************************************************************** 
-        For when we implement server side requests and responses
-
-
-    var postRequest = new XMLHttpRequest();
-    var postURL = '/addPrinter';
-    postRequest.open('POST', postURL);
-
-    var requestBody = JSON.stringify(newPrinter);
-    postRequest.setRequestHeader('Content-Type', 'application/json');
-
-    postRequest.addEventListener('load', function (event) {
-        if (event.target.status !== 200) {
-            alert("Error storing photo in database:" + event.target.response);
-        }
-        else {
-            var printer = createPost(newPrinter);
-            row.insertAdjacentHTML('beforeend', printer);
-        }
-    });
-
-    postRequest.send(requestBody);
-
-    **************************************************************************** */
-
-    
+    row.setAttribute('min-alert', newPrinter.minAlert); 
 
     function titleCase(city) {
         newPrinter.brand = newPrinter.brand.toLowerCase();
@@ -339,7 +312,9 @@ function addPrinter(row, newPrinter) {
         brandFilter.appendChild(newBrand);
         noBrand = 0;
     }
-    clearModal();
+
+    checkQuantitiesForLowWarning(row, newPrinter);
+    closemodal();
 
 }
 function addNewPrinter(event) {
@@ -357,24 +332,13 @@ function addNewPrinter(event) {
         document.getElementById('post-notes-input').value,
         document.getElementById('post-min-quantity-warning').value
     );
-    var filledOut = true;
-
-    for (i in printer) {
-        if (printer[i] === '') {
-            filledOut = false;
-            alert("Warning: Not all fields filled out.");
-            break;
-        }
-    }
-
+    
     var tr = printerTable.insertRow(-1);
     tr.classList.add("table-info");
 
     addPrinter(tr, printer);
 
 }
-
-
 
 function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
     this.searchKey = searchKey;
@@ -420,7 +384,8 @@ function contentClick(event) {
 }
 
 function changeQuantity(target) {
-    var quantity = Number(target.parentNode.previousElementSibling.textContent);
+    var quantity = Number(target.parentNode.previousElementSibling.textContent.trim());
+    var row = target.parentNode.parentNode.parentNode;
     if (target.value === 'add') { //figure out why this isn't working...
         quantity += 1;
     }
@@ -432,6 +397,13 @@ function changeQuantity(target) {
     }
 
     target.parentNode.previousElementSibling.textContent = quantity;
+
+    if (quantity <= row.getAttribute('min-alert')) {
+        target.parentNode.previousElementSibling.setAttribute('highlight', 'red');
+    }
+    else {
+        target.parentNode.previousElementSibling.removeAttribute('highlight');
+    }    
 }
 
 function editNotes(target) {
@@ -485,7 +457,9 @@ function editNotes(target) {
 }
 
 function setModalDefaultValues(target) {
+    
     var row = target.parentNode.parentNode.parentNode;
+    
     var columns = {};
     var th, td, tr = document.getElementById('printer-table').querySelector('TR')
 
@@ -515,7 +489,7 @@ function setModalDefaultValues(target) {
     document.getElementById('post-notes-input').value = oldPrinter.notes;
     document.getElementById('post-name-input').value = oldPrinter.name;
     document.getElementById('post-location-input').value = oldPrinter.location;
-    document.getElementById('post-min-quantity-warning').value = oldPrinter.warning;
+    document.getElementById('post-min-quantity-warning').value = oldPrinter.minAlert;
 
     var codeInput = document.getElementById('post-code-input');
     var colorInput = document.getElementById('post-color-input');
@@ -531,13 +505,13 @@ function setModalDefaultValues(target) {
             tempCodes += oldPrinter.code[i].textContent.trim() + ', ';
             tempColor += oldPrinter.color[i].textContent.trim() + ', ';
             tempQuantity += oldPrinter.quantity[i].textContent.trim() + ', ';
-            tempUpdated += oldPrinter.updated[i].textContent.trim() + ', ';
+            tempUpdated += oldPrinter.lastUpdated[i].textContent.trim() + ', ';
         }
         else {
             tempCodes += oldPrinter.code[i].textContent.trim();
             tempColor += oldPrinter.color[i].textContent.trim();
             tempQuantity += oldPrinter.quantity[i].textContent.trim();
-            tempUpdated += oldPrinter.updated[i].textContent.trim();
+            tempUpdated += oldPrinter.lastUpdated[i].textContent.trim();
         }
     }
     codeInput.value = tempCodes;
@@ -547,9 +521,7 @@ function setModalDefaultValues(target) {
 
     openmodal();
     /* ----- UPDATING CHANGES TO TABLE ----- */
-    edit.addEventListener('click', function (e) {
-        var row = target.parentNode.parentNode.parentNode;
-
+    edit.addEventListener('click', function (event) {
         var editedPrinter = new Printer(
             document.getElementById('post-brand-input').value,
             document.getElementById('post-type-input').value,
@@ -562,21 +534,13 @@ function setModalDefaultValues(target) {
             document.getElementById('post-notes-input').value,
             document.getElementById('post-min-quantity-warning').value
         );
-
-        var filledOut = true;
-        for (i in editedPrinter) {
-            if (editedPrinter[i] === '') {
-                filledOut = false;
-                alert("Warning: not all fields filled out");
-                break;
-            }
-        }
-
+       
         while (row.hasChildNodes()) {
             row.removeChild(row.lastChild);
         }
 
         addPrinter(row, editedPrinter);
+        event.stopImmediatePropagation();
     });
 }
 function removeRowFromDOM(target) {
@@ -712,6 +676,31 @@ function filter(target) {
         }
     }
 }
+window.addEventListener('load', function(event) {
+    var rows = printerTable.getElementsByClassName('table-info');
+    var columns = {};
+    var th, td, row = printerTable.querySelector('TR');
+    var i, j;
+    var quantity;
+
+    th = row.getElementsByTagName('TH');
+    for (i = 0; i < th.length; i++) {
+        columns[th[i].textContent] = i;
+    }
+
+    for (i = 0; i < rows.length; i++) {
+        td = rows[i].getElementsByTagName('TD');
+        quantity = td[columns.Quantity].getElementsByClassName('quantity');
+        for (j = 0; j < quantity.length; j++) {
+            if (Number(quantity[j].textContent) <= rows[i].getAttribute('min-alert')) {
+                quantity[j].setAttribute('highlight', 'red');
+            }
+            else {
+                quantity[j].removeAttribute('highlight');
+            }
+        }
+    }
+});
 content.addEventListener('click', contentClick);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
