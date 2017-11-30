@@ -259,7 +259,7 @@ function addPrinter(row, newPrinter) {
     editPrinterButton.textContent = 'Edit Printer';
     editPrinterDiv.appendChild(editPrinterButton);
     tdRemoveButton.appendChild(editPrinterDiv);
-    
+
     var createRemovePrinterDiv = document.createElement('div');
     createRemovePrinterDiv.classList.add('remove-printer');
     createRemovePrinterDiv.setAttribute('type', newPrinter.type);
@@ -716,4 +716,3 @@ content.addEventListener('click', contentClick);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
-
