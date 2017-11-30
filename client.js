@@ -13,12 +13,6 @@ var array = [];
 for (var i = 0; i < lowquan.length; i++) {
     lowquan[i].addEventListener('input', handleLowAlertChange);
 }
-/*
-function createPrinter(printer) {
-    var printerHTML = Handlebars.templates.printer(printer);
-    return printerHTML;
-}
-*/
 
 function handleLowAlertChange(event) {
     var row = event.target.parentNode.parentNode.parentNode;
