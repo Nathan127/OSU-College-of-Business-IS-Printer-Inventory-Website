@@ -16,7 +16,7 @@ function checkQuantitiesForLowWarning(row, printer) {
             quantities[i].setAttribute('highlight', 'red');
         }
         else {
-            quantities[i].removeAttribute('highlight');            
+            quantities[i].removeAttribute('highlight');
         }
     }
 }
@@ -38,12 +38,34 @@ function windowCloseModal(event) {
     }
 }
 
-function openmodal(option) {
+function openmodal(option, row) {
     backdropModal.style.display = "block";
     modal.style.display = "block";
     if (option === 'add-new') {
         edit.style.display = 'none';
     }
+    edit.addEventListener('click', function (event) {
+        var editedPrinter = new Printer(
+            document.getElementById('post-brand-input').value,
+            document.getElementById('post-type-input').value,
+            document.getElementById('post-code-input').value,
+            document.getElementById('post-color-input').value,
+            document.getElementById('post-quantity-input').value,
+            document.getElementById('post-updated-input').value,
+            document.getElementById('post-name-input').value,
+            document.getElementById('post-location-input').value,
+            document.getElementById('post-notes-input').value,
+            document.getElementById('post-min-quantity-warning').value
+        );
+
+        console.log('row before', row);
+        while (row.firstChild) {
+            row.removeChild(row.firstChild);
+        }
+
+        addPrinter(row, editedPrinter);
+        event.stopImmediatePropagation();
+    });
     addNew.addEventListener('click', addNewPrinter);
 }
 
@@ -87,7 +109,7 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
 // }
 
 function addPrinter(row, newPrinter) {
-    
+
     // var postRequest = new XMLHttpRequest();
     // var postURL = '/addPrinter';
     // postRequest.open('POST', postURL);
@@ -109,6 +131,8 @@ function addPrinter(row, newPrinter) {
     // checkQuantitiesForLowWarning(row, newPrinter);
     var columns = {};
     var th, td, tr = printerTable.querySelector('TR')
+
+    console.log('ROW in addoprinter', row);
 
     th = tr.getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
@@ -287,7 +311,7 @@ function addPrinter(row, newPrinter) {
     modal.style.display = "none";
     backdropModal.style.display = "none";
 
-    row.setAttribute('data-min-alert', newPrinter.minAlert); 
+    row.setAttribute('data-min-alert', newPrinter.minAlert);
 
     function titleCase(city) {
         newPrinter.brand = newPrinter.brand.toLowerCase();
@@ -330,9 +354,10 @@ function addNewPrinter(event) {
         document.getElementById('post-notes-input').value,
         document.getElementById('post-min-quantity-warning').value
     );
-    
+
     var tr = printerTable.insertRow(-1);
     tr.classList.add("table-info");
+    console.log('In add new');
 
     addPrinter(tr, printer);
     event.stopImmediatePropagation();
@@ -379,6 +404,37 @@ function contentClick(event) {
     else if (target.id === 'add-new-item') {
         openmodal("add-new");
     }
+    else if (target.tagName === 'TD') {
+        editField(target);
+    }
+}
+
+function createTextField(node) {
+    //creating input text box
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('edit-field');
+    input.value = node.textContent.trim();
+    input.rows = 10;
+    input.cols = 20;
+
+    // creating both the cancel and submit buttons
+    node.parentNode.insertBefore('input', node);
+
+    node.style.display = 'none';
+}
+
+function editField(target) {
+    console.log(target.firstElementChild);
+    var i;
+    if (target.firstElementChild) {
+        if (target.firstElementChild.classList.contains('code')) {
+            for (i = 0; i < target.children.length; i++) {
+                createTextField(target.children[i]);
+            }
+        }
+
+    }
 }
 
 function changeQuantity(target) {
@@ -401,7 +457,7 @@ function changeQuantity(target) {
     }
     else {
         target.parentNode.previousElementSibling.removeAttribute('highlight');
-    }    
+    }
 }
 
 function editNotes(target) {
@@ -455,10 +511,10 @@ function editNotes(target) {
 }
 
 function setModalDefaultValues(target) {
-    
+
     var row = target.parentNode.parentNode.parentNode;
     console.log('Row', row);
-    
+
     var columns = {};
     var th, td, tr = document.getElementById('printer-table').querySelector('TR')
 
@@ -533,10 +589,10 @@ function setModalDefaultValues(target) {
             document.getElementById('post-notes-input').value,
             document.getElementById('post-min-quantity-warning').value
         );
-        console.log(editedPrinter.quantity);
-       
-        while (row.hasChildNodes()) {
-            row.removeChild(row.lastChild);
+
+        console.log('row before', row);
+        while (row.firstChild) {
+            row.removeChild(row.firstChild);
         }
 
         addPrinter(row, editedPrinter);
@@ -676,7 +732,7 @@ function filter(target) {
         }
     }
 }
-window.addEventListener('load', function(event) {
+window.addEventListener('load', function (event) {
     var rows = printerTable.getElementsByClassName('table-info');
     var columns = {};
     var th, td, row = printerTable.querySelector('TR');
@@ -688,7 +744,7 @@ window.addEventListener('load', function(event) {
         columns[th[i].textContent] = i;
     }
 
-    for (i = 0; i < rows.length; i++) {        
+    for (i = 0; i < rows.length; i++) {
         td = rows[i].getElementsByTagName('TD');
         quantity = td[columns.Quantity].getElementsByClassName('quantity');
         for (j = 0; j < quantity.length; j++) {
