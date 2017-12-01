@@ -28,7 +28,7 @@ app.use(express.static('./'))
 app.get('/', function(req, res)
 {
   res.status(200);
-  res.sendFile("index.html");
+  res.sendFile("main");
 });
 
 // app.post('/addPrinter', function (req, res) {
