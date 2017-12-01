@@ -1,4 +1,4 @@
-data-color<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -38,7 +38,7 @@ data-color<!DOCTYPE html>
 
       <div class="filter-input">
         <label for="filter-search" class="filter-input-label">Search</label>
-        <input type="search" name="filter-search" id="filter-search" class="filter-input" placeholder="#Code, Type, Brand, etc.">
+        <input data-type="search" name="filter-search" id="filter-search" class="filter-input" placeholder="#Code, Type, Brand, etc.">
       </div>
 
       <div class="filter-input">
@@ -280,7 +280,7 @@ data-color<!DOCTYPE html>
               </div>
             </td>
             <td>
-              <div class="location" type="307A">
+              <div class="location" data-type="307A">
                 SOMETHING
               </div>
             </td>
@@ -914,7 +914,7 @@ data-color<!DOCTYPE html>
               <div class="Last-Updated" data-type="3110cn/3115cn" data-color="Magenta" data-code="CT350454">
                 11/9/17
               </div>
-              <div class="Last-Updated" data-type="3110cn/3115cn" color="Yellow" data-code="CT350455">
+              <div class="Last-Updated" data-type="3110cn/3115cn" data-color="Yellow" data-code="CT350455">
                 11/9/17
               </div>
             </td>
@@ -974,27 +974,27 @@ data-color<!DOCTYPE html>
           <div id="modal-body">
 
             <div class="post-input-element">
-              <label for="post-text-input">Brand</label>
-              <input type="text" id="post-brand-input"></input>
+              <label for="post-brand-input">Brand</label>
+              <input type="text" id="post-brand-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-photo-input">Type</label>
+              <label for="post-type-input">Type</label>
               <input type="text" id="post-type-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-price-input">Code #</label>
+              <label for="post-code-input">Code #</label>
               <input type="text" id="post-code-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-city-input">Color</label>
+              <label for="post-color-input">Color</label>
               <input type="text" id="post-color-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-city-input">Quantity</label>
+              <label for="post-quantity-input">Quantity</label>
               <input type="text" id="post-quantity-input">
             </div>
 
@@ -1004,22 +1004,22 @@ data-color<!DOCTYPE html>
             </div>
 
             <div class="post-input-element">
-              <label for="post-city-input">Last Updated</label>
+              <label for="post-updated-input">Last Updated</label>
               <input type="text" id="post-updated-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-city-input">Notes</label>
+              <label for="post-notes-input">Notes</label>
               <input type="text" id="post-notes-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-city-input">Printer Name</label>
+              <label for="post-name-input">Printer Name</label>
               <input type="text" id="post-name-input">
             </div>
 
             <div class="post-input-element">
-              <label for="post-city-input">Location</label>
+              <label for="post-location-input">Location</label>
               <input type="text" id="post-location-input">
             </div>
 
@@ -1032,6 +1032,7 @@ data-color<!DOCTYPE html>
           </div>
 
         </div>
+      </div>  
     </section>
   </main>
 

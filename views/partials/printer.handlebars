@@ -1,5 +1,5 @@
 <tbody>
-    <tr class="table-info" min-alert={{minAlert}}>
+    <tr class="table-info" data-min-alert={{minAlert}}>
         <td>{{brand}}</td>
         <td>{{type}}</td>
         <td>
@@ -13,7 +13,7 @@
         </td>
         <td>
             {{#each updated}}
-            <div class="Last-Updated" type={{type}} color={{color}} code={{code}}>
+            <div class="Last-Updated" data-type={{type}} data-color={{color}} data-code={{code}}>
                 {{lastUpdated}}
             </div>
             {{/each}}
@@ -28,21 +28,21 @@
             </div>
         </td>
         <td>
-            <div class="printer-name" type={{type}}>
+            <div class="printer-name" data-type={{type}}>
                 {{name}}
             </div>
         </td>
         <td>
-            <div class="location" type={{type}}>
+            <div class="location" data-type={{type}}>
                 {{location}}
             </div>
         </td>
         <td>
-            <div class="edit-printer" type={{type}} brand={{brand}}>
+            <div class="edit-printer" data-type={{type}} data-brand={{brand}}>
                 <button type="button" class="edit-printer-button">
                     <i class="fa fa-plus"></i>Edit Printer</button>
             </div>
-            <div class="remove-printer" type={{type}} brand={{brand}}>
+            <div class="remove-printer" data-type={{type}} data-brand={{brand}}>
                 <button type="button" class="remove-item">
                     <i class="fa fa-plus"></i>Remove Printer</button>
             </div>

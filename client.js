@@ -9,7 +9,7 @@ var addNew = document.getElementById('modal-add-new');
 var edit = document.getElementById('modal-edit');
 
 function checkQuantitiesForLowWarning(row, printer) {
-    var minAlert = row.getAttribute('min-alert');
+    var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
     for (var i = 0; i < quantities.length; i++) {
         if (printer.quantity[i] <= minAlert) {
@@ -56,7 +56,6 @@ function closemodal(event) {
 
 function clearModal() {
     edit.style.display = 'block';
-    document.getElementById('modal-add-new').setAttribute('name', 'add-printer');
     document.getElementById('post-brand-input').value = "";
     document.getElementById('post-type-input').value = "";
     document.getElementById('post-code-input').value = "";
@@ -67,7 +66,6 @@ function clearModal() {
     document.getElementById('post-min-quantity-warning').value = "";
     document.getElementById('post-location-input').value = "";
     document.getElementById('post-notes-input').value = "";
-    addNew.removeEventListener("click", addNewPrinter);
 }
 
 function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning) {
@@ -147,8 +145,8 @@ function addPrinter(row, newPrinter) {
     for (var i = 0; i < arrayCode.length; i++) {
         var createDiv = document.createElement('div');
         createDiv.classList.add('code');
-        createDiv.setAttribute('type', newPrinter.type);
-        createDiv.setAttribute('color', arrayColor[i]);
+        createDiv.setAttribute('data-type', newPrinter.type);
+        createDiv.setAttribute('data-color', arrayColor[i]);
         createDiv.textContent = arrayCode[i];
         tdCode.appendChild(createDiv);
     }
@@ -159,8 +157,8 @@ function addPrinter(row, newPrinter) {
     for (var i = 0; i < arrayColor.length; i++) {
         var createDiv = document.createElement('div');
         createDiv.classList.add('color');
-        createDiv.setAttribute("type", newPrinter.type);
-        createDiv.setAttribute("code", arrayCode[i]);
+        createDiv.setAttribute("data-type", newPrinter.type);
+        createDiv.setAttribute("data-code", arrayCode[i]);
         createDiv.textContent = arrayColor[i];
 
         var createColorDiv = document.createElement('div');
@@ -176,9 +174,9 @@ function addPrinter(row, newPrinter) {
 
         var createDiv = document.createElement('div');
         createDiv.classList.add('quantity');
-        createDiv.setAttribute("type", newPrinter.type);
-        createDiv.setAttribute("color", arrayColor[i]);
-        createDiv.setAttribute("type", arrayCode[i]);
+        createDiv.setAttribute("data-type", newPrinter.type);
+        createDiv.setAttribute("data-color", arrayColor[i]);
+        createDiv.setAttribute("data-type", arrayCode[i]);
         createDiv.textContent = arrayQuantity[i];
         tdQuantity.appendChild(createDiv);
 
@@ -214,9 +212,9 @@ function addPrinter(row, newPrinter) {
     for (var i = 0; i < arrayUpdated.length; i++) {
         var createDiv = document.createElement('div');
         createDiv.classList.add('Last-Updated');
-        createDiv.setAttribute('type', newPrinter.type);
-        createDiv.setAttribute('color', arrayColor[i]);
-        createDiv.setAttribute('code', arrayCode[i]);
+        createDiv.setAttribute('data-type', newPrinter.type);
+        createDiv.setAttribute('data-color', arrayColor[i]);
+        createDiv.setAttribute('data-code', arrayCode[i]);
         createDiv.textContent = arrayUpdated[i];
         tdUpdated.appendChild(createDiv);
     }
@@ -244,7 +242,7 @@ function addPrinter(row, newPrinter) {
     var tdName = document.createElement('td');
     var createPrinterNameDiv = document.createElement('div');
     createPrinterNameDiv.classList.add('newPrinter-name');
-    createPrinterNameDiv.setAttribute("type", newPrinter.type)
+    createPrinterNameDiv.setAttribute("data-type", newPrinter.type)
     createPrinterNameDiv.textContent = newPrinter.name;
     tdName.appendChild(createPrinterNameDiv);
     row.appendChild(tdName);
@@ -252,7 +250,7 @@ function addPrinter(row, newPrinter) {
     var tdLocation = document.createElement('td');
     var createLocationDiv = document.createElement('div');
     createLocationDiv.classList.add('location');
-    createLocationDiv.setAttribute('type', newPrinter.type);
+    createLocationDiv.setAttribute('data-type', newPrinter.type);
     createLocationDiv.textContent = newPrinter.location;
     tdLocation.appendChild(createLocationDiv);
     row.appendChild(tdLocation);
@@ -260,8 +258,8 @@ function addPrinter(row, newPrinter) {
     var tdRemoveButton = document.createElement('td');
     var editPrinterDiv = document.createElement('div');
     editPrinterDiv.classList.add('edit-printer');
-    editPrinterDiv.setAttribute('type', newPrinter.type);
-    editPrinterDiv.setAttribute('brand', newPrinter.brand);
+    editPrinterDiv.setAttribute('data-type', newPrinter.type);
+    editPrinterDiv.setAttribute('data-brand', newPrinter.brand);
     var editPrinterButton = document.createElement('button');
     editPrinterButton.setAttribute('type', 'button');
     editPrinterButton.classList.add('edit-printer-button');
@@ -274,8 +272,8 @@ function addPrinter(row, newPrinter) {
 
     var createRemovePrinterDiv = document.createElement('div');
     createRemovePrinterDiv.classList.add('remove-printer');
-    createRemovePrinterDiv.setAttribute('type', newPrinter.type);
-    createRemovePrinterDiv.setAttribute('brand', newPrinter.brand);
+    createRemovePrinterDiv.setAttribute('data-type', newPrinter.type);
+    createRemovePrinterDiv.setAttribute('data-brand', newPrinter.brand);
     var removeButton = document.createElement('button');
     removeButton.setAttribute("type", "button");
     removeButton.classList.add('remove-item');
@@ -289,7 +287,7 @@ function addPrinter(row, newPrinter) {
     modal.style.display = "none";
     backdropModal.style.display = "none";
 
-    row.setAttribute('min-alert', newPrinter.minAlert); 
+    row.setAttribute('data-min-alert', newPrinter.minAlert); 
 
     function titleCase(city) {
         newPrinter.brand = newPrinter.brand.toLowerCase();
@@ -337,7 +335,7 @@ function addNewPrinter(event) {
     tr.classList.add("table-info");
 
     addPrinter(tr, printer);
-
+    event.stopImmediatePropagation();
 }
 
 function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
@@ -398,7 +396,7 @@ function changeQuantity(target) {
 
     target.parentNode.previousElementSibling.textContent = quantity;
 
-    if (quantity <= row.getAttribute('min-alert')) {
+    if (quantity <= row.getAttribute('data-min-alert')) {
         target.parentNode.previousElementSibling.setAttribute('highlight', 'red');
     }
     else {
@@ -459,6 +457,7 @@ function editNotes(target) {
 function setModalDefaultValues(target) {
     
     var row = target.parentNode.parentNode.parentNode;
+    console.log('Row', row);
     
     var columns = {};
     var th, td, tr = document.getElementById('printer-table').querySelector('TR')
@@ -480,7 +479,7 @@ function setModalDefaultValues(target) {
         td[columns['Printer Name']].firstElementChild.textContent.trim(),
         td[columns.Location].firstElementChild.textContent.trim(),
         td[columns.Notes].firstElementChild.textContent.trim().slice(7),
-        row.getAttribute('min-alert')
+        row.getAttribute('data-min-alert')
     );
 
     /* ------ SETTING UP MODAL TO HAVE DEFAULT VALUES ------- */
@@ -534,6 +533,7 @@ function setModalDefaultValues(target) {
             document.getElementById('post-notes-input').value,
             document.getElementById('post-min-quantity-warning').value
         );
+        console.log(editedPrinter.quantity);
        
         while (row.hasChildNodes()) {
             row.removeChild(row.lastChild);
@@ -688,11 +688,11 @@ window.addEventListener('load', function(event) {
         columns[th[i].textContent] = i;
     }
 
-    for (i = 0; i < rows.length; i++) {
+    for (i = 0; i < rows.length; i++) {        
         td = rows[i].getElementsByTagName('TD');
         quantity = td[columns.Quantity].getElementsByClassName('quantity');
         for (j = 0; j < quantity.length; j++) {
-            if (Number(quantity[j].textContent) <= rows[i].getAttribute('min-alert')) {
+            if (Number(quantity[j].textContent) <= rows[i].getAttribute('data-min-alert')) {
                 quantity[j].setAttribute('highlight', 'red');
             }
             else {
