@@ -7,6 +7,7 @@ var backdropModal = document.getElementById('modal-backdrop');
 var open = document.getElementById('add-new-item');
 var addNew = document.getElementById('modal-add-new');
 var edit = document.getElementById('modal-edit');
+var selectedRow = null;
 
 function checkQuantitiesForLowWarning(row, printer) {
     var minAlert = row.getAttribute('data-min-alert');
@@ -44,29 +45,6 @@ function openmodal(option, row) {
     if (option === 'add-new') {
         edit.style.display = 'none';
     }
-    edit.addEventListener('click', function (event) {
-        var editedPrinter = new Printer(
-            document.getElementById('post-brand-input').value,
-            document.getElementById('post-type-input').value,
-            document.getElementById('post-code-input').value,
-            document.getElementById('post-color-input').value,
-            document.getElementById('post-quantity-input').value,
-            document.getElementById('post-updated-input').value,
-            document.getElementById('post-name-input').value,
-            document.getElementById('post-location-input').value,
-            document.getElementById('post-notes-input').value,
-            document.getElementById('post-min-quantity-warning').value
-        );
-
-        console.log('row before', row);
-        while (row.firstChild) {
-            row.removeChild(row.firstChild);
-        }
-
-        addPrinter(row, editedPrinter);
-        event.stopImmediatePropagation();
-    });
-    addNew.addEventListener('click', addNewPrinter);
 }
 
 function closemodal(event) {
@@ -131,8 +109,6 @@ function addPrinter(row, newPrinter) {
     // checkQuantitiesForLowWarning(row, newPrinter);
     var columns = {};
     var th, td, tr = printerTable.querySelector('TR')
-
-    console.log('ROW in addoprinter', row);
 
     th = tr.getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
@@ -357,10 +333,7 @@ function addNewPrinter(event) {
 
     var tr = printerTable.insertRow(-1);
     tr.classList.add("table-info");
-    console.log('In add new');
-
     addPrinter(tr, printer);
-    event.stopImmediatePropagation();
 }
 
 function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
@@ -400,40 +373,11 @@ function contentClick(event) {
     }
     else if (target.className === 'edit-printer-button') {
         setModalDefaultValues(target);
+        selectedRow = target.parentNode.parentNode.parentNode;
+        console.log(selectedRow);
     }
     else if (target.id === 'add-new-item') {
         openmodal("add-new");
-    }
-    else if (target.tagName === 'TD') {
-        editField(target);
-    }
-}
-
-function createTextField(node) {
-    //creating input text box
-    var input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.classList.add('edit-field');
-    input.value = node.textContent.trim();
-    input.rows = 10;
-    input.cols = 20;
-
-    // creating both the cancel and submit buttons
-    node.parentNode.insertBefore('input', node);
-
-    node.style.display = 'none';
-}
-
-function editField(target) {
-    console.log(target.firstElementChild);
-    var i;
-    if (target.firstElementChild) {
-        if (target.firstElementChild.classList.contains('code')) {
-            for (i = 0; i < target.children.length; i++) {
-                createTextField(target.children[i]);
-            }
-        }
-
     }
 }
 
@@ -576,28 +520,6 @@ function setModalDefaultValues(target) {
 
     openmodal();
     /* ----- UPDATING CHANGES TO TABLE ----- */
-    edit.addEventListener('click', function (event) {
-        var editedPrinter = new Printer(
-            document.getElementById('post-brand-input').value,
-            document.getElementById('post-type-input').value,
-            document.getElementById('post-code-input').value,
-            document.getElementById('post-color-input').value,
-            document.getElementById('post-quantity-input').value,
-            document.getElementById('post-updated-input').value,
-            document.getElementById('post-name-input').value,
-            document.getElementById('post-location-input').value,
-            document.getElementById('post-notes-input').value,
-            document.getElementById('post-min-quantity-warning').value
-        );
-
-        console.log('row before', row);
-        while (row.firstChild) {
-            row.removeChild(row.firstChild);
-        }
-
-        addPrinter(row, editedPrinter);
-        event.stopImmediatePropagation();
-    });
 }
 function removeRowFromDOM(target) {
     var row = target.parentNode.parentNode.parentNode;
@@ -758,6 +680,27 @@ window.addEventListener('load', function (event) {
     }
 });
 content.addEventListener('click', contentClick);
+edit.addEventListener('click', function (event) {
+    var editedPrinter = new Printer(
+        document.getElementById('post-brand-input').value,
+        document.getElementById('post-type-input').value,
+        document.getElementById('post-code-input').value,
+        document.getElementById('post-color-input').value,
+        document.getElementById('post-quantity-input').value,
+        document.getElementById('post-updated-input').value,
+        document.getElementById('post-name-input').value,
+        document.getElementById('post-location-input').value,
+        document.getElementById('post-notes-input').value,
+        document.getElementById('post-min-quantity-warning').value
+    );
+
+    while (selectedRow.firstChild) {
+        selectedRow.removeChild(selectedRow.firstChild);
+    }
+
+    addPrinter(selectedRow, editedPrinter);
+});
+addNew.addEventListener('click', addNewPrinter);
 close.addEventListener("click", closemodal);
 cancel.addEventListener("click", closemodal);
 document.addEventListener("click", windowCloseModal);
