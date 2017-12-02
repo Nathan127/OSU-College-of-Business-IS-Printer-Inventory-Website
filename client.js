@@ -112,7 +112,9 @@ function addPrinter(row, newPrinter, rowNum) {
              if (row) {
                 row.insertAdjacentHTML('afterend', printer); 
              }
-             printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
+             else {
+                printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer); 
+             }
          }
      });
 
