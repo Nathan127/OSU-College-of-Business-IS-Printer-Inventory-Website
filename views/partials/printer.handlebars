@@ -1,51 +1,49 @@
-<tbody>
-    <tr class="table-info" data-min-alert={{minAlert}}>
-        <td>{{brand}}</td>
-        <td>{{type}}</td>
-        <td>
-            {{#each codes}} {{> code}} {{/each}}
-        </td>
-        <td>
-            {{#each colors}} {{> color}} {{/each}}
-        </td>
-        <td>
-            {{#each quantities}} {{> quantity}} {{/each}}
-        </td>
-        <td>
-            {{#each updated}}
-            <div class="Last-Updated" data-type={{type}} data-color={{color}} data-code={{code}}>
-                {{lastUpdated}}
-            </div>
-            {{/each}}
-        </td>
-        <td>
-            <div class="notes">
-                {{notes}}
-            </div>
-            <div class="edit">
-                <button type="button" class="edit-notes-button">
-                    <i class="fa fa-plus"></i>Edit</button>
-            </div>
-        </td>
-        <td>
-            <div class="printer-name" data-type={{type}}>
-                {{name}}
-            </div>
-        </td>
-        <td>
-            <div class="location" data-type={{type}}>
-                {{location}}
-            </div>
-        </td>
-        <td>
-            <div class="edit-printer" data-type={{type}} data-brand={{brand}}>
-                <button type="button" class="edit-printer-button">
-                    <i class="fa fa-plus"></i>Edit Printer</button>
-            </div>
-            <div class="remove-printer" data-type={{type}} data-brand={{brand}}>
-                <button type="button" class="remove-item">
-                    <i class="fa fa-plus"></i>Remove Printer</button>
-            </div>
-        </td>
-    </tr>
-</tbody>
+<tr class="table-info" data-min-alert={{minAlert}}>
+    <td>{{brand}}</td>
+    <td>{{type}}</td>
+    <td>
+        {{#each codes}} {{> code}} {{/each}}
+    </td>
+    <td>
+        {{#each colors}} {{> color}} {{/each}}
+    </td>
+    <td>
+        {{#each quantities}} {{> quantity}} {{/each}}
+    </td>
+    <td>
+        {{#each updated}}
+        <div class="Last-Updated" data-type={{type}} data-color={{color}} data-code={{code}}>
+            {{lastUpdated}}
+        </div>
+        {{/each}}
+    </td>
+    <td>
+        <div class="notes">
+            {{notes}}
+        </div>
+        <div class="edit">
+            <button type="button" class="edit-notes-button">
+                <i class="fa fa-plus"></i>Edit</button>
+        </div>
+    </td>
+    <td>
+        <div class="printer-name" data-type={{type}}>
+            {{name}}
+        </div>
+    </td>
+    <td>
+        <div class="location" data-type={{type}}>
+            {{location}}
+        </div>
+    </td>
+    <td>
+        <div class="edit-printer" data-type={{type}} data-brand={{brand}}>
+            <button type="button" class="edit-printer-button">
+                <i class="fa fa-plus"></i>Edit Printer</button>
+        </div>
+        <div class="remove-printer" data-type={{type}} data-brand={{brand}}>
+            <button type="button" class="remove-item">
+                <i class="fa fa-plus"></i>Remove Printer</button>
+        </div>
+    </td>
+</tr>

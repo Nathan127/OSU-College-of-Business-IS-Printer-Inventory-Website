@@ -31,9 +31,10 @@ app.get('/', function(req, res)
   res.sendFile("main");
 });
 
-// app.post('/addPrinter', function (req, res) {
-//   // need to create a database first before implementing this part
-// });
+app.post('/addPrinter', function (req, res) {
+  // need to create a database first before implementing this part
+  
+});
 
 app.use('*', function (req, res)
 {
