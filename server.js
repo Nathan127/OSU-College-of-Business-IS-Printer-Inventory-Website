@@ -27,13 +27,53 @@ app.use(express.static('./'))
 
 app.get('/', function(req, res)
 {
-  res.status(200);
-  res.sendFile("main");
+  var printerDataCollection = mongoConnection.collection('printerData');
+  printerDataCollection.find({}).toArray(function (err, results){
+    if(err)
+    {
+      res.status(500).send("Error fetching people from DB");
+    }
+    else
+    {
+      console.log("== query resutls: ", results);
+      res.status(200).render('main',
+      {
+        printers:results
+      });
+    }
+  });
 });
 
-// app.post('/addPrinter', function (req, res) {
-//   // need to create a database first before implementing this part
-// });
+ app.post('/addPrinter', function (req, res)
+ {
+   if(req.body && req.body.photoURL)
+   {
+     var printerDataCollection = mongoConnection.collection('printerData');
+     var printerObj ={
+       photoURL: req.body.photoURL, //*******
+       caption: req.body.caption
+     };
+     peopleDataCollection.updateOne( //.remove from the command notes
+       { personId: req.params.personId }, //*******
+       { $push: { printer: photoObj } },
+       function (err, result)
+       {
+         if(err)
+         {
+           res.status(500).send("Error fetching people from DB");
+         }
+         else
+         {
+           res.status(200).send("Success");
+         }
+       }
+     );
+
+   }
+   else {
+     res.status(400).send("Request body is missing a field.")
+   }
+ });
 
 app.use('*', function (req, res)
 {
