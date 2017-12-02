@@ -90,13 +90,6 @@ function createPrinter(printer) {
 function addPrinter(row, newPrinter) {
 
     var postRequest = new XMLHttpRequest();
-<<<<<<< HEAD
-    var postURL = '/addPrinter';
-    postRequest.open('POST', postURL);
-
-    var requestBody = JSON.stringify(newPrinter);
-    postRequest.setRequestHeader('Content-Type', 'application/json');
-=======
      var postURL = '/addPrinter';
      postRequest.open('POST', postURL);
 
@@ -117,7 +110,6 @@ function addPrinter(row, newPrinter) {
      
     /*var columns = {};
     var th, td, tr = printerTable.querySelector('TR')
->>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
 
     postRequest.addEventListener('load', function (event) {
         if (event.target.status !== 200) {
@@ -328,15 +320,6 @@ function addPrinter(row, newPrinter) {
     //     }
     // }
 
-<<<<<<< HEAD
-    // if (noBrand === 0) {
-    //     var newBrand = document.createElement('option');
-    //     newBrand.textContent = titleCase(newPrinter.brand);
-    //     brandFilter.appendChild(newBrand);
-    //     noBrand = 0;
-    // }
-
-=======
     if (noBrand === 0) {
         var newBrand = document.createElement('option');
         newBrand.textContent = titleCase(newPrinter.brand);
@@ -344,7 +327,6 @@ function addPrinter(row, newPrinter) {
         noBrand = 0;
     }
 */
->>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
     checkQuantitiesForLowWarning(row, newPrinter);
     closemodal();
 

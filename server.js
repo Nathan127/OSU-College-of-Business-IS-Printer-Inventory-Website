@@ -44,12 +44,6 @@ app.get('/', function(req, res)
   });
 });
 
-<<<<<<< HEAD
-app.post('/addPrinter', function (req, res) {
-  // need to create a database first before implementing this part
-  
-});
-=======
  app.post('/addPrinter', function (req, res)
  {
    if(req.body)
@@ -77,7 +71,6 @@ app.post('/addPrinter', function (req, res) {
      res.status(400).send("Request body is missing a field.")
    }
  });
->>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
 
 app.use('*', function (req, res)
 {
