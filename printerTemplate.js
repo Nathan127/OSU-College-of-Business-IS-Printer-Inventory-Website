@@ -33,9 +33,15 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
+<<<<<<< HEAD
   return "<tr class=\"table-info\" data-min-alert="
     + alias4(((helper = (helper = helpers.minAlert || (depth0 != null ? depth0.minAlert : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"minAlert","hash":{},"data":data}) : helper)))
     + ">\r\n    <td>"
+=======
+  return "<tbody>\n    <tr class=\"table-info\" data-min-alert="
+    + alias4(((helper = (helper = helpers.minAlert || (depth0 != null ? depth0.minAlert : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"minAlert","hash":{},"data":data}) : helper)))
+    + ">\n        <td>"
+>>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
     + alias4(((helper = (helper = helpers.brand || (depth0 != null ? depth0.brand : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"brand","hash":{},"data":data}) : helper)))
     + "</td>\r\n    <td>"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -49,15 +55,27 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.updated : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </td>\r\n    <td>\r\n        <div class=\"notes\">\r\n            "
     + alias4(((helper = (helper = helpers.notes || (depth0 != null ? depth0.notes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"notes","hash":{},"data":data}) : helper)))
+<<<<<<< HEAD
     + "\r\n        </div>\r\n        <div class=\"edit\">\r\n            <button type=\"button\" class=\"edit-notes-button\">\r\n                <i class=\"fa fa-plus\"></i>Edit</button>\r\n        </div>\r\n    </td>\r\n    <td>\r\n        <div class=\"printer-name\" data-type="
+=======
+    + "\n            </div>\n            <div class=\"edit\">\n                <button type=\"button\" class=\"edit-notes-button\">\n                    <i class=\"fa fa-plus\"></i>Edit</button>\n            </div>\n        </td>\n        <td>\n            <div class=\"printer-name\" data-type="
+>>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + ">\r\n            "
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+<<<<<<< HEAD
     + "\r\n        </div>\r\n    </td>\r\n    <td>\r\n        <div class=\"location\" data-type="
+=======
+    + "\n            </div>\n        </td>\n        <td>\n            <div class=\"location\" data-type="
+>>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + ">\r\n            "
     + alias4(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"location","hash":{},"data":data}) : helper)))
+<<<<<<< HEAD
     + "\r\n        </div>\r\n    </td>\r\n    <td>\r\n        <div class=\"edit-printer\" data-type="
+=======
+    + "\n            </div>\n        </td>\n        <td>\n            <div class=\"edit-printer\" data-type="
+>>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + " data-brand="
     + alias4(((helper = (helper = helpers.brand || (depth0 != null ? depth0.brand : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"brand","hash":{},"data":data}) : helper)))
@@ -65,6 +83,10 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + " data-brand="
     + alias4(((helper = (helper = helpers.brand || (depth0 != null ? depth0.brand : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"brand","hash":{},"data":data}) : helper)))
+<<<<<<< HEAD
     + ">\r\n            <button type=\"button\" class=\"remove-item\">\r\n                <i class=\"fa fa-plus\"></i>Remove Printer</button>\r\n        </div>\r\n    </td>\r\n</tr>";
+=======
+    + ">\n                <button type=\"button\" class=\"remove-item\">\n                    <i class=\"fa fa-plus\"></i>Remove Printer</button>\n            </div>\n        </td>\n    </tr>\n</tbody>";
+>>>>>>> 05868f1be5d517a793b9d7511a84909c156a09d7
 },"usePartial":true,"useData":true});
 })();
