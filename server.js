@@ -38,7 +38,7 @@ app.get('/', function(req, res)
       console.log("== query resutls: ", results);
       res.status(200).render('homePage',
       {
-        printers:results
+        rows:results
       });
     }
   });
@@ -52,7 +52,63 @@ app.get('/', function(req, res)
      console.log("==Req.body", req.body);
      printerDataCollection.insert(
       req.body,
-      
+
+       function (err, result)
+       {
+         if(err)
+         {
+           res.status(500).send("Error fetching printer from DB");
+         }
+         else
+         {
+           res.status(200).send("Success");
+         }
+       }
+     );
+
+   }
+   else {
+     res.status(400).send("Request body is missing a field.")
+   }
+ });
+
+ app.post('/editPrinter', function (req, res)
+ {
+   if(req.body)
+   {
+     var printerDataCollection = mongoConnection.collection('printerData');
+     console.log("==Req.body", req.body);
+     printerDataCollection.updateOne(
+      req.body,
+
+       function (err, result)
+       {
+         if(err)
+         {
+           res.status(500).send("Error fetching printer from DB");
+         }
+         else
+         {
+           res.status(200).send("Success");
+         }
+       }
+     );
+
+   }
+   else {
+     res.status(400).send("Request body is missing a field.")
+   }
+ });
+
+ app.post('/removePrinter', function (req, res)
+ {
+   if(req.body)
+   {
+     var printerDataCollection = mongoConnection.collection('printerData');
+     console.log("==Req.body", req.body);
+     printerDataCollection.remove(
+      req.body,
+
        function (err, result)
        {
          if(err)
@@ -75,7 +131,7 @@ app.get('/', function(req, res)
 app.use('*', function (req, res)
 {
   res.status(404);
-  res.sendFile(__dirname + "/404.html");
+  res.render('404');
 });
 
 MongoClient.connect(mongoURL, function (err, connection) {
