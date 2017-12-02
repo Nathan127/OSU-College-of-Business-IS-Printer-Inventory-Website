@@ -68,7 +68,7 @@ function clearModal() {
     document.getElementById('post-notes-input').value = "";
 }
 
-function Printer(row, brand, type, code, color, quantity, updated, name, location, notes, warning) {
+function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning) {
     this.brand = brand;
     this.type = type;
     this.code = code;
@@ -89,7 +89,7 @@ function createPrinter(printer) {
 
 function addPrinter(row, newPrinter, rowNum) {
     var postURL;
-    if (rowNum === printerTable.getElementsByTagName('table-info').length) {
+    if (rowNum === printerTable.getElementsByClassName('table-info').length) {
         postURL = '/addPrinter';
     }
     else {
@@ -122,7 +122,7 @@ function addPrinter(row, newPrinter, rowNum) {
         checkQuantitiesForLowWarning(row.previousElementSibling, newPrinter);
      }
      else {
-        checkQuantitiesForLowWarning(printerTable.getElementsByTagName('table-info')[rowNum], newPrinter);
+        checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
      }
      closemodal();
      
