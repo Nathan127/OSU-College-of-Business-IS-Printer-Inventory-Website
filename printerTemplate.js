@@ -41,6 +41,7 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
 
   return "<tr class=\"table-info\" data-min-alert="
     + alias4(((helper = (helper = helpers.minAlert || (depth0 != null ? depth0.minAlert : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"minAlert","hash":{},"data":data}) : helper)))
+<<<<<<< HEAD
     + ">\r\n    <td>\r\n        "
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.brand : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n    </td>\r\n    <td>"
@@ -54,6 +55,21 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + "\r\n    </td>\r\n    <td>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.updated : depth0),{"name":"each","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </td>\r\n    <td>\r\n        <div class=\"notes\">\r\n            "
+=======
+    + ">\n    <td>\n        "
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.brand : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </td>\n    <td>"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "</td>\n    <td>\n        "
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.codes : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </td>\n    <td>\n        "
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.colors : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </td>\n    <td>\n        "
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.quantities : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </td>\n    <td>\n"
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.updated : depth0),{"name":"each","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </td>\n    <td>\n        <div class=\"notes\">\n            "
+>>>>>>> 535b808ee2706841ccf068829e0867dd8615a1a9
     + alias4(((helper = (helper = helpers.notes || (depth0 != null ? depth0.notes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"notes","hash":{},"data":data}) : helper)))
     + "\r\n        </div>\r\n        <div class=\"edit\">\r\n            <button type=\"button\" class=\"edit-notes-button\">\r\n                <i class=\"fa fa-plus\"></i>Edit</button>\r\n        </div>\r\n    </td>\r\n    <td>\r\n        <div class=\"printer-name\" data-type="
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -71,6 +87,10 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + " data-brand="
     + alias4(((helper = (helper = helpers.brand || (depth0 != null ? depth0.brand : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"brand","hash":{},"data":data}) : helper)))
+<<<<<<< HEAD
     + ">\r\n            <button type=\"button\" class=\"remove-item\">\r\n                <i class=\"fa fa-plus\"></i>Remove Printer</button>\r\n        </div>\r\n    </td>\r\n</tr>\r\n";
+=======
+    + ">\n            <button type=\"button\" class=\"remove-item\">\n                <i class=\"fa fa-plus\"></i>Remove Printer</button>\n        </div>\n    </td>\n</tr>\n";
+>>>>>>> 535b808ee2706841ccf068829e0867dd8615a1a9
 },"usePartial":true,"useData":true});
 })();
