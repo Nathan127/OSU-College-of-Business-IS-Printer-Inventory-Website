@@ -4,21 +4,27 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     var stack1;
 
   return " "
-    + ((stack1 = container.invokePartial(partials.code,depth0,{"name":"code","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials.brand,depth0,{"name":"brand","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " ";
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " "
-    + ((stack1 = container.invokePartial(partials.color,depth0,{"name":"color","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials.code,depth0,{"name":"code","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " ";
 },"5":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " "
-    + ((stack1 = container.invokePartial(partials.quantity,depth0,{"name":"quantity","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials.color,depth0,{"name":"color","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " ";
 },"7":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return " "
+    + ((stack1 = container.invokePartial(partials.quantity,depth0,{"name":"quantity","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " ";
+},"9":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <div class=\"Last-Updated\" data-type="
@@ -35,18 +41,18 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
 
   return "<tr class=\"table-info\" data-min-alert="
     + alias4(((helper = (helper = helpers.minAlert || (depth0 != null ? depth0.minAlert : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"minAlert","hash":{},"data":data}) : helper)))
-    + ">\n    <td>"
-    + alias4(((helper = (helper = helpers.brand || (depth0 != null ? depth0.brand : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"brand","hash":{},"data":data}) : helper)))
-    + "</td>\n    <td>"
+    + ">\n    <td>\n        "
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.brand : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </td>\n    <td>"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + "</td>\n    <td>\n        "
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.codes : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.codes : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </td>\n    <td>\n        "
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.colors : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.colors : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </td>\n    <td>\n        "
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.quantities : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.quantities : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </td>\n    <td>\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.updated : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.updated : depth0),{"name":"each","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </td>\n    <td>\n        <div class=\"notes\">\n            "
     + alias4(((helper = (helper = helpers.notes || (depth0 != null ? depth0.notes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"notes","hash":{},"data":data}) : helper)))
     + "\n        </div>\n        <div class=\"edit\">\n            <button type=\"button\" class=\"edit-notes-button\">\n                <i class=\"fa fa-plus\"></i>Edit</button>\n        </div>\n    </td>\n    <td>\n        <div class=\"printer-name\" data-type="
@@ -65,6 +71,6 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + " data-brand="
     + alias4(((helper = (helper = helpers.brand || (depth0 != null ? depth0.brand : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"brand","hash":{},"data":data}) : helper)))
-    + ">\n            <button type=\"button\" class=\"remove-item\">\n                <i class=\"fa fa-plus\"></i>Remove Printer</button>\n        </div>\n    </td>\n</tr>";
+    + ">\n            <button type=\"button\" class=\"remove-item\">\n                <i class=\"fa fa-plus\"></i>Remove Printer</button>\n        </div>\n    </td>\n</tr>\n";
 },"usePartial":true,"useData":true});
 })();
