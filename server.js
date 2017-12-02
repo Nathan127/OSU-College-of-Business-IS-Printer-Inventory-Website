@@ -36,7 +36,7 @@ app.get('/', function(req, res)
     else
     {
       console.log("== query resutls: ", results);
-      res.status(200).render('main',
+      res.status(200).render('homePage',
       {
         printers:results
       });
@@ -46,21 +46,18 @@ app.get('/', function(req, res)
 
  app.post('/addPrinter', function (req, res)
  {
-   if(req.body && req.body.photoURL)
+   if(req.body)
    {
      var printerDataCollection = mongoConnection.collection('printerData');
-     var printerObj ={
-       photoURL: req.body.photoURL, //*******
-       caption: req.body.caption
-     };
-     peopleDataCollection.updateOne( //.remove from the command notes
-       { personId: req.params.personId }, //*******
-       { $push: { printer: photoObj } },
+     console.log("==Req.body", req.body);
+     printerDataCollection.insert(
+      req.body,
+      
        function (err, result)
        {
          if(err)
          {
-           res.status(500).send("Error fetching people from DB");
+           res.status(500).send("Error fetching printer from DB");
          }
          else
          {

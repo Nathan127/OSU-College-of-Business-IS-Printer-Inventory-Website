@@ -1,0 +1,48 @@
+<main class="content">
+    <aside class="filter-box">
+
+      <h2>Filter</h2>
+
+      <div class="filter-input">
+        <label for="filter-search" class="filter-input-label">Search</label>
+        <input data-type="search" name="filter-search" id="filter-search" class="filter-input" placeholder="#Code, Type, Brand, etc.">
+      </div>
+
+      <div class="filter-input">
+        <label for="filter-min-quantity" class="filter-input-label">Quantity</label>
+        <input type="number" name="filter-min-quantity" id="filter-min-quantity" class="filter-input" placeholder="min">
+        <input type="number" name="filter-max-quantity" id="filter-max-quantity" class="filter-input" placeholder="max">
+      </div>
+
+      <div class="filter-input">
+        <label for="filter-brand">Brand</label>
+        <select id="filter-brand" class="filter-input" name="filter-brand">
+          <option selected value="">Any</option>
+          <option>HP</option>
+          <option>Dell</option>
+        </select>
+      </div>
+
+
+      <div class="filter-input-container">
+        <label for="filter-color">Color</label>
+        <select id="filter-color" class="filter-input" name="filter-color">
+          <option selected value="">Any</option>
+          <option>Yellow</option>
+          <option>Black</option>
+          <option>Cyan</option>
+          <option>Magenta</option>
+          <option>Unknown</option>
+        </select>
+      </div>
+
+      <button id="filter-update-button" class="action-button">Update</button>
+      <button id="reset-button" class="action-button">Reset</button>
+
+
+    </aside>
+
+  {{> table}}
+
+
+</main>

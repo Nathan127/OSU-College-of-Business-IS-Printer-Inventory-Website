@@ -88,26 +88,26 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
 
 function addPrinter(row, newPrinter) {
 
-    // var postRequest = new XMLHttpRequest();
-    // var postURL = '/addPrinter';
-    // postRequest.open('POST', postURL);
+    var postRequest = new XMLHttpRequest();
+     var postURL = '/addPrinter';
+     postRequest.open('POST', postURL);
 
-    // var requestBody = JSON.stringify(newPrinter);
-    // postRequest.setRequestHeader('Content-Type', 'application/json');
+     var requestBody = JSON.stringify(newPrinter);
+     postRequest.setRequestHeader('Content-Type', 'application/json');
 
-    // postRequest.addEventListener('load', function (event) {
-    //     if (event.target.status !== 200) {
-    //         alert("Error storing photo in database:" + event.target.response);
-    //     }
-    //     else {
-    //         var printer = createPrinter(newPrinter);
-    //         row.insertAdjacentHTML('beforeend', printer);
-    //     }
-    // });
+     postRequest.addEventListener('load', function (event) {
+         if (event.target.status !== 200) {
+             alert("Error storing photo in database:" + event.target.response);
+         }
+         else {
+             var printer = createPrinter(newPrinter);
+             row.insertAdjacentHTML('beforeend', printer);
+         }
+     });
 
-    // postRequest.send(requestBody);   
-    // checkQuantitiesForLowWarning(row, newPrinter);
-    var columns = {};
+     postRequest.send(requestBody);
+     
+    /*var columns = {};
     var th, td, tr = printerTable.querySelector('TR')
 
     th = tr.getElementsByTagName('TH');
@@ -310,7 +310,7 @@ function addPrinter(row, newPrinter) {
         brandFilter.appendChild(newBrand);
         noBrand = 0;
     }
-
+*/
     checkQuantitiesForLowWarning(row, newPrinter);
     closemodal();
 
