@@ -69,7 +69,6 @@ function clearModal() {
 }
 
 function Printer(row, brand, type, code, color, quantity, updated, name, location, notes, warning) {
-    this.row = row;
     this.brand = brand;
     this.type = type;
     this.code = code;
@@ -350,7 +349,6 @@ function addPrinter(row, newPrinter, rowNum) {
 }
 function addNewPrinter(event) {
     var printer = new Printer(
-        printerTable.getElementsByClassName('table-info').length,
         document.getElementById('post-brand-input').value,
         document.getElementById('post-type-input').value,
         document.getElementById('post-code-input').value,
@@ -368,7 +366,6 @@ function addNewPrinter(event) {
 }
 function editPrinter (event) {
     var editedPrinter = new Printer(
-        selectedRow.rowIndex,
         document.getElementById('post-brand-input').value,
         document.getElementById('post-type-input').value,
         document.getElementById('post-code-input').value,
@@ -402,7 +399,6 @@ function setModalDefaultValues(target) {
     td = selectedRow.getElementsByTagName('TD');
 
     var oldPrinter = new Printer(
-        selectedRow.rowIndex,
         td[columns.Brand].textContent.trim(),
         td[columns.Type].textContent.trim(),
         td[columns['# Code']].children,
