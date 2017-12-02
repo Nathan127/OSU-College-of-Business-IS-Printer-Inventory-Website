@@ -1,5 +1,7 @@
 <tr class="table-info" data-min-alert={{minAlert}}>
-    <td>{{brand}}</td>
+    <td>
+        {{#each brand}} {{> brand}} {{/each}}
+    </td>
     <td>{{type}}</td>
     <td>
         {{#each codes}} {{> code}} {{/each}}
