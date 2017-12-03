@@ -44,6 +44,10 @@ app.get('/', function(req, res)
   });
 });
 
+app.get('/contact', function (req, res) {
+  res.status(200).render('contact');
+});
+
  app.post('/addPrinter', function (req, res)
  {
    if(req.body)
