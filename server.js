@@ -35,7 +35,7 @@ app.get('/', function(req, res)
     }
     else
     {
-      console.log("== query resutls: ", results);
+      console.log("== query results: ", results);
       res.status(200).render('homePage',
       {
         rows: results
@@ -83,7 +83,7 @@ app.get('/contact', function (req, res) {
    {
      var printerDataCollection = mongoConnection.collection('printerData');
      console.log("==Req.body", req.body);
-     printerDataCollection.updateOne(req.body.name, req.body,
+     printerDataCollection.updateOne( {name: req.body.name} , req.body,
 
        function (err, result)
        {
