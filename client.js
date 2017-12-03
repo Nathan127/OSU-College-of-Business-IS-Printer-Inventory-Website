@@ -308,14 +308,14 @@ function addPrinter(row, newPrinter, rowNum) {
 
     row.setAttribute('data-min-alert', newPrinter.minAlert);
 
-    // function titleCase(city) {
-    //     newPrinter.brand = newPrinter.brand.toLowerCase();
-    //     newPrinter.brand = newPrinter.brand.split(' ');
-    //     for (var i = 0; i < newPrinter.brand.length; i++) {
-    //         newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
-    //     }
-    //     return newPrinter.brand.join(' ');
-    // }
+    function titleCase(city) {
+        newPrinter.brand = newPrinter.brand.toLowerCase();
+        newPrinter.brand = newPrinter.brand.split(' ');
+        for (var i = 0; i < newPrinter.brand.length; i++) {
+            newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
+        }
+        return newPrinter.brand.join(' ');
+    }
 
     // for (var i = 0; i < brandFilter.options.length; i++) {
     //     if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
@@ -354,6 +354,10 @@ function addNewPrinter(event) {
     
 
     var arrayColor = printer.color.split(",").map(function (item) {
+        // for(var i =0; i < arrayColor.length(); i++)
+        // {
+        //   item[i] = item.charAt(0).toUpperCase()+item.slice(1);
+        // }
         return item.trim();
     });
     for (var i = 0; i < arrayCode.length; i++) {

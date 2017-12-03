@@ -164,7 +164,7 @@ table th {
   float:left;
 }
 
-.color-icon-black{
+.color-icon-Black{
   width: 3px;
   background-color: black;
   padding: 10px;
@@ -174,7 +174,7 @@ table th {
   white-space: nowrap;
 }
 
-.color-icon-cyan{
+.color-icon-Cyan{
   width: 3px;
   background-color: cyan;
   padding: 10px;
@@ -184,7 +184,7 @@ table th {
   white-space: nowrap;
 }
 
-.color-icon-yellow{
+.color-icon-Yellow{
   width: 3px;
   background-color: yellow;
   padding: 10px;
@@ -194,7 +194,7 @@ table th {
   white-space: nowrap;
 }
 
-.color-icon-magenta{
+.color-icon-Magenta{
   width: 3px;
   background-color: magenta;
   padding: 10px;
