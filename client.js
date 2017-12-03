@@ -105,7 +105,7 @@ function addPrinter(row, newPrinter, rowNum) {
         return newPrinter.brand.join(' ');
     }
 
-    var postRequest = new XMLHttpRequest();
+     var postRequest = new XMLHttpRequest();
      postRequest.open('POST', postURL);
 
      var requestBody = JSON.stringify(newPrinter);
@@ -387,8 +387,15 @@ function editNotes(target) {
 
 function removeRowFromDOM(target) {
     var postURL = '/removePrinter';
+    // var postRequest = new XMLHttpRequest();
+    // postRequest.open('POST', postURL);
+    //
+    // var requestBody = JSON.stringify(row);
+    // postRequest.setRequestHeader('Content-Type', 'application/json');
+    // postRequest.send(requestBody);
 
     var row = target.parentNode.parentNode.parentNode;
+    console.log("--Row:", row);
     row.parentNode.removeChild(row);
 }
 
