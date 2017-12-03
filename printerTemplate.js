@@ -1,38 +1,20 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['printer'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return " <div class=\"code\" type="
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + " color="
-    + alias4(((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data}) : helper)))
-    + ">\n            "
-    + alias4(container.lambda(depth0, depth0))
+    return " <div class=\"code\">\n            "
+    + container.escapeExpression(container.lambda(depth0, depth0))
     + "\n        </div> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var alias1=container.lambda, alias2=container.escapeExpression;
 
-  return " <div class=\"color\" type="
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + " code="
-    + alias4(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"code","hash":{},"data":data}) : helper)))
-    + ">\n            "
-    + alias4(container.lambda(depth0, depth0))
-    + "\n            <div class="
-    + alias4(((helper = (helper = helpers.colorIconClass || (depth0 != null ? depth0.colorIconClass : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"colorIconClass","hash":{},"data":data}) : helper)))
-    + ">\n\n            </div>\n        </div> ";
+  return " <div class=\"color\">\n            "
+    + alias2(alias1(depth0, depth0))
+    + "\n            <div class=\"color-icon-"
+    + alias2(alias1(depth0, depth0))
+    + "\">\n\n            </div>\n        </div> ";
 },"5":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return " <div class=\"quantity\" type="
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + " color="
-    + alias4(((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data}) : helper)))
-    + " code="
-    + alias4(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"code","hash":{},"data":data}) : helper)))
-    + ">\n            "
-    + alias4(container.lambda(depth0, depth0))
+    return " <div class=\"quantity\">\n            "
+    + container.escapeExpression(container.lambda(depth0, depth0))
     + "\n        </div>\n        <div class=\"change-quantity\">\n            <button type=\"button\" class=\"change\" value=\"add\">\n                <i class=\"fa fa-plus\"></i>(+1)</button>\n            <button type=\"button\" class=\"change\" value=\"minus\">\n                <i class=\"fa fa-plus\"></i>(-1)</button>\n        </div> ";
 },"7":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;

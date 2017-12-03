@@ -2,20 +2,20 @@
     <td>{{brand}}</td>
     <td>{{type}}</td>
     <td>
-        {{#each code}} <div class="code" type={{type}} color={{color}}>
+        {{#each code}} <div class="code">
             {{this}}
         </div> {{/each}}
     </td>
     <td>
-        {{#each color}} <div class="color" type={{type}} code={{code}}>
+        {{#each color}} <div class="color">
             {{this}}
-            <div class={{colorIconClass}}>
+            <div class="color-icon-{{this}}">
 
             </div>
         </div> {{/each}}
     </td>
     <td>
-        {{#each quantity}} <div class="quantity" type={{type}} color={{color}} code={{code}}>
+        {{#each quantity}} <div class="quantity">
             {{this}}
         </div>
         <div class="change-quantity">
