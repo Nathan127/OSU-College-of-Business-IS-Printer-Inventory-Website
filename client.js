@@ -206,8 +206,8 @@ function editPrinter (event) {
 
 function removeAlert(row) {
   var confirmValue = -1;
-  var printerName = row.cells[7].textContent;
-  if (confirm("Are you sure you want to delete the printer named"+printerName+"?") == true) {
+  var printerName = String(row.cells[7].textContent.trim());
+  if (confirm("Are you sure you want to delete the printer named:"+printerName) == true) {
       confirmValue = 1;
   }
   else {
