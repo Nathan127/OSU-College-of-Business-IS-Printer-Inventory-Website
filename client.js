@@ -204,39 +204,46 @@ function editPrinter (event) {
     addPrinter(rowBefore, editedPrinter, null);
 }
 
-function removeRowFromDOM(target) {
-  function myFunction() {
-    var txt;
-    if (confirm("Press a button!") == true) {
-        txt = "You pressed OK!";
-    } else {
-        txt = "You pressed Cancel!";
-    }
-    console.log(txt);
+function removeAlert(row) {
+  var confirm = -1;
+  if (confirm("Are you sure you want to delete the printer named"+row.cells[7].textContent+"?") == true) {
+      confirm = 1;
   }
-    var row = target.parentNode.parentNode.parentNode;
-    var printerName = {
-        name: row.querySelector('.printer-name').textContent.trim()
-    };
+  else {
+      confirm = 0;
+  }
+  return confirm;
+}
 
-    var postURL = '/removePrinter';
-    var postRequest = new XMLHttpRequest();
-    postRequest.open('POST', postURL);
+function removeRowFromDOM(target) {
+  var row = target.parentNode.parentNode.parentNode;
+  var confirmRemovePrinter = removeAlert(row);
+  if(confirmRemovePrinter === 1){
+      var printerName = {
+          name: row.querySelector('.printer-name').textContent.trim()
+      };
 
-    var requestBody = JSON.stringify(printerName);
-    postRequest.setRequestHeader('Content-Type', 'application/json');
+      var postURL = '/removePrinter';
+      var postRequest = new XMLHttpRequest();
+      postRequest.open('POST', postURL);
 
-    postRequest.addEventListener('load', function (event) {
-        if (event.target.status !== 200) {
-            alert("Error removing printer from database:" + event.target.response);
-        }
-        else {
-            row.parentNode.removeChild(row);
-        }
-    });
+      var requestBody = JSON.stringify(printerName);
+      postRequest.setRequestHeader('Content-Type', 'application/json');
 
-    postRequest.send(requestBody);
+      postRequest.addEventListener('load', function (event) {
+          if (event.target.status !== 200) {
+              alert("Error removing printer from database:" + event.target.response);
+          }
+          else {
+              row.parentNode.removeChild(row);
+          }
+      });
 
+      postRequest.send(requestBody);
+}
+  else{
+
+  }
 }
 
 function setModalDefaultValues(target) {
