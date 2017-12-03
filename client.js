@@ -330,29 +330,12 @@ function addPrinter(row, newPrinter, rowNum) {
         noBrand = 0;
     }
 */
-
 }
-function addNewPrinter(event) {
-    var printer = new Printer(
-        document.getElementById('post-brand-input').value,
-        document.getElementById('post-type-input').value,
-        document.getElementById('post-code-input').value,
-        document.getElementById('post-color-input').value,
-        document.getElementById('post-quantity-input').value,
-        document.getElementById('post-updated-input').value,
-        document.getElementById('post-name-input').value,
-        document.getElementById('post-location-input').value,
-        document.getElementById('post-notes-input').value,
-        document.getElementById('post-min-quantity-warning').value
-    );
-    var numRows = printerTable.getElementsByClassName('table-info').length;
-    var rowBefore = printerTable.getElementsByClassName('table-info')[numRows - 1];
 
+function splitToArray(printer) {
     var arrayCode = printer.code.split(",").map(function (item) {
         return item.trim();
     });
-    
-
     var arrayColor = printer.color.split(",").map(function (item) {
         return item.trim();
     });
@@ -372,7 +355,23 @@ function addNewPrinter(event) {
    printer.color = arrayColor;
    printer.quantity = arrayQuantity;
    printer.lastUpdated = arrayUpdated;
-
+}
+function addNewPrinter(event) {
+    var printer = new Printer(
+        document.getElementById('post-brand-input').value,
+        document.getElementById('post-type-input').value,
+        document.getElementById('post-code-input').value,
+        document.getElementById('post-color-input').value,
+        document.getElementById('post-quantity-input').value,
+        document.getElementById('post-updated-input').value,
+        document.getElementById('post-name-input').value,
+        document.getElementById('post-location-input').value,
+        document.getElementById('post-notes-input').value,
+        document.getElementById('post-min-quantity-warning').value
+    );
+    var numRows = printerTable.getElementsByClassName('table-info').length;
+    var rowBefore = printerTable.getElementsByClassName('table-info')[numRows - 1];
+    splitToArray(printer);
     addPrinter(rowBefore, printer, numRows);
 }
 function editPrinter (event) {
@@ -396,27 +395,7 @@ function editPrinter (event) {
 
     selectedRow.parentNode.removeChild(selectedRow);
 
-    var arrayCode = printer.code.split(",").map(function (item) {
-        return item.trim();
-    });
-
-    var arrayColor = printer.color.split(",").map(function (item) {
-        return item.trim();
-    });
-
-    var arrayQuantity = printer.quantity.split(",").map(function (item) {
-        return item.trim();
-    });
-
-   var arrayUpdated = printer.lastUpdated.split(",").map(function (item) {
-       return item.trim();
-   });
-
-   printer.code = arrayCode;
-   printer.color = arrayColor;
-   printer.quantity = arrayQuantity;
-   printer.lastUpdated = arrayUpdated;
-
+    splitToArray(editedPrinter);
     addPrinter(rowBefore, editedPrinter, null);
 }
 function setModalDefaultValues(target) {
