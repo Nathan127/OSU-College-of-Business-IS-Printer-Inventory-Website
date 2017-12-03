@@ -205,14 +205,14 @@ function editPrinter (event) {
 }
 
 function removeAlert(row) {
-  var confirm = -1;
+  var confirmValue = -1;
   if (confirm("Are you sure you want to delete the printer named"+row.cells[7].textContent+"?") == true) {
-      confirm = 1;
+      confirmValue = 1;
   }
   else {
-      confirm = 0;
+      confirmValue = 0;
   }
-  return confirm;
+  return confirmValue;
 }
 
 function removeRowFromDOM(target) {
