@@ -342,6 +342,13 @@ function contentClick(event) {
 function changeQuantity(target) {
     var quantity = Number(target.parentNode.previousElementSibling.textContent.trim());
     var row = target.parentNode.parentNode.parentNode;
+    var node = target.parentNode;
+    var i = 0;
+
+    while ((node = node.previousElementSibling.previousElementSibling) != null) {
+        i++;
+    }
+
     if (target.value === 'add') { //figure out why this isn't working...
         quantity += 1;
     }
@@ -352,14 +359,38 @@ function changeQuantity(target) {
         quantity -= 1;
     }
 
-    target.parentNode.previousElementSibling.textContent = quantity;
+    var postRequest = new XMLHttpRequest();
+    var postURL = '/changeQuantity';
+    postRequest.open('POST', postURL);
 
-    if (quantity <= row.getAttribute('data-min-alert')) {
-        target.parentNode.previousElementSibling.setAttribute('highlight', 'red');
-    }
-    else {
-        target.parentNode.previousElementSibling.removeAttribute('highlight');
-    }
+    var changeArgs = {
+        name: row.querySelector('.printer-name').textContent.trim(),
+        quantity: quantity,
+        index: i
+    };
+
+    var requestBody = JSON.stringify(changeArgs);
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+
+    console.log(requestBody);
+
+
+    postRequest.addEventListener('load', function (event) {
+        if (event.target.status !== 200) {
+            alert("Error changing quanitity in database:" + event.target.response);
+        }
+        else {
+            target.parentNode.previousElementSibling.textContent = quantity;
+            if (quantity <= row.getAttribute('data-min-alert')) {
+                target.parentNode.previousElementSibling.setAttribute('highlight', 'red');
+            }
+            else {
+                target.parentNode.previousElementSibling.removeAttribute('highlight');
+            }
+        }
+    });
+
+    postRequest.send(requestBody);
 }
 
 function editNotes(target) {

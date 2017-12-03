@@ -130,6 +130,28 @@ app.get('/contact', function (req, res) {
    }
  });
 
+ app.post('/changeQuantity', function (req, res) {
+   if (req.body) {
+     var printerDataCollection = mongoConnection.collection('printerData');
+    
+     console.log('== REQ body', req.body.name);
+     printerDataCollection.updateOne({ name: req.body.name }, 
+      {$set: { ['quantity.' + req.body.index]: req.body.quantity } },
+      function (err, result) {
+        if (err) 
+        {
+          res.status(500).send("Error fetching printer from DB");
+          throw err;
+        }
+        else
+        {
+          res.status(200).send("Success changing quantity");
+        }
+      }
+    )
+   }
+ });
+
 app.use('*', function (req, res)
 {
   res.status(404).render('404');
