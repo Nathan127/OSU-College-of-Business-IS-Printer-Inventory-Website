@@ -39,12 +39,10 @@ header {
 }
 
 .Last-Updated{
-  line-height: 550%;
+  line-height: 500%;
+  padding-bottom: 30px;
 }
 
-.date-container{
-  padding-bottom:80px;
-}
 
 .filter-box h2{
   font-weight: 900;
