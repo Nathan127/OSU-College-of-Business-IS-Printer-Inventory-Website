@@ -108,7 +108,7 @@ app.get('/contact', function (req, res) {
    if(req.body)
    {
      var printerDataCollection = mongoConnection.collection('printerData');
-     console.log("==Req.body", req.body);
+     
      printerDataCollection.deleteOne(req.body,
        function (err, result)
        {

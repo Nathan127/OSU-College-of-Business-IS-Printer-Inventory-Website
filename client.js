@@ -131,6 +131,7 @@ function addPrinter(row, newPrinter, rowNum) {
         checkQuantitiesForLowWarning(row.previousElementSibling, newPrinter);
      }
      else {
+         console.log(printerTable.getElementsByClassName('table-info')[rowNum]);
         checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
      }
      closemodal();
@@ -224,7 +225,8 @@ function removeRowFromDOM(target) {
             row.parentNode.removeChild(row);
         }
     });
-    
+
+    postRequest.send(requestBody);   
     
 }
 
@@ -409,25 +411,6 @@ function editNotes(target) {
     });
 
 }
-
-<<<<<<< HEAD
-=======
-
-function removeRowFromDOM(target) {
-    var postURL = '/removePrinter';
-    // var postRequest = new XMLHttpRequest();
-    // postRequest.open('POST', postURL);
-    //
-    // var requestBody = JSON.stringify(row);
-    // postRequest.setRequestHeader('Content-Type', 'application/json');
-    // postRequest.send(requestBody);
-
-    var row = target.parentNode.parentNode.parentNode;
-    console.log("--Row:", row);
-    row.parentNode.removeChild(row);
-}
-
->>>>>>> 26d1343a066c734d144a60a8b7136cf36fa10296
 function filter(target) {
     var i, j;
     var tbody = printerTable.querySelector('tbody');
