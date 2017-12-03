@@ -202,6 +202,32 @@ function editPrinter (event) {
     splitToArray(editedPrinter);
     addPrinter(rowBefore, editedPrinter, null);
 }
+
+function removeRowFromDOM(target) {
+    var row = target.parentNode.parentNode.parentNode;
+    var printerName = {
+        name: row.querySelector('.printer-name').textContent.trim()
+    };
+
+    var postURL = '/removePrinter';
+    var postRequest = new XMLHttpRequest();
+    postRequest.open('POST', postURL);
+
+    var requestBody = JSON.stringify(printerName);
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    
+    postRequest.addEventListener('load', function (event) {
+        if (event.target.status !== 200) {
+            alert("Error removing printer from database:" + event.target.response);
+        }
+        else {
+            row.parentNode.removeChild(row);
+        }
+    });
+    
+    
+}
+
 function setModalDefaultValues(target) {
     var columns = {};
     var th, td, tr = document.getElementById('printer-table').querySelector('TR')
@@ -382,14 +408,6 @@ function editNotes(target) {
         target.parentNode.style.display = 'block';
     });
 
-}
-
-
-function removeRowFromDOM(target) {
-    var postURL = '/removePrinter';
-
-    var row = target.parentNode.parentNode.parentNode;
-    row.parentNode.removeChild(row);
 }
 
 function filter(target) {

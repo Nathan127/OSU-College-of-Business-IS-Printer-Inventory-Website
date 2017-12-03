@@ -82,8 +82,7 @@ app.get('/contact', function (req, res) {
    {
      var printerDataCollection = mongoConnection.collection('printerData');
      console.log("==Req.body", req.body);
-     printerDataCollection.updateOne(
-      req.body,
+     printerDataCollection.updateOne(req.body.name, req.body,
 
        function (err, result)
        {
@@ -93,7 +92,7 @@ app.get('/contact', function (req, res) {
          }
          else
          {
-           res.status(200).send("Success");
+           res.status(200).send("Success editing 1 printer");
          }
        }
      );
@@ -110,9 +109,7 @@ app.get('/contact', function (req, res) {
    {
      var printerDataCollection = mongoConnection.collection('printerData');
      console.log("==Req.body", req.body);
-     printerDataCollection.remove(
-      req.body,
-
+     printerDataCollection.deleteOne(req.body,
        function (err, result)
        {
          if(err)
@@ -121,7 +118,7 @@ app.get('/contact', function (req, res) {
          }
          else
          {
-           res.status(200).send("Success");
+           res.status(200).send("Success removing 1 printer");
          }
        }
      );

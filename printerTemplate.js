@@ -11,22 +11,14 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + alias2(alias1(depth0, depth0))
     + "\r\n            <div class=\"color-icon-"
     + alias2(alias1(depth0, depth0))
-    + "\">\r\n\r\n            </div>\r\n        </div> ";
+    + "\">\r\n\r\n            </div>\r\n        </div> \r\n";
 },"5":function(container,depth0,helpers,partials,data) {
     return " <div class=\"quantity\">\r\n            "
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n        </div>\r\n        <div class=\"change-quantity\">\r\n            <button type=\"button\" class=\"change\" value=\"add\">\r\n                <i class=\"fa fa-plus\"></i>(+1)</button>\r\n            <button type=\"button\" class=\"change\" value=\"minus\">\r\n                <i class=\"fa fa-plus\"></i>(-1)</button>\r\n        </div> ";
 },"7":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <div class=\"Last-Updated\" data-type="
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + " data-color="
-    + alias4(((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data}) : helper)))
-    + " data-code="
-    + alias4(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"code","hash":{},"data":data}) : helper)))
-    + ">\r\n            "
-    + alias4(container.lambda(depth0, depth0))
+    return "        <div class=\"Last-Updated\">\r\n            "
+    + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n        </div>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -41,7 +33,7 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.code : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n    </td>\r\n    <td>\r\n        "
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.color : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\r\n    </td>\r\n    <td>\r\n        "
+    + "    </td>\r\n    <td>\r\n        "
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.quantity : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n    </td>\r\n    <td>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.lastUpdated : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
