@@ -10,6 +10,7 @@ var edit = document.getElementById('modal-edit');
 var selectedRow = null;
 
 function checkQuantitiesForLowWarning(row, printer) {
+    console.log(row);
     var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
     for (var i = 0; i < quantities.length; i++) {
@@ -119,21 +120,17 @@ function addPrinter(row, newPrinter, rowNum) {
              var printer = createPrinter(newPrinter);
              if (row) {
                 row.insertAdjacentHTML('afterend', printer);
+                checkQuantitiesForLowWarning(row.previousElementSibling, newPrinter);
              }
              else {
                 printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
+                checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
+        
              }
          }
      });
 
      postRequest.send(requestBody);
-     if (row) {
-        checkQuantitiesForLowWarning(row.previousElementSibling, newPrinter);
-     }
-     else {
-         console.log(printerTable.getElementsByClassName('table-info')[rowNum]);
-        checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
-     }
      closemodal();
 }
 
@@ -176,6 +173,9 @@ function addNewPrinter(event) {
     );
     var numRows = printerTable.getElementsByClassName('table-info').length;
     var rowBefore = printerTable.getElementsByClassName('table-info')[numRows - 1];
+    if (numRows === 0) {
+        rowBefore = null;
+    }
     splitToArray(printer);
     addPrinter(rowBefore, printer, numRows);
 }

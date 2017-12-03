@@ -38,7 +38,7 @@ app.get('/', function(req, res)
       console.log("== query resutls: ", results);
       res.status(200).render('homePage',
       {
-        rows:results
+        rows: results
       });
     }
   });
@@ -50,6 +50,7 @@ app.get('/contact', function (req, res) {
 
  app.post('/addPrinter', function (req, res)
  {
+   console.log("== Add printer request");
    if(req.body)
    {
      var printerDataCollection = mongoConnection.collection('printerData');
@@ -131,8 +132,7 @@ app.get('/contact', function (req, res) {
 
 app.use('*', function (req, res)
 {
-  res.status(404);
-  res.render('404');
+  res.status(404).render('404');
 });
 
 MongoClient.connect(mongoURL, function (err, connection) {
