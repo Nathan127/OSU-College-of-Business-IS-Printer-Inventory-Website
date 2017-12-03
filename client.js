@@ -348,7 +348,9 @@ function addNewPrinter(event) {
     var numRows = printerTable.getElementsByClassName('table-info').length;
     var rowBefore = printerTable.getElementsByClassName('table-info')[numRows - 1];
 
-    var arrayCode = printer.code.split(",");
+    var arrayCode = printer.code.split(",").map(function (item) {
+        return item.trim();
+    });
     
 
     var arrayColor = printer.color.split(",").map(function (item) {
