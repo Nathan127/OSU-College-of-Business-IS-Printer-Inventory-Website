@@ -95,7 +95,16 @@ function addPrinter(row, newPrinter, rowNum) {
     else {
         postURL = '/editPrinter';
     }
-    console.log(postURL);
+
+    function titleCase(city) {
+        newPrinter.brand = newPrinter.brand.toLowerCase();
+        newPrinter.brand = newPrinter.brand.split(' ');
+        for (var i = 0; i < newPrinter.brand.length; i++) {
+            newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
+        }
+        return newPrinter.brand.join(' ');
+    }
+
     var postRequest = new XMLHttpRequest();
      postRequest.open('POST', postURL);
 
@@ -125,211 +134,6 @@ function addPrinter(row, newPrinter, rowNum) {
         checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
      }
      closemodal();
-
-    /*var columns = {};
-    var th, td, tr = printerTable.querySelector('TR')
-
-    postRequest.addEventListener('load', function (event) {
-        if (event.target.status !== 200) {
-            alert("Error storing photo in database:" + event.target.response);
-        }
-        else {
-            var printer = createPrinter(newPrinter);
-            row.insertAdjacentHTML('afterend', printer);
-        }
-    });
-
-    postRequest.send(requestBody);
-    checkQuantitiesForLowWarning(row.nextElementSibling, newPrinter);
-    // var columns = {};
-    // var th, td, tr = printerTable.querySelector('TR')
-
-    // th = tr.getElementsByTagName('TH');
-    // for (i = 0; i < th.length; i++) {
-    //     columns[th[i].textContent] = i;
-    // }
-*/
-
-    // var brandFilter = document.getElementById('filter-brand');
-    // var noBrand = 0;
-
-    // var tdBrand = document.createElement('td');
-    // tdBrand.textContent = newPrinter.brand;
-    // row.appendChild(tdBrand);
-    // var tdType = document.createElement('td');
-    // tdType.textContent = newPrinter.type;
-    // row.appendChild(tdType);
-    // var tdCode = document.createElement('td');
-
-    // for (var i = 0; i < arrayCode.length; i++) {
-    //     var createDiv = document.createElement('div');
-    //     createDiv.classList.add('code');
-    //     createDiv.setAttribute('data-type', newPrinter.type);
-    //     createDiv.setAttribute('data-color', arrayColor[i]);
-    //     createDiv.textContent = arrayCode[i];
-    //     tdCode.appendChild(createDiv);
-    // }
-
-    // row.appendChild(tdCode);
-    // var tdColor = document.createElement('td');
-
-    // for (var i = 0; i < arrayColor.length; i++) {
-    //     var createDiv = document.createElement('div');
-    //     createDiv.classList.add('color');
-    //     createDiv.setAttribute("data-type", newPrinter.type);
-    //     createDiv.setAttribute("data-code", arrayCode[i]);
-    //     createDiv.textContent = arrayColor[i];
-
-    //     var createColorDiv = document.createElement('div');
-    //     createColorDiv.classList.add('color-icon-' + arrayColor[i].toLowerCase());
-    //     createDiv.appendChild(createColorDiv);
-    //     tdColor.appendChild(createDiv);
-    // }
-
-    // row.appendChild(tdColor);
-    // var tdQuantity = document.createElement('td');
-
-    // for (var i = 0; i < arrayQuantity.length; i++) {
-
-    //     var createDiv = document.createElement('div');
-    //     createDiv.classList.add('quantity');
-    //     createDiv.setAttribute("data-type", newPrinter.type);
-    //     createDiv.setAttribute("data-color", arrayColor[i]);
-    //     createDiv.setAttribute("data-type", arrayCode[i]);
-    //     createDiv.textContent = arrayQuantity[i];
-    //     tdQuantity.appendChild(createDiv);
-
-    //     var createChangeQuantityDiv = document.createElement('div');
-    //     createChangeQuantityDiv.classList.add('change-quantity');
-
-    //     var addQuantity = document.createElement('button');
-    //     addQuantity.setAttribute('type', 'button');
-    //     addQuantity.setAttribute('class', 'change');
-    //     addQuantity.setAttribute('value', 'add')
-
-    //     var createButtonPlus = document.createElement('i');
-    //     createButtonPlus.classList.add('fa', 'fa-plus');
-    //     addQuantity.appendChild(createButtonPlus);
-    //     addQuantity.textContent = '(+1)';
-
-    //     var minusQuantity = document.createElement('button');
-    //     minusQuantity.setAttribute('type', 'button');
-    //     minusQuantity.setAttribute('class', 'change');
-    //     minusQuantity.setAttribute('value', 'minus');
-
-    //     var createButtonMinus = document.createElement('i');
-    //     createButtonMinus.classList.add('fa', 'fa-plus');
-    //     minusQuantity.appendChild(createButtonMinus);
-    //     minusQuantity.textContent = '(-1)';
-    //     createChangeQuantityDiv.appendChild(addQuantity);
-    //     createChangeQuantityDiv.appendChild(minusQuantity);
-    //     tdQuantity.appendChild(createChangeQuantityDiv);
-    // }
-
-    // row.appendChild(tdQuantity);
-    // var tdUpdated = document.createElement('td');
-    // for (var i = 0; i < arrayUpdated.length; i++) {
-    //     var createDiv = document.createElement('div');
-    //     createDiv.classList.add('Last-Updated');
-    //     createDiv.setAttribute('data-type', newPrinter.type);
-    //     createDiv.setAttribute('data-color', arrayColor[i]);
-    //     createDiv.setAttribute('data-code', arrayCode[i]);
-    //     createDiv.textContent = arrayUpdated[i];
-    //     tdUpdated.appendChild(createDiv);
-    // }
-
-    // row.appendChild(tdUpdated);
-    // var tdNotes = document.createElement('td');
-    // var createNotesDiv = document.createElement('div');
-    // createNotesDiv.classList.add('notes');
-    // createNotesDiv.textContent = "Notes: " + newPrinter.notes;
-    // tdNotes.appendChild(createNotesDiv);
-
-    // var createNotesButton = document.createElement('div');
-    // createNotesButton.classList.add('edit');
-    // var editButton = document.createElement('button');
-    // editButton.setAttribute("type", "button");
-    // editButton.classList.add('edit-notes-button')
-    // var createButton = document.createElement('i');
-    // createButton.classList.add('fa', 'fa-plus');
-    // editButton.appendChild(createButton);
-    // editButton.textContent = "Edit";
-    // createNotesButton.appendChild(editButton);
-    // tdNotes.appendChild(createNotesButton);
-    // row.appendChild(tdNotes);
-
-    // var tdName = document.createElement('td');
-    // var createPrinterNameDiv = document.createElement('div');
-    // createPrinterNameDiv.classList.add('newPrinter-name');
-    // createPrinterNameDiv.setAttribute("data-type", newPrinter.type)
-    // createPrinterNameDiv.textContent = newPrinter.name;
-    // tdName.appendChild(createPrinterNameDiv);
-    // row.appendChild(tdName);
-
-    // var tdLocation = document.createElement('td');
-    // var createLocationDiv = document.createElement('div');
-    // createLocationDiv.classList.add('location');
-    // createLocationDiv.setAttribute('data-type', newPrinter.type);
-    // createLocationDiv.textContent = newPrinter.location;
-    // tdLocation.appendChild(createLocationDiv);
-    // row.appendChild(tdLocation);
-
-    // var tdRemoveButton = document.createElement('td');
-    // var editPrinterDiv = document.createElement('div');
-    // editPrinterDiv.classList.add('edit-printer');
-    // editPrinterDiv.setAttribute('data-type', newPrinter.type);
-    // editPrinterDiv.setAttribute('data-brand', newPrinter.brand);
-    // var editPrinterButton = document.createElement('button');
-    // editPrinterButton.setAttribute('type', 'button');
-    // editPrinterButton.classList.add('edit-printer-button');
-    // var removeActualButton = document.createElement('i');
-    // removeActualButton.classList.add('fa', 'fa-plus');
-    // editPrinterButton.appendChild(removeActualButton);
-    // editPrinterButton.textContent = 'Edit Printer';
-    // editPrinterDiv.appendChild(editPrinterButton);
-    // tdRemoveButton.appendChild(editPrinterDiv);
-
-    // var createRemovePrinterDiv = document.createElement('div');
-    // createRemovePrinterDiv.classList.add('remove-printer');
-    // createRemovePrinterDiv.setAttribute('data-type', newPrinter.type);
-    // createRemovePrinterDiv.setAttribute('data-brand', newPrinter.brand);
-    // var removeButton = document.createElement('button');
-    // removeButton.setAttribute("type", "button");
-    // removeButton.classList.add('remove-item');
-    // removeButton.appendChild(removeActualButton);
-    // removeButton.textContent = "Remove Printer";
-    // createRemovePrinterDiv.appendChild(removeButton);
-    // tdRemoveButton.appendChild(createRemovePrinterDiv);
-
-    // row.appendChild(tdRemoveButton);
-
-  //  modal.style.display = "none";
-    //backdropModal.style.display = "none";
-
-    row.setAttribute('data-min-alert', newPrinter.minAlert);
-
-    function titleCase(city) {
-        newPrinter.brand = newPrinter.brand.toLowerCase();
-        newPrinter.brand = newPrinter.brand.split(' ');
-        for (var i = 0; i < newPrinter.brand.length; i++) {
-            newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
-        }
-        return newPrinter.brand.join(' ');
-    }
-
-    // for (var i = 0; i < brandFilter.options.length; i++) {
-    //     if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
-    //         noBrand = 1;
-    //     }
-    // }
-
-    /*if (noBrand === 0) {
-        var newBrand = document.createElement('option');
-        newBrand.textContent = titleCase(newPrinter.brand);
-        brandFilter.appendChild(newBrand);
-        noBrand = 0;
-    }
-*/
 }
 
 function splitToArray(printer) {
