@@ -125,7 +125,7 @@ function addPrinter(row, newPrinter, rowNum) {
              else {
                 printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
                 checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
-        
+
              }
          }
      });
@@ -205,6 +205,15 @@ function editPrinter (event) {
 }
 
 function removeRowFromDOM(target) {
+  function myFunction() {
+    var txt;
+    if (confirm("Press a button!") == true) {
+        txt = "You pressed OK!";
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    console.log(txt);
+  }
     var row = target.parentNode.parentNode.parentNode;
     var printerName = {
         name: row.querySelector('.printer-name').textContent.trim()
@@ -216,7 +225,7 @@ function removeRowFromDOM(target) {
 
     var requestBody = JSON.stringify(printerName);
     postRequest.setRequestHeader('Content-Type', 'application/json');
-    
+
     postRequest.addEventListener('load', function (event) {
         if (event.target.status !== 200) {
             alert("Error removing printer from database:" + event.target.response);
@@ -226,8 +235,8 @@ function removeRowFromDOM(target) {
         }
     });
 
-    postRequest.send(requestBody);   
-    
+    postRequest.send(requestBody);
+
 }
 
 function setModalDefaultValues(target) {
