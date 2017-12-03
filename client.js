@@ -348,13 +348,15 @@ function addNewPrinter(event) {
     var numRows = printerTable.getElementsByClassName('table-info').length;
     var rowBefore = printerTable.getElementsByClassName('table-info')[numRows - 1];
 
-    var arrayCode = printer.code.split(",").map(function (item) {
-        return item.trim();
-    });
+    var arrayCode = printer.code.split(",");
+    
 
     var arrayColor = printer.color.split(",").map(function (item) {
         return item.trim();
     });
+    for (var i = 0; i < arrayCode.length; i++) {
+        arrayCode[i] = arrayCode[i].charAt(0).toUpperCase() + arrayCode[i].slice(1);
+    }
 
     var arrayQuantity = printer.quantity.split(",").map(function (item) {
         return item.trim();
