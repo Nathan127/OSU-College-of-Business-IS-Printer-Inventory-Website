@@ -38,6 +38,14 @@ header {
   font-family: 'Open sans',sans-serif;
 }
 
+.Last-Updated{
+  line-height: 550%;
+}
+
+.date-container{
+  padding-bottom:80px;
+}
+
 .filter-box h2{
   font-weight: 900;
   font-size: 25px;
