@@ -1,21 +1,34 @@
 <tr class="table-info" data-min-alert={{minAlert}}>
-    <td>
-        {{#each brand}} {{> brand}} {{/each}}
-    </td>
+    <td>{{brand}}</td>
     <td>{{type}}</td>
     <td>
-        {{#each codes}} {{> code}} {{/each}}
+        {{#each code}} <div class="code" type={{type}} color={{color}}>
+            {{this}}
+        </div> {{/each}}
     </td>
     <td>
-        {{#each colors}} {{> color}} {{/each}}
+        {{#each color}} <div class="color" type={{type}} code={{code}}>
+            {{this}}
+            <div class={{colorIconClass}}>
+
+            </div>
+        </div> {{/each}}
     </td>
     <td>
-        {{#each quantities}} {{> quantity}} {{/each}}
+        {{#each quantity}} <div class="quantity" type={{type}} color={{color}} code={{code}}>
+            {{this}}
+        </div>
+        <div class="change-quantity">
+            <button type="button" class="change" value="add">
+                <i class="fa fa-plus"></i>(+1)</button>
+            <button type="button" class="change" value="minus">
+                <i class="fa fa-plus"></i>(-1)</button>
+        </div> {{/each}}
     </td>
     <td>
-        {{#each updated}}
+        {{#each lastUpdated}}
         <div class="Last-Updated" data-type={{type}} data-color={{color}} data-code={{code}}>
-            {{lastUpdated}}
+            {{this}}
         </div>
         {{/each}}
     </td>

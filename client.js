@@ -109,10 +109,10 @@ function addPrinter(row, newPrinter, rowNum) {
          else {
              var printer = createPrinter(newPrinter);
              if (row) {
-                row.insertAdjacentHTML('afterend', printer); 
+                row.insertAdjacentHTML('afterend', printer);
              }
              else {
-                printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer); 
+                printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
              }
          }
      });
@@ -125,7 +125,7 @@ function addPrinter(row, newPrinter, rowNum) {
         checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
      }
      closemodal();
-     
+
     /*var columns = {};
     var th, td, tr = printerTable.querySelector('TR')
 
@@ -148,22 +148,7 @@ function addPrinter(row, newPrinter, rowNum) {
     // for (i = 0; i < th.length; i++) {
     //     columns[th[i].textContent] = i;
     // }
-
-    // var arrayCode = newPrinter.code.split(",").map(function (item) {
-    //     return item.trim();
-    // });
-
-    // var arrayColor = newPrinter.color.split(",").map(function (item) {
-    //     return item.trim();
-    // });
-
-    // var arrayQuantity = newPrinter.quantity.split(",").map(function (item) {
-    //     return item.trim();
-    // });
-
-    // var arrayUpdated = newPrinter.lastUpdated.split(",").map(function (item) {
-    //     return item.trim();
-    // });
+*/
 
     // var brandFilter = document.getElementById('filter-brand');
     // var noBrand = 0;
@@ -318,8 +303,8 @@ function addPrinter(row, newPrinter, rowNum) {
 
     // row.appendChild(tdRemoveButton);
 
-    modal.style.display = "none";
-    backdropModal.style.display = "none";
+  //  modal.style.display = "none";
+    //backdropModal.style.display = "none";
 
     row.setAttribute('data-min-alert', newPrinter.minAlert);
 
@@ -338,7 +323,7 @@ function addPrinter(row, newPrinter, rowNum) {
     //     }
     // }
 
-    if (noBrand === 0) {
+    /*if (noBrand === 0) {
         var newBrand = document.createElement('option');
         newBrand.textContent = titleCase(newPrinter.brand);
         brandFilter.appendChild(newBrand);
@@ -362,6 +347,28 @@ function addNewPrinter(event) {
     );
     var numRows = printerTable.getElementsByClassName('table-info').length;
     var rowBefore = printerTable.getElementsByClassName('table-info')[numRows - 1];
+
+    var arrayCode = printer.code.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayColor = printer.color.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayQuantity = printer.quantity.split(",").map(function (item) {
+        return item.trim();
+    });
+
+   var arrayUpdated = printer.lastUpdated.split(",").map(function (item) {
+       return item.trim();
+   });
+
+   printer.code = arrayCode;
+   printer.color = arrayColor;
+   printer.quantity = arrayQuantity;
+   printer.lastUpdated = arrayUpdated;
+
     addPrinter(rowBefore, printer, numRows);
 }
 function editPrinter (event) {
@@ -385,12 +392,33 @@ function editPrinter (event) {
 
     selectedRow.parentNode.removeChild(selectedRow);
 
+    var arrayCode = printer.code.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayColor = printer.color.split(",").map(function (item) {
+        return item.trim();
+    });
+
+    var arrayQuantity = printer.quantity.split(",").map(function (item) {
+        return item.trim();
+    });
+
+   var arrayUpdated = printer.lastUpdated.split(",").map(function (item) {
+       return item.trim();
+   });
+
+   printer.code = arrayCode;
+   printer.color = arrayColor;
+   printer.quantity = arrayQuantity;
+   printer.lastUpdated = arrayUpdated;
+
     addPrinter(rowBefore, editedPrinter, null);
 }
 function setModalDefaultValues(target) {
     var columns = {};
     var th, td, tr = document.getElementById('printer-table').querySelector('TR')
-    
+
     th = tr.getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
         columns[th[i].textContent] = i;
