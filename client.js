@@ -354,14 +354,10 @@ function addNewPrinter(event) {
     
 
     var arrayColor = printer.color.split(",").map(function (item) {
-        // for(var i =0; i < arrayColor.length(); i++)
-        // {
-        //   item[i] = item.charAt(0).toUpperCase()+item.slice(1);
-        // }
         return item.trim();
     });
-    for (var i = 0; i < arrayCode.length; i++) {
-        arrayCode[i] = arrayCode[i].charAt(0).toUpperCase() + arrayCode[i].slice(1);
+    for (var i = 0; i < arrayColor.length; i++) {
+        arrayColor[i] = arrayColor[i].charAt(0).toUpperCase() + arrayColor[i].substr(1).toLowerCase();
     }
 
     var arrayQuantity = printer.quantity.split(",").map(function (item) {

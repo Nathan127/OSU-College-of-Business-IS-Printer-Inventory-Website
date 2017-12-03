@@ -9,11 +9,9 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
 
   return " <div class=\"color\">\r\n            "
     + alias2(alias1(depth0, depth0))
-    + "\r\n<<<<<<< HEAD\r\n            <div class=\"color-icon-\""
+    + "\r\n            <div class=\"color-icon-"
     + alias2(alias1(depth0, depth0))
-    + ">\r\n=======\r\n            <div class=\"color-icon-"
-    + alias2(alias1(depth0, depth0))
-    + "\">\r\n>>>>>>> 29beb6c0f22345785c8af5e24e8421461818b68b\r\n\r\n            </div>\r\n        </div> ";
+    + "\">\r\n\r\n            </div>\r\n        </div> ";
 },"5":function(container,depth0,helpers,partials,data) {
     return " <div class=\"quantity\">\r\n            "
     + container.escapeExpression(container.lambda(depth0, depth0))
