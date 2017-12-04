@@ -547,23 +547,37 @@ function filter(target) {
 
         td = tr[i].getElementsByTagName('TD');
         quantity = td[columns.Quantity].getElementsByClassName('quantity');
+
         matchesFound = 0;
 
         for (j = 0; j < quantity.length; j++) {
             // reset all columns and rows back to normal
-            td[columns['# Code']].children[j].style.display = 'block';
-            td[columns.Color].children[j].style.display = 'block';
+            if (td[columns['# Code']].children[j]) {
+                td[columns['# Code']].children[j].style.display = 'block';
+            }
+            if (td[columns.Color].children[j]) {
+                td[columns.Color].children[j].style.display = 'block';
+            }
+            if (td[columns['Last-Updated']].children[j]) {
+                td[columns['Last-Updated']].children[j].style.display = 'block';
+            }
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
-            td[columns['Last-Updated']].children[j].style.display = 'block';
 
             if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
                 // set the display of all rows not meeting quantity standards to 'none'
-                td[columns['# Code']].children[j].style.display = 'none';
-                td[columns.Color].children[j].style.display = 'none';
+                if (td[columns['# Code']].children[j]) {
+                    td[columns['# Code']].children[j].style.display = 'none';
+                }
+                if (td[columns.Color].children[j]) {
+                    td[columns.Color].children[j].style.display = 'none';
+                }
+                if (td[columns['Last-Updated']].children[j]) {
+                    td[columns['Last-Updated']].children[j].style.display = 'none';
+                }
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
-                td[columns['Last-Updated']].children[j].style.display = 'none';
+    
                 matchesFound++;
             }
             if (matchesFound === quantity.length) {
@@ -597,20 +611,30 @@ function filter(target) {
 
             for (j = 0; j < color.length; j++) {
                 // reset all rows back to normal
-                td[columns['# Code']].children[j].style.display = 'block';
+                if (td[columns['# Code']].children[j]) {
+                    td[columns['# Code']].children[j].style.display = 'block';
+                }
+                if (td[columns['Last-Updated']].children[j]) {
+                    td[columns['Last-Updated']].children[j].style.display = 'block';
+                }
                 color[j].style.display = 'block';
                 quantity[j].style.display = 'block';
                 quantity[j].nextElementSibling.style.display = 'block';
-                td[columns['Last-Updated']].children[j].style.display = 'block';
-
-
+    
                 if (color[j].textContent.search(filter.color) === -1) {
                     // set the display of all rows not meeting quantity standards to 'none'
-                    td[columns['# Code']].children[j].style.display = 'none';
+                    if (td[columns['# Code']].children[j]) {
+                        td[columns['# Code']].children[j].style.display = 'none';
+                    }
+                   
+                    if (td[columns['Last-Updated']].children[j]) {
+                        td[columns['Last-Updated']].children[j].style.display = 'none';
+                    }
+                
                     color[j].style.display = 'none';
                     quantity[j].style.display = 'none';
                     quantity[j].nextElementSibling.style.display = 'none';
-                    td[columns['Last-Updated']].children[j].style.display = 'none';
+                   
                     matchesFound++;
                 }
 
