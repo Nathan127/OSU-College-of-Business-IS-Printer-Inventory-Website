@@ -120,11 +120,11 @@ function addPrinter(row, newPrinter, rowNum) {
              var printer = createPrinter(newPrinter);
              if (row) {
                 row.insertAdjacentHTML('afterend', printer);
-                checkQuantitiesForLowWarning(row.previousElementSibling, newPrinter);
+                checkQuantitiesForLowWarning(row.nextElementSibling, newPrinter);
              }
              else {
                 printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
-                checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
+                checkQuantitiesForLowWarning(printerTable.querySelector('.table-info'), newPrinter);
 
              }
          }
@@ -197,6 +197,7 @@ function editPrinter (event) {
         selectedRow.removeChild(selectedRow.firstChild);
     }
     var rowBefore = selectedRow.previousElementSibling;
+    console.log(rowBefore);
 
     selectedRow.parentNode.removeChild(selectedRow);
 
@@ -430,6 +431,8 @@ function changeQuantity(target) {
 }
 
 function editNotes(target) {
+    var row = target.parentNode.parentNode.parentNode;
+    var printerName = row.getElementsByTagName('TD')[7].textContent.trim();
     var textDiv = target.parentNode.previousElementSibling;
     var text = textDiv.textContent.trim();
     //creating input text box
@@ -457,39 +460,33 @@ function editNotes(target) {
 
 
     submitEditButton.addEventListener('click', function (event) {
+        var args = {
+            name: printerName,
+            notes: input.value
+        }
 
-      textDiv.textContent = 'Notes: ' + input.value;
-      textDiv.parentNode.removeChild(input);
-      textDiv.parentNode.removeChild(cancelEditButton);
-      textDiv.parentNode.removeChild(submitEditButton);
-
-      textDiv.style.display = 'block';
-      target.parentNode.style.display = 'block';
-
-        // var postURL = '/editNotes';
-        // var postRequest = new XMLHttpRequest();
-        // postRequest.open('POST', postURL);
-        //
-        // var requestBody = JSON.stringify(input.value);
-        // postRequest.setRequestHeader('Content-Type', 'application/json');
-        //
-        // postRequest.addEventListener('load', function (event) {
-        //     if (event.target.status !== 200) {
-        //         alert("Error removing printer from database:" + event.target.response);
-        //     }
-        //     else {
-        //         textDiv.textContent = 'Notes: ' + input.value;
-        //         textDiv.parentNode.removeChild(input);
-        //         textDiv.parentNode.removeChild(cancelEditButton);
-        //         textDiv.parentNode.removeChild(submitEditButton);
-        //
-        //         textDiv.style.display = 'block';
-        //         target.parentNode.style.display = 'block';
-        //     }
-        // });
-        //
-        // postRequest.send(requestBody);
-
+        var postURL = '/editNotes';
+        var postRequest = new XMLHttpRequest();
+        postRequest.open('POST', postURL);
+        
+        var requestBody = JSON.stringify(args);
+        postRequest.setRequestHeader('Content-Type', 'application/json');
+       
+        postRequest.addEventListener('load', function (event) {
+            if (event.target.status !== 200) {
+                alert("Error removing printer from database:" + event.target.response);
+            }
+            else {
+                textDiv.textContent = 'Notes: ' + args.notes;
+                textDiv.parentNode.removeChild(input);
+                textDiv.parentNode.removeChild(cancelEditButton);
+                textDiv.parentNode.removeChild(submitEditButton);
+            }
+        });
+        
+        postRequest.send(requestBody);
+        textDiv.style.display = 'block';
+        target.parentNode.style.display = 'block';
     });
 
     cancelEditButton.addEventListener('click', function (event) {

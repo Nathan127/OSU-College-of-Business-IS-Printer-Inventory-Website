@@ -37,7 +37,7 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.quantity : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n    </td>\r\n    <td>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.lastUpdated : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </td>\r\n    <td>\r\n        <div class=\"notes\">\r\n            "
+    + "    </td>\r\n    <td>\r\n        <div class=\"notes\">\r\n            Notes: "
     + alias4(((helper = (helper = helpers.notes || (depth0 != null ? depth0.notes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"notes","hash":{},"data":data}) : helper)))
     + "\r\n        </div>\r\n        <div class=\"edit\">\r\n            <button type=\"button\" class=\"edit-notes-button\">\r\n                <i class=\"fa fa-plus\"></i>Edit</button>\r\n        </div>\r\n    </td>\r\n    <td>\r\n        <div class=\"printer-name\" data-type="
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))

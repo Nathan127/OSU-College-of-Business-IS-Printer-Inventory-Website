@@ -141,7 +141,6 @@ app.get('/contact', function (req, res) {
         if (err) 
         {
           res.status(500).send("Error fetching printer from DB");
-          throw err;
         }
         else
         {
@@ -151,6 +150,26 @@ app.get('/contact', function (req, res) {
     )
    }
  });
+
+ app.post('/editNotes', function (req, res) {
+  if (req.body) {
+    var printerDataCollection = mongoConnection.collection('printerData');
+   
+    printerDataCollection.updateOne({ name: req.body.name }, 
+     {$set: { notes: req.body.notes } },
+     function (err, result) {
+       if (err) 
+       {
+         res.status(500).send("Error fetching printer from DB");
+       }
+       else
+       {
+         res.status(200).send("Success changing quantity");
+       }
+     }
+   )
+  }
+});
 
 app.use('*', function (req, res)
 {
