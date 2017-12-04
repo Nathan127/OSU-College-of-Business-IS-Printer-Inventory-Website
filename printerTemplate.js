@@ -13,7 +13,7 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + alias2(alias1(depth0, depth0))
     + "\">\r\n\r\n            </div>\r\n        </div> \r\n";
 },"5":function(container,depth0,helpers,partials,data) {
-    return " <div class=\"quantity\">\r\n            "
+    return "        <div class=\"quantity\">\r\n            "
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n        </div>\r\n        <div class=\"change-quantity\">\r\n            <button type=\"button\" class=\"change\" value=\"add\">\r\n                <i class=\"fa fa-plus\"></i>(+1)</button>\r\n            <button type=\"button\" class=\"change\" value=\"minus\">\r\n                <i class=\"fa fa-plus\"></i>(-1)</button>\r\n        </div> ";
 },"7":function(container,depth0,helpers,partials,data) {
@@ -33,7 +33,7 @@ templates['printer'] = template({"1":function(container,depth0,helpers,partials,
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.code : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n    </td>\r\n    <td>\r\n        "
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.color : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </td>\r\n    <td>\r\n        "
+    + "    </td>\r\n    <td>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.quantity : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n    </td>\r\n    <td>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.lastUpdated : depth0),{"name":"each","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")

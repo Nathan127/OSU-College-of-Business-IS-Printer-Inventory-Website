@@ -249,7 +249,7 @@ function removeRowFromDOM(target) {
 
 function setModalDefaultValues(target) {
     var columns = {};
-    var th, td, tr = document.getElementById('printer-table').querySelector('TR')
+    var th, td, tr = printerTable.querySelector('TR')
 
     th = tr.getElementsByTagName('TH');
     for (i = 0; i < th.length; i++) {
@@ -288,20 +288,40 @@ function setModalDefaultValues(target) {
     var tempColor = "";
     var tempQuantity = "";
     var tempUpdated = "";
+
     for (i = 0; i < oldPrinter.code.length; i++) {
         if (i < oldPrinter.code.length - 1) {
             tempCodes += oldPrinter.code[i].textContent.trim() + ', ';
-            tempColor += oldPrinter.color[i].textContent.trim() + ', ';
-            tempQuantity += oldPrinter.quantity[i].textContent.trim() + ', ';
-            tempUpdated += oldPrinter.lastUpdated[i].textContent.trim() + ', ';
         }
         else {
             tempCodes += oldPrinter.code[i].textContent.trim();
+        }
+    }
+    for (i = 0; i < oldPrinter.color.length; i++) {
+        if (i < oldPrinter.color.length - 1) {
+            tempColor += oldPrinter.color[i].textContent.trim() + ', ';
+        }
+        else {
             tempColor += oldPrinter.color[i].textContent.trim();
+        }
+    }
+    for (i = 0; i < oldPrinter.quantity.length; i++) {
+        if (i < oldPrinter.quantity.length - 1) {
+            tempQuantity += oldPrinter.quantity[i].textContent.trim() + ', ';
+        }
+        else {
             tempQuantity += oldPrinter.quantity[i].textContent.trim();
+        }
+    }
+    for (i = 0; i < oldPrinter.lastUpdated.length; i++) {
+        if (i < oldPrinter.lastUpdated.length - 1) {
+            tempUpdated += oldPrinter.lastUpdated[i].textContent.trim() + ', ';
+        }
+        else {
             tempUpdated += oldPrinter.lastUpdated[i].textContent.trim();
         }
     }
+    
     codeInput.value = tempCodes;
     colorInput.value = tempColor;
     quantityInput.value = tempQuantity;
@@ -349,7 +369,6 @@ function contentClick(event) {
     else if (target.className === 'edit-printer-button') {
         selectedRow = target.parentNode.parentNode.parentNode;
         setModalDefaultValues(target);
-        console.log(selectedRow);
     }
     else if (target.id === 'add-new-item') {
         openmodal("add-new");
