@@ -127,7 +127,8 @@ th, td {
 }
 
 td .change-quantity{
-  display: inline-block;
+  float: left;
+  margin-bottom: 12px;
 }
 
 th {
@@ -152,7 +153,9 @@ table th {
 }
 
 .quantity{
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  margin-right: 100%;
+  float: left;
 }
 
 .filter-box {
