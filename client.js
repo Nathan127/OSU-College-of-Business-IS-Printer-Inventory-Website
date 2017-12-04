@@ -12,7 +12,8 @@ var selectedRow = null;
 function checkQuantitiesForLowWarning(row, printer) {
     var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
-    for (var i = 0; i < quantities.length; i++) {
+    
+    for (var i = 0; i < printer.quantity.length; i++) {   
         if (printer.quantity[i] <= minAlert) {
             quantities[i].setAttribute('highlight', 'red');
         }
@@ -144,7 +145,7 @@ function splitToArray(printer) {
     }
 
     var arrayQuantity = printer.quantity.split(",").map(function (item) {
-        return item.trim();
+        return Number(item.trim());
     });
 
    var arrayUpdated = printer.lastUpdated.split(",").map(function (item) {
