@@ -158,8 +158,6 @@ table th {
 .filter-box {
   min-width: 225px;
   max-width: 225px;
-  min-height: 500px;
-  max-height: 500px;
   padding: 20px;
   border-radius: 3px;
   border: solid black;
