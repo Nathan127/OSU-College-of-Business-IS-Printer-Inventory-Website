@@ -12,8 +12,8 @@ var selectedRow = null;
 function checkQuantitiesForLowWarning(row, printer) {
     var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
-    
-    for (var i = 0; i < printer.quantity.length; i++) {   
+
+    for (var i = 0; i < printer.quantity.length; i++) {
         if (printer.quantity[i] <= minAlert) {
             quantities[i].setAttribute('highlight', 'red');
         }
@@ -88,6 +88,7 @@ function createPrinter(printer) {
 }
 
 function addPrinter(row, newPrinter, rowNum) {
+    var noBrand = 0;
     var postURL;
     if (rowNum === printerTable.getElementsByClassName('table-info').length) {
         postURL = '/addPrinter';
@@ -97,13 +98,26 @@ function addPrinter(row, newPrinter, rowNum) {
     }
 
     function titleCase(city) {
-        newPrinter.brand = newPrinter.brand.toLowerCase();
-        newPrinter.brand = newPrinter.brand.split(' ');
-        for (var i = 0; i < newPrinter.brand.length; i++) {
-            newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
-        }
-        return newPrinter.brand.join(' ');
+            newPrinter.brand = newPrinter.brand.toLowerCase();
+            newPrinter.brand = newPrinter.brand.split(' ');
+            for (var i = 0; i < newPrinter.brand.length; i++) {
+                newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
+            }
+            return newPrinter.brand.join(' ');
     }
+
+    for (var i = 0; i < brandFilter.options.length; i++) {
+          if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
+                 noBrand = 1;
+          }
+    }
+
+     if (noBrand === 0) {
+          var newBrand = document.createElement('option');
+          newBrand.textContent = titleCase(newPrinter.brand);
+          brandFilter.appendChild(newBrand);
+          noBrand = 0;
+     }
 
      var postRequest = new XMLHttpRequest();
      postRequest.open('POST', postURL);
@@ -322,7 +336,7 @@ function setModalDefaultValues(target) {
             tempUpdated += oldPrinter.lastUpdated[i].textContent.trim();
         }
     }
-    
+
     codeInput.value = tempCodes;
     colorInput.value = tempColor;
     quantityInput.value = tempQuantity;
@@ -465,10 +479,10 @@ function editNotes(target) {
         var postURL = '/editNotes';
         var postRequest = new XMLHttpRequest();
         postRequest.open('POST', postURL);
-        
+
         var requestBody = JSON.stringify(args);
         postRequest.setRequestHeader('Content-Type', 'application/json');
-       
+
         postRequest.addEventListener('load', function (event) {
             if (event.target.status !== 200) {
                 alert("Error removing printer from database:" + event.target.response);
@@ -480,7 +494,7 @@ function editNotes(target) {
                 textDiv.parentNode.removeChild(submitEditButton);
             }
         });
-        
+
         postRequest.send(requestBody);
         textDiv.style.display = 'block';
         target.parentNode.style.display = 'block';
@@ -580,7 +594,7 @@ function filter(target) {
                 }
                 quantity[j].style.display = 'none';
                 quantity[j].nextElementSibling.style.display = 'none';
-    
+
                 matchesFound++;
             }
             if (matchesFound === quantity.length) {
@@ -623,21 +637,21 @@ function filter(target) {
                 color[j].style.display = 'block';
                 quantity[j].style.display = 'block';
                 quantity[j].nextElementSibling.style.display = 'block';
-    
+
                 if (color[j].textContent.search(filter.color) === -1) {
                     // set the display of all rows not meeting quantity standards to 'none'
                     if (td[columns['# Code']].children[j]) {
                         td[columns['# Code']].children[j].style.display = 'none';
                     }
-                   
+
                     if (td[columns['Last-Updated']].children[j]) {
                         td[columns['Last-Updated']].children[j].style.display = 'none';
                     }
-                
+
                     color[j].style.display = 'none';
                     quantity[j].style.display = 'none';
                     quantity[j].nextElementSibling.style.display = 'none';
-                   
+
                     matchesFound++;
                 }
 
@@ -655,12 +669,12 @@ if (content) {
         var th, td, row = printerTable.querySelector('TR');
         var i, j;
         var quantity;
-    
+
         th = row.getElementsByTagName('TH');
         for (i = 0; i < th.length; i++) {
             columns[th[i].textContent] = i;
         }
-    
+
         for (i = 0; i < rows.length; i++) {
             td = rows[i].getElementsByTagName('TD');
             quantity = td[columns.Quantity].getElementsByClassName('quantity');
@@ -681,5 +695,3 @@ if (content) {
     cancel.addEventListener("click", closemodal);
     document.addEventListener("click", windowCloseModal);
 }
-
-
