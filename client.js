@@ -120,11 +120,11 @@ function addPrinter(row, newPrinter, rowNum) {
              var printer = createPrinter(newPrinter);
              if (row) {
                 row.insertAdjacentHTML('afterend', printer);
-                checkQuantitiesForLowWarning(row.previousElementSibling, newPrinter);
+                checkQuantitiesForLowWarning(row.nextElementSibling, newPrinter);
              }
              else {
                 printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
-                checkQuantitiesForLowWarning(printerTable.getElementsByClassName('table-info')[rowNum], newPrinter);
+                checkQuantitiesForLowWarning(printerTable.querySelector('.table-info'), newPrinter);
 
              }
          }
@@ -197,6 +197,7 @@ function editPrinter (event) {
         selectedRow.removeChild(selectedRow.firstChild);
     }
     var rowBefore = selectedRow.previousElementSibling;
+    console.log(rowBefore);
 
     selectedRow.parentNode.removeChild(selectedRow);
 
