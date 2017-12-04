@@ -12,6 +12,13 @@ header {
   width: 100%;
 }
 
+h1 a{
+  display: block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
 .navigation-bar{
   width: 100%;
 }
