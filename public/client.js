@@ -89,6 +89,7 @@ function createPrinter(printer) {
 
 function addPrinter(row, newPrinter, rowNum) {
     var noBrand = 0;
+    var brandFilter = document.getElementById('filter-brand');
     var postURL;
     if (rowNum === printerTable.getElementsByClassName('table-info').length) {
         postURL = '/addPrinter';
