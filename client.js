@@ -432,6 +432,7 @@ function changeQuantity(target) {
 
 function editNotes(target) {
     var row = target.parentNode.parentNode.parentNode;
+    var printerName = row.getElementsByTagName('TD')[7].textContent.trim();
     var textDiv = target.parentNode.previousElementSibling;
     var text = textDiv.textContent.trim();
     //creating input text box
@@ -459,13 +460,16 @@ function editNotes(target) {
 
 
     submitEditButton.addEventListener('click', function (event) {
-        var notes = input.value;
+        var args = {
+            name: printerName,
+            notes: input.value
+        }
 
         var postURL = '/editNotes';
         var postRequest = new XMLHttpRequest();
         postRequest.open('POST', postURL);
         
-        var requestBody = JSON.stringify(notes);
+        var requestBody = JSON.stringify(args);
         postRequest.setRequestHeader('Content-Type', 'application/json');
        
         postRequest.addEventListener('load', function (event) {
@@ -473,7 +477,7 @@ function editNotes(target) {
                 alert("Error removing printer from database:" + event.target.response);
             }
             else {
-                textDiv.textContent = 'Notes: ' + notes;
+                textDiv.textContent = 'Notes: ' + args.notes;
                 textDiv.parentNode.removeChild(input);
                 textDiv.parentNode.removeChild(cancelEditButton);
                 textDiv.parentNode.removeChild(submitEditButton);

@@ -141,7 +141,6 @@ app.get('/contact', function (req, res) {
         if (err) 
         {
           res.status(500).send("Error fetching printer from DB");
-          throw err;
         }
         else
         {
@@ -157,12 +156,11 @@ app.get('/contact', function (req, res) {
     var printerDataCollection = mongoConnection.collection('printerData');
    
     printerDataCollection.updateOne({ name: req.body.name }, 
-     {$set: { ['quantity.' + req.body.index]: req.body.quantity } },
+     {$set: { notes: req.body.notes } },
      function (err, result) {
        if (err) 
        {
          res.status(500).send("Error fetching printer from DB");
-         throw err;
        }
        else
        {
