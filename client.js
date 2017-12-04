@@ -439,13 +439,37 @@ function editNotes(target) {
 
     submitEditButton.addEventListener('click', function (event) {
 
-        textDiv.textContent = 'Notes: ' + input.value;
-        textDiv.parentNode.removeChild(input);
-        textDiv.parentNode.removeChild(cancelEditButton);
-        textDiv.parentNode.removeChild(submitEditButton);
+      textDiv.textContent = 'Notes: ' + input.value;
+      textDiv.parentNode.removeChild(input);
+      textDiv.parentNode.removeChild(cancelEditButton);
+      textDiv.parentNode.removeChild(submitEditButton);
 
-        textDiv.style.display = 'block';
-        target.parentNode.style.display = 'block';
+      textDiv.style.display = 'block';
+      target.parentNode.style.display = 'block';
+
+        // var postURL = '/editNotes';
+        // var postRequest = new XMLHttpRequest();
+        // postRequest.open('POST', postURL);
+        //
+        // var requestBody = JSON.stringify(input.value);
+        // postRequest.setRequestHeader('Content-Type', 'application/json');
+        //
+        // postRequest.addEventListener('load', function (event) {
+        //     if (event.target.status !== 200) {
+        //         alert("Error removing printer from database:" + event.target.response);
+        //     }
+        //     else {
+        //         textDiv.textContent = 'Notes: ' + input.value;
+        //         textDiv.parentNode.removeChild(input);
+        //         textDiv.parentNode.removeChild(cancelEditButton);
+        //         textDiv.parentNode.removeChild(submitEditButton);
+        //
+        //         textDiv.style.display = 'block';
+        //         target.parentNode.style.display = 'block';
+        //     }
+        // });
+        //
+        // postRequest.send(requestBody);
 
     });
 
