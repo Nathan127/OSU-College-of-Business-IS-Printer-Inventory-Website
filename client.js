@@ -220,7 +220,9 @@ function removeRowFromDOM(target) {
   var confirmRemovePrinter = removeAlert(row);
   if(confirmRemovePrinter === 1){
       var printerName = {
-          name: row.querySelector('.printer-name').textContent.trim()
+          name: row.querySelector('.printer-name').textContent.trim(),
+          notes: row.querySelector('.notes').textContent.trim().slice(7),
+          type: row.children[1].textContent.trim()
       };
 
       var postURL = '/removePrinter';
@@ -646,34 +648,38 @@ function filter(target) {
         }
     }
 }
-window.addEventListener('load', function (event) {
-    var rows = printerTable.getElementsByClassName('table-info');
-    var columns = {};
-    var th, td, row = printerTable.querySelector('TR');
-    var i, j;
-    var quantity;
-
-    th = row.getElementsByTagName('TH');
-    for (i = 0; i < th.length; i++) {
-        columns[th[i].textContent] = i;
-    }
-
-    for (i = 0; i < rows.length; i++) {
-        td = rows[i].getElementsByTagName('TD');
-        quantity = td[columns.Quantity].getElementsByClassName('quantity');
-        for (j = 0; j < quantity.length; j++) {
-            if (Number(quantity[j].textContent) <= rows[i].getAttribute('data-min-alert')) {
-                quantity[j].setAttribute('highlight', 'red');
-            }
-            else {
-                quantity[j].removeAttribute('highlight');
+if (content) {
+    window.addEventListener('load', function (event) {
+        var rows = printerTable.getElementsByClassName('table-info');
+        var columns = {};
+        var th, td, row = printerTable.querySelector('TR');
+        var i, j;
+        var quantity;
+    
+        th = row.getElementsByTagName('TH');
+        for (i = 0; i < th.length; i++) {
+            columns[th[i].textContent] = i;
+        }
+    
+        for (i = 0; i < rows.length; i++) {
+            td = rows[i].getElementsByTagName('TD');
+            quantity = td[columns.Quantity].getElementsByClassName('quantity');
+            for (j = 0; j < quantity.length; j++) {
+                if (Number(quantity[j].textContent) <= rows[i].getAttribute('data-min-alert')) {
+                    quantity[j].setAttribute('highlight', 'red');
+                }
+                else {
+                    quantity[j].removeAttribute('highlight');
+                }
             }
         }
-    }
-});
-content.addEventListener('click', contentClick);
-edit.addEventListener('click', editPrinter);
-addNew.addEventListener('click', addNewPrinter);
-close.addEventListener("click", closemodal);
-cancel.addEventListener("click", closemodal);
-document.addEventListener("click", windowCloseModal);
+    });
+    content.addEventListener('click', contentClick);
+    edit.addEventListener('click', editPrinter);
+    addNew.addEventListener('click', addNewPrinter);
+    close.addEventListener("click", closemodal);
+    cancel.addEventListener("click", closemodal);
+    document.addEventListener("click", windowCloseModal);
+}
+
+
