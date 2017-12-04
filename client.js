@@ -10,7 +10,6 @@ var edit = document.getElementById('modal-edit');
 var selectedRow = null;
 
 function checkQuantitiesForLowWarning(row, printer) {
-    console.log(row);
     var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
     for (var i = 0; i < quantities.length; i++) {
@@ -84,7 +83,6 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
 
 function createPrinter(printer) {
     var printerHandlebars = Handlebars.templates.printer(printer);
-    console.log(printerHandlebars);
     return printerHandlebars;
 }
 
@@ -197,7 +195,6 @@ function editPrinter (event) {
         selectedRow.removeChild(selectedRow.firstChild);
     }
     var rowBefore = selectedRow.previousElementSibling;
-    console.log(rowBefore);
 
     selectedRow.parentNode.removeChild(selectedRow);
 
@@ -408,9 +405,6 @@ function changeQuantity(target) {
 
     var requestBody = JSON.stringify(changeArgs);
     postRequest.setRequestHeader('Content-Type', 'application/json');
-
-    console.log(requestBody);
-
 
     postRequest.addEventListener('load', function (event) {
         if (event.target.status !== 200) {
