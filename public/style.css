@@ -125,18 +125,11 @@ th, td {
     word-wrap: break-word;
     vertical-align: middle;
 }
-td {
-  /* vertical-align: middle; */
-}
-td .quantity {
-  margin-right: 10px;
-  width: 25%;
-  display: inline-block;
-}
 td .change-quantity{
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   display: inline-block;
-  width: 60%;
+  width: 65%;
+  height: 26px;
 }
 th {
   text-align: center;
@@ -157,12 +150,17 @@ table th {
 
 .color{
   margin-bottom: 20px;
+  width: 100%;
+  float: left;
 }
 
 .quantity{
-  margin-left: 0px;
   margin-bottom: 5px;
+  margin-right: 10px;
+  margin-top: 0px;
+  width: 25%;
   float: left;
+  /* display: inline-block; */
 }
 
 .filter-box {
