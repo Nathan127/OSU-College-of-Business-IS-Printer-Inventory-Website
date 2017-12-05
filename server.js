@@ -12,6 +12,7 @@ var mongoPort = 27017;
 var mongoUser = "cs290_destafen";
 var mongoPassword = "lambda127";
 var mongoDBName = "cs290_destafen";
+var brandArr = null;
 
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
   '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
@@ -28,20 +29,27 @@ app.use(express.static('public'));
 app.get('/', function(req, res)
 {
   var printerDataCollection = mongoConnection.collection('printerData');
+
+  var brands = printerDataCollection.find({}).select({'name': 1, '_id': 0})
+  
   printerDataCollection.find({}).toArray(function (err, results){
     if(err)
     {
-      res.status(500).send("Error fetching people from DB");
+      res.status(500).send("Error fetching printer from DB");
     }
     else
     {
       console.log("== query results: ", results);
+      
       res.status(200).render('homePage',
       {
         rows: results
+
       });
+      
     }
   });
+  console.log
 });
 
 app.get('/contact', function (req, res) {
@@ -53,8 +61,9 @@ app.get('/contact', function (req, res) {
    if(req.body)
    {
      var printerDataCollection = mongoConnection.collection('printerData');
+     var filterDataCollection = mongoConnection.collection('filterData');
      console.log("== Add printer request", req.body);
-
+      if (filterDataCollection.findOne({brand: req.body.brand}))
      printerDataCollection.insertOne(
       req.body,
 

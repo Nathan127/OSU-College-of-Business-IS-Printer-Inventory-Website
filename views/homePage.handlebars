@@ -20,8 +20,9 @@
         <label for="filter-brand">Brand</label>
         <select id="filter-brand" class="filter-input" name="filter-brand">
           <option selected value="">Any</option>
-          <option>HP</option>
-          <option>Dell</option>
+          {{#each brandOption}}
+            <option>{{this}}</option>
+          {{/each}}
         </select>
       </div>
 
@@ -34,7 +35,6 @@
           <option>Black</option>
           <option>Cyan</option>
           <option>Magenta</option>
-          <option>Unknown</option>
         </select>
       </div>
 
