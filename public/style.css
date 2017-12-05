@@ -1,9 +1,13 @@
+/*CSS styling to make the page look visually appealing*/
+
+/* Setting no margin and no padding to the body of the page*/
 body{
   margin: 0;
 	padding: 0;
 	min-width: 1000px;
 }
 
+/*Setting the background color and other attributes so that it matches the exact OSU website color*/
 header {
   background-color: #dc4307;
   align-items: center;
@@ -12,12 +16,14 @@ header {
   width: 100%;
 }
 
+/* Setting the head title to white and aligning it to match the OSU theme*/
 h1 a{
   display: block;
   color: white;
   text-align: center;
   text-decoration: none;
 }
+
 
 .navigation-bar{
   width: 100%;
@@ -38,7 +44,7 @@ h1 a{
   color: white;
 }
 
-
+/* Setting the filter box to a certain size that works well with the page. Choosing a font as well*/
 .filter-box{
   font-weight: 900;
   font-size: 15px;
@@ -225,6 +231,7 @@ table th {
 
 .cancel-edit-button {
   margin-right: 2px;
+  cursor: pointer;
 }
 
 .error-container {
@@ -305,6 +312,7 @@ table th {
 .edit-printer-button,
 .remove-item {
   width: 100%;
+  cursor: pointer;
 }
 #modal-body {
   padding: 20px;
@@ -350,6 +358,7 @@ table th {
   color: #333;
   background-color: #fff;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 #modal-cancel:hover {
