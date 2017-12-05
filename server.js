@@ -93,7 +93,7 @@ app.get('/contact', function (req, res) {
      var printerDataCollection = mongoConnection.collection('printerData');
      console.log("== Edit printer request", req.body);
 
-     printerDataCollection.updateOne( {name: req.body.name, type: req.body.type}, 
+     printerDataCollection.updateOne( {name: req.body.name}, 
       req.body,
 
        function (err, result)
@@ -145,12 +145,12 @@ app.get('/contact', function (req, res) {
  app.post('/changeQuantity', function (req, res) {
    if (req.body) {
      var printerDataCollection = mongoConnection.collection('printerData');
-    
+
      console.log('== Change Quantity Request:', req.body);
-     printerDataCollection.updateOne({ name: req.body.name }, 
+     printerDataCollection.updateOne({ name: req.body.name },
       {$set: { ['quantity.' + req.body.index]: req.body.quantity } },
       function (err, result) {
-        if (err) 
+        if (err)
         {
           res.status(500).send("Error fetching printer from DB");
         }
@@ -168,10 +168,10 @@ app.get('/contact', function (req, res) {
     var printerDataCollection = mongoConnection.collection('printerData');
     console.log("== Edit note request:", req.body);
 
-    printerDataCollection.updateOne({ name: req.body.name }, 
+    printerDataCollection.updateOne({ name: req.body.name },
      {$set: { notes: req.body.notes } },
      function (err, result) {
-       if (err) 
+       if (err)
        {
          res.status(500).send("Error fetching printer from DB");
        }
