@@ -98,27 +98,27 @@ function addPrinter(row, newPrinter, rowNum) {
         postURL = '/editPrinter';
     }
 
-    function titleCase(city) {
-            newPrinter.brand = newPrinter.brand.toLowerCase();
-            newPrinter.brand = newPrinter.brand.split(' ');
-            for (var i = 0; i < newPrinter.brand.length; i++) {
-                newPrinter.brand[i] = newPrinter.brand[i].charAt(0).toUpperCase() + newPrinter.brand[i].slice(1);
-            }
-            return newPrinter.brand.join(' ');
-    }
+    // function titleCase(city) {
+    //         newPrinter.brand = newPrinter.brand.toLowerCase();
+    //         newPrinter.brand = newPrinter.brand.split(' ');
+    //         for (var i = 0; i < newPrinter.brand.length; i++) {
+    //             newPrinter.brand = newPrinter.brand[0].toUpperCase() + newPrinter.brand.slice(1);
+    //         }
+    //         return newPrinter.brand.join(' ');
+    // }
 
-    for (var i = 0; i < brandFilter.options.length; i++) {
-          if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
-                 noBrand = 1;
-          }
-    }
-
-     if (noBrand === 0) {
-          var newBrand = document.createElement('option');
-          newBrand.textContent = titleCase(newPrinter.brand);
-          brandFilter.appendChild(newBrand);
-          noBrand = 0;
-     }
+    // for (var i = 0; i < brandFilter.options.length; i++) {
+    //       if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
+    //              noBrand = 1;
+    //       }
+    // }
+    //
+    //  if (noBrand === 0) {
+    //       var newBrand = document.createElement('option');
+    //       newBrand.textContent = titleCase(newPrinter.brand);
+    //       brandFilter.appendChild(newBrand);
+    //       noBrand = 0;
+    //  }
 
      var postRequest = new XMLHttpRequest();
      postRequest.open('POST', postURL);

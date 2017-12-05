@@ -30,8 +30,8 @@ app.get('/', function(req, res)
 {
   var printerDataCollection = mongoConnection.collection('printerData');
 
-  var brands = printerDataCollection.find({}).select({'name': 1, '_id': 0})
-  
+  //var brands = printerDataCollection.find({}).select({'name': 1, '_id': 0})
+
   printerDataCollection.find({}).toArray(function (err, results){
     if(err)
     {
@@ -40,16 +40,16 @@ app.get('/', function(req, res)
     else
     {
       console.log("== query results: ", results);
-      
+
       res.status(200).render('homePage',
       {
         rows: results
 
       });
-      
+
     }
   });
-  console.log
+
 });
 
 app.get('/contact', function (req, res) {
@@ -93,7 +93,7 @@ app.get('/contact', function (req, res) {
      var printerDataCollection = mongoConnection.collection('printerData');
      console.log("== Edit printer request", req.body);
 
-     printerDataCollection.updateOne( {name: req.body.name}, 
+     printerDataCollection.updateOne( {name: req.body.name},
       req.body,
 
        function (err, result)
