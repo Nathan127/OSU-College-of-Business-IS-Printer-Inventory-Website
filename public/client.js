@@ -232,25 +232,34 @@ function removeRowFromDOM(target) {
 
       var rowsArray = printerTable.getElementsByClassName('table-info');
       var brandArray = [];
-      var brands;
+      var brands = document.getElementById('filter-brand');
       var match = 0;
       var index;
       for(var n =0; n < rowsArray.length; n++)
       {
         brandArray.push(rowsArray[n].children[0].textContent.trim())
       }
+      console.log("==brandArray", brandArray);
       for(var j = 0; j < brandArray.length; j++)
       {
         if (brandArray[j] === printerName.brand)
         {
-          match++;
-          index = j;
-          break;
+          match = match +1;
         }
       }
-      if (match < 2)
+      if (match === 1)
       {
-        brandArray.splice(index,1);
+        for(var k = 0; k < brands.children.length; k++)
+        {
+          if(brands.children[k].textContent.trim() === printerName.brand)
+          {
+            console.log("==Brands.Children", brands.children);
+            console.log("==Match", match);
+            brands.removeChild(brands.children[k]);
+            break;
+          }
+        }
+
       }
 
       var postURL = '/removePrinter';

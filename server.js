@@ -147,7 +147,7 @@ app.post('/removePrinter', function (req, res) {
             }
           }
           if (matches < 2) {
-            brandArr.splice(j, 1);
+            brandArr.splice(index, 1);
           }
           res.status(200).send("Success removing 1 printer");
         }
