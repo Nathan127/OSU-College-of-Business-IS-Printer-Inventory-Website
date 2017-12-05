@@ -227,8 +227,7 @@ function removeRowFromDOM(target) {
   if(confirmRemovePrinter === 1){
       var printerName = {
           name: row.querySelector('.printer-name').textContent.trim(),
-          notes: row.querySelector('.notes').textContent.trim().slice(7),
-          type: row.children[1].textContent.trim()
+          brand: row.children[0].textContent.trim()
       };
 
       var postURL = '/removePrinter';
