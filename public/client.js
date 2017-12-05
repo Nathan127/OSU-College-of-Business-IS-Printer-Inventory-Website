@@ -230,6 +230,29 @@ function removeRowFromDOM(target) {
           brand: row.children[0].textContent.trim()
       };
 
+      var rowsArray = printerTable.getElementsByClassName('table-info');
+      var brandArray = [];
+      var brands;
+      var match = 0;
+      var index;
+      for(var n =0; n < rowsArray.length; n++)
+      {
+        brandArray.push(rowsArray[n].children[0].textContent.trim())
+      }
+      for(var j = 0; j < brandArray.length; j++)
+      {
+        if (brandArray[j] === printerName.brand)
+        {
+          match++;
+          index = j;
+          break;
+        }
+      }
+      if (match < 2)
+      {
+        brandArray.splice(index,1);
+      }
+
       var postURL = '/removePrinter';
       var postRequest = new XMLHttpRequest();
       postRequest.open('POST', postURL);

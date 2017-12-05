@@ -107,15 +107,15 @@ app.post('/editPrinter', function (req, res) {
           res.status(500).send("Error fetching printer from DB");
         }
         else {
-          for (var j = 0; j < brandArr.length; j++) {
-            if (results[i].brand === brandArr[j]) {
-              match = true;
-              break;
-            }
-          }
-          if (!match) {
-            brandArr.push(results[i].brand);
-          }
+          // for (var j = 0; j < brandArr.length; j++) {
+          //   if (results[i].brand === brandArr[j]) {
+          //     match = true;
+          //     break;
+          //   }
+          // }
+          // if (!match) {
+          //   brandArr.push(results[i].brand);
+          // }
           res.status(200).send("Success editing 1 printer");
         }
       }
