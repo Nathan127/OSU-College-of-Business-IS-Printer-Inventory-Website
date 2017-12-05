@@ -6,11 +6,11 @@ var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
 var port = process.env.PORT || 8000;
-var mongoHost = "classmongo.engr.oregonstate.edu";
-var mongoPort = 27017;
-var mongoUser = "cs290_destafen";
-var mongoPassword = "lambda127";
-var mongoDBName = "cs290_destafen";
+var mongoHost = process.env.mongoHost;
+var mongoPort = process.env.mongoPort;
+var mongoUser = process.env.mongoUser;
+var mongoPassword = process.env.mongoPassword;
+var mongoDBName = process.env.mongoDBName;
 var brandArr = [];
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
   '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
