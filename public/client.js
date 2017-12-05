@@ -9,21 +9,25 @@ var addNew = document.getElementById('modal-add-new');
 var edit = document.getElementById('modal-edit');
 var selectedRow = null;
 
-function checkQuantitiesForLowWarning(row, printer) {
+function checkQuantitiesForLowWarning(row, printer)
+{
     var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
 
-    for (var i = 0; i < printer.quantity.length; i++) {
+    for (var i = 0; i < printer.quantity.length; i++)
+    {
         if (printer.quantity[i] <= minAlert) {
             quantities[i].setAttribute('highlight', 'red');
         }
-        else {
+        else
+        {
             quantities[i].removeAttribute('highlight');
         }
     }
 }
 
-function resetTable(target) {
+function resetTable(target)
+{
     document.getElementById('filter-search').value = '';
     document.getElementById('filter-min-quantity').value = '';
     document.getElementById('filter-max-quantity').value = '';
@@ -32,30 +36,36 @@ function resetTable(target) {
     filter();
 }
 
-function windowCloseModal(event) {
-    if (event.target == modal) {
+function windowCloseModal(event)
+{
+    if (event.target == modal)
+    {
         modal.style.display = "none";
         backdropModal.style.display = "none";
         clearModal();
     }
 }
 
-function openmodal(option, row) {
+function openmodal(option, row)
+{
     backdropModal.style.display = "block";
     modal.style.display = "block";
-    if (option === 'add-new') {
+    if (option === 'add-new')
+    {
         edit.style.display = 'none';
     }
 }
 
-function closemodal(event) {
+function closemodal(event)
+{
     backdropModal.style.display = "none";
     modal.style.display = "none";
     clearModal();
 }
 
 
-function clearModal() {
+function clearModal()
+{
     edit.style.display = 'block';
     document.getElementById('post-brand-input').value = "";
     document.getElementById('post-type-input').value = "";
@@ -69,7 +79,8 @@ function clearModal() {
     document.getElementById('post-notes-input').value = "";
 }
 
-function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning) {
+function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning)
+{
     this.brand = brand;
     this.type = type;
     this.code = code;
@@ -82,29 +93,34 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
     this.minAlert = Number(warning);
 }
 
-function createPrinter(printer) {
+function createPrinter(printer)
+{
     var printerHandlebars = Handlebars.templates.printer(printer);
     return printerHandlebars;
 }
 
-function addPrinter(row, newPrinter, rowNum) {
+function addPrinter(row, newPrinter, rowNum)
+{
     var noBrand = 0;
     var brandFilter = document.getElementById('filter-brand');
     var postURL;
     if (rowNum === printerTable.getElementsByClassName('table-info').length) {
         postURL = '/addPrinter';
     }
-    else {
+    else
+    {
         postURL = '/editPrinter';
     }
 
-    for (var i = 0; i < brandFilter.options.length; i++) {
+    for (var i = 0; i < brandFilter.options.length; i++)
+    {
           if ((newPrinter.brand === "") || (newPrinter.brand.toUpperCase() === brandFilter.options[i].value.toUpperCase())) {
                  noBrand = 1;
           }
     }
 
-     if (noBrand === 0) {
+     if (noBrand === 0)
+     {
           var newBrand = document.createElement('option');
           newBrand.textContent = newPrinter.brand;
           brandFilter.appendChild(newBrand);
@@ -117,17 +133,22 @@ function addPrinter(row, newPrinter, rowNum) {
      var requestBody = JSON.stringify(newPrinter);
      postRequest.setRequestHeader('Content-Type', 'application/json');
 
-     postRequest.addEventListener('load', function (event) {
-         if (event.target.status !== 200) {
+     postRequest.addEventListener('load', function (event)
+     {
+         if (event.target.status !== 200)
+         {
              alert("Error storing photo in database:" + event.target.response);
          }
-         else {
+         else
+         {
              var printer = createPrinter(newPrinter);
-             if (row) {
+             if (row)
+             {
                 row.insertAdjacentHTML('afterend', printer);
                 checkQuantitiesForLowWarning(row.nextElementSibling, newPrinter);
              }
-             else {
+             else
+             {
                 printerTable.tBodies[0].insertAdjacentHTML('afterbegin', printer);
                 checkQuantitiesForLowWarning(printerTable.querySelector('.table-info'), newPrinter);
 
@@ -139,22 +160,28 @@ function addPrinter(row, newPrinter, rowNum) {
      closemodal();
 }
 
-function splitToArray(printer) {
-    var arrayCode = printer.code.split(",").map(function (item) {
+function splitToArray(printer)
+{
+    var arrayCode = printer.code.split(",").map(function (item)
+    {
         return item.trim();
     });
-    var arrayColor = printer.color.split(",").map(function (item) {
+    var arrayColor = printer.color.split(",").map(function (item)
+    {
         return item.trim();
     });
-    for (var i = 0; i < arrayColor.length; i++) {
+    for (var i = 0; i < arrayColor.length; i++)
+    {
         arrayColor[i] = arrayColor[i].charAt(0).toUpperCase() + arrayColor[i].substr(1).toLowerCase();
     }
 
-    var arrayQuantity = printer.quantity.split(",").map(function (item) {
+    var arrayQuantity = printer.quantity.split(",").map(function (item)
+    {
         return Number(item.trim());
     });
 
-   var arrayUpdated = printer.lastUpdated.split(",").map(function (item) {
+   var arrayUpdated = printer.lastUpdated.split(",").map(function (item)
+   {
        return item.trim();
    });
 
@@ -163,7 +190,8 @@ function splitToArray(printer) {
    printer.quantity = arrayQuantity;
    printer.lastUpdated = arrayUpdated;
 }
-function addNewPrinter(event) {
+function addNewPrinter(event)
+{
     var printer = new Printer(
         document.getElementById('post-brand-input').value,
         document.getElementById('post-type-input').value,
@@ -209,23 +237,27 @@ function editPrinter (event) {
     addPrinter(rowBefore, editedPrinter, null);
 }
 
-function removeAlert(row) {
+function removeAlert(row)
+{
   var confirmValue = -1;
   var printerName = String(row.cells[7].textContent.trim());
   if (confirm("Are you sure you want to delete the printer named "+printerName+"?") == true) {
       confirmValue = 1;
   }
-  else {
+  else
+  {
       confirmValue = 0;
   }
   return confirmValue;
 }
 
-function removeRowFromDOM(target) {
+function removeRowFromDOM(target)
+{
   var row = target.parentNode.parentNode.parentNode;
   var confirmRemovePrinter = removeAlert(row);
   if(confirmRemovePrinter === 1){
-      var printerName = {
+      var printerName =
+      {
           name: row.querySelector('.printer-name').textContent.trim(),
           brand: row.children[0].textContent.trim()
       };
@@ -239,7 +271,6 @@ function removeRowFromDOM(target) {
       {
         brandArray.push(rowsArray[n].children[0].textContent.trim())
       }
-      console.log("==brandArray", brandArray);
       for(var j = 0; j < brandArray.length; j++)
       {
         if (brandArray[j] === printerName.brand)
@@ -253,15 +284,11 @@ function removeRowFromDOM(target) {
         {
           if(brands.children[k].textContent.trim() === printerName.brand)
           {
-            console.log("==Brands.Children", brands.children);
-            console.log("==Match", match);
             brands.removeChild(brands.children[k]);
             break;
           }
         }
-
       }
-
       var postURL = '/removePrinter';
       var postRequest = new XMLHttpRequest();
       postRequest.open('POST', postURL);
@@ -269,11 +296,14 @@ function removeRowFromDOM(target) {
       var requestBody = JSON.stringify(printerName);
       postRequest.setRequestHeader('Content-Type', 'application/json');
 
-      postRequest.addEventListener('load', function (event) {
-          if (event.target.status !== 200) {
+      postRequest.addEventListener('load', function (event)
+      {
+          if (event.target.status !== 200)
+          {
               alert("Error removing printer from database:" + event.target.response);
           }
-          else {
+          else
+          {
               row.parentNode.removeChild(row);
           }
       });
@@ -285,12 +315,14 @@ function removeRowFromDOM(target) {
   }
 }
 
-function setModalDefaultValues(target) {
+function setModalDefaultValues(target)
+{
     var columns = {};
     var th, td, tr = printerTable.querySelector('TR')
 
     th = tr.getElementsByTagName('TH');
-    for (i = 0; i < th.length; i++) {
+    for (i = 0; i < th.length; i++)
+    {
         columns[th[i].textContent] = i;
     }
 
@@ -327,35 +359,45 @@ function setModalDefaultValues(target) {
     var tempQuantity = "";
     var tempUpdated = "";
 
-    for (i = 0; i < oldPrinter.code.length; i++) {
-        if (i < oldPrinter.code.length - 1) {
+    for (i = 0; i < oldPrinter.code.length; i++)
+    {
+        if (i < oldPrinter.code.length - 1)
+        {
             tempCodes += oldPrinter.code[i].textContent.trim() + ', ';
         }
-        else {
+        else
+        {
             tempCodes += oldPrinter.code[i].textContent.trim();
         }
     }
-    for (i = 0; i < oldPrinter.color.length; i++) {
+    for (i = 0; i < oldPrinter.color.length; i++)
+    {
         if (i < oldPrinter.color.length - 1) {
             tempColor += oldPrinter.color[i].textContent.trim() + ', ';
         }
-        else {
+        else
+        {
             tempColor += oldPrinter.color[i].textContent.trim();
         }
     }
-    for (i = 0; i < oldPrinter.quantity.length; i++) {
-        if (i < oldPrinter.quantity.length - 1) {
+    for (i = 0; i < oldPrinter.quantity.length; i++)
+    {
+        if (i < oldPrinter.quantity.length - 1)
+        {
             tempQuantity += oldPrinter.quantity[i].textContent.trim() + ', ';
         }
         else {
             tempQuantity += oldPrinter.quantity[i].textContent.trim();
         }
     }
-    for (i = 0; i < oldPrinter.lastUpdated.length; i++) {
-        if (i < oldPrinter.lastUpdated.length - 1) {
+    for (i = 0; i < oldPrinter.lastUpdated.length; i++)
+    {
+        if (i < oldPrinter.lastUpdated.length - 1)
+        {
             tempUpdated += oldPrinter.lastUpdated[i].textContent.trim() + ', ';
         }
-        else {
+        else
+        {
             tempUpdated += oldPrinter.lastUpdated[i].textContent.trim();
         }
     }
@@ -369,67 +411,85 @@ function setModalDefaultValues(target) {
     /* ----- UPDATING CHANGES TO TABLE ----- */
 }
 
-function Filter(searchKey, minQuantity, maxQuantity, brand, color) {
+function Filter(searchKey, minQuantity, maxQuantity, brand, color)
+{
     this.searchKey = searchKey;
-    if (minQuantity === '') {
+    if (minQuantity === '')
+    {
         this.minQuantity = 0;
     }
-    else {
+    else
+    {
         this.minQuantity = minQuantity;
     }
-    if (maxQuantity === '') {
+    if (maxQuantity === '')
+    {
         this.maxQuantity = 9999999;
     }
-    else {
+    else
+    {
         this.maxQuantity = maxQuantity;
     }
     this.brand = brand.toUpperCase();
     this.color = color;
 }
 
-function contentClick(event) {
+function contentClick(event)
+{
     var target = event.target;
-    if (target.className === 'change') {
+    if (target.className === 'change')
+    {
         changeQuantity(target);
     }
-    else if (target.className === 'edit-notes-button') {
+    else if (target.className === 'edit-notes-button')
+    {
         editNotes(target);
     }
-    else if (target.id === 'filter-update-button') {
+    else if (target.id === 'filter-update-button')
+    {
         filter(target);
     }
-    else if (target.id === 'reset-button') {
+    else if (target.id === 'reset-button')
+    {
         resetTable(target)
     }
-    else if (target.className === 'remove-item') {
+    else if (target.className === 'remove-item')
+    {
         removeRowFromDOM(target);
     }
-    else if (target.className === 'edit-printer-button') {
+    else if (target.className === 'edit-printer-button')
+    {
         selectedRow = target.parentNode.parentNode.parentNode;
         setModalDefaultValues(target);
     }
-    else if (target.id === 'add-new-item') {
+    else if (target.id === 'add-new-item')
+    {
         openmodal("add-new");
     }
 }
 
-function changeQuantity(target) {
+function changeQuantity(target)
+{
     var quantity = Number(target.parentNode.previousElementSibling.textContent.trim());
     var row = target.parentNode.parentNode.parentNode;
     var node = target.parentNode;
     var i = 0;
 
-    while ((node = node.previousElementSibling.previousElementSibling) != null) {
+    while ((node = node.previousElementSibling.previousElementSibling) != null)
+    {
         i++;
     }
 
-    if (target.value === 'add') { //figure out why this isn't working...
+    if (target.value === 'add')
+    {
         quantity += 1;
     }
-    else if (target.value === 'minus' && quantity <= 0) {
+    else if (target.value === 'minus' && quantity <= 0)
+    {
         alert("Toner quantity cannot be lower than 0");
     }
-    else {
+    else
+    {
         quantity -= 1;
     }
 
@@ -437,7 +497,8 @@ function changeQuantity(target) {
     var postURL = '/changeQuantity';
     postRequest.open('POST', postURL);
 
-    var changeArgs = {
+    var changeArgs =
+    {
         name: row.querySelector('.printer-name').textContent.trim(),
         quantity: quantity,
         index: i
@@ -446,25 +507,30 @@ function changeQuantity(target) {
     var requestBody = JSON.stringify(changeArgs);
     postRequest.setRequestHeader('Content-Type', 'application/json');
 
-    postRequest.addEventListener('load', function (event) {
-        if (event.target.status !== 200) {
+    postRequest.addEventListener('load', function (event)
+    {
+        if (event.target.status !== 200)
+        {
             alert("Error changing quanitity in database:" + event.target.response);
         }
-        else {
+        else
+        {
             target.parentNode.previousElementSibling.textContent = quantity;
-            if (quantity <= row.getAttribute('data-min-alert')) {
+            if (quantity <= row.getAttribute('data-min-alert'))
+            {
                 target.parentNode.previousElementSibling.setAttribute('highlight', 'red');
             }
-            else {
+            else
+            {
                 target.parentNode.previousElementSibling.removeAttribute('highlight');
             }
         }
     });
-
     postRequest.send(requestBody);
 }
 
-function editNotes(target) {
+function editNotes(target)
+{
     var row = target.parentNode.parentNode.parentNode;
     var printerName = row.getElementsByTagName('TD')[7].textContent.trim();
     var textDiv = target.parentNode.previousElementSibling;
@@ -493,8 +559,10 @@ function editNotes(target) {
     textDiv.parentNode.insertBefore(submitEditButton, cancelEditButton.nextElementSibling);
 
 
-    submitEditButton.addEventListener('click', function (event) {
-        var args = {
+    submitEditButton.addEventListener('click', function (event)
+    {
+        var args =
+        {
             name: printerName,
             notes: input.value
         }
@@ -506,11 +574,14 @@ function editNotes(target) {
         var requestBody = JSON.stringify(args);
         postRequest.setRequestHeader('Content-Type', 'application/json');
 
-        postRequest.addEventListener('load', function (event) {
-            if (event.target.status !== 200) {
+        postRequest.addEventListener('load', function (event)
+        {
+            if (event.target.status !== 200)
+            {
                 alert("Error removing printer from database:" + event.target.response);
             }
-            else {
+            else
+            {
                 textDiv.textContent = 'Notes: ' + args.notes;
                 textDiv.parentNode.removeChild(input);
                 textDiv.parentNode.removeChild(cancelEditButton);
@@ -523,7 +594,8 @@ function editNotes(target) {
         target.parentNode.style.display = 'block';
     });
 
-    cancelEditButton.addEventListener('click', function (event) {
+    cancelEditButton.addEventListener('click', function (event)
+    {
         textDiv.parentNode.removeChild(input);
         textDiv.parentNode.removeChild(cancelEditButton);
         textDiv.parentNode.removeChild(submitEditButton);
@@ -531,9 +603,9 @@ function editNotes(target) {
         textDiv.style.display = 'block';
         target.parentNode.style.display = 'block';
     });
-
 }
-function filter(target) {
+function filter(target)
+{
     var i, j;
     var tbody = printerTable.querySelector('tbody');
     var start = tbody.firstElementChild.rowIndex;
@@ -553,24 +625,30 @@ function filter(target) {
     );
 
     th = tr[0].getElementsByTagName('TH');
-    for (i = 0; i < th.length; i++) {
+    for (i = 0; i < th.length; i++)
+    {
         columns[th[i].textContent] = i;
     }
 
     // Show each row to start
-    for (i = start; i < numRows; i++) {
+    for (i = start; i < numRows; i++)
+    {
         tr[i].style.display = 'table-row';
     }
 
     var key = new RegExp(filter.searchKey, 'i');
 
     // Search filter
-    if (filter.searchKey.length > 0) {
-        for (i = start; i < numRows; i++) {
+    if (filter.searchKey.length > 0)
+    {
+        for (i = start; i < numRows; i++)
+        {
             foundMatch = false;
             td = tr[i].getElementsByTagName('TD');
-            for (j = 0; j < td.length; j++) {
-                if (td[j].textContent.search(key) != -1) {
+            for (j = 0; j < td.length; j++)
+            {
+                if (td[j].textContent.search(key) != -1)
+                {
                     foundMatch = true;
                     tr[i].style.display = 'table-row';
                     break;
@@ -580,39 +658,46 @@ function filter(target) {
                 tr[i].style.display = 'none';
             }
         }
-
     }
     // min Quantity and max quantity filter
-    for (i = start; i < numRows; i++) {
-
+    for (i = start; i < numRows; i++)
+    {
         td = tr[i].getElementsByTagName('TD');
         quantity = td[columns.Quantity].getElementsByClassName('quantity');
 
         matchesFound = 0;
 
-        for (j = 0; j < quantity.length; j++) {
+        for (j = 0; j < quantity.length; j++)
+        {
             // reset all columns and rows back to normal
-            if (td[columns['# Code']].children[j]) {
+            if (td[columns['# Code']].children[j])
+            {
                 td[columns['# Code']].children[j].style.display = 'block';
             }
-            if (td[columns.Color].children[j]) {
+            if (td[columns.Color].children[j])
+            {
                 td[columns.Color].children[j].style.display = 'block';
             }
-            if (td[columns['Last-Updated']].children[j]) {
+            if (td[columns['Last-Updated']].children[j])
+            {
                 td[columns['Last-Updated']].children[j].style.display = 'block';
             }
             quantity[j].style.display = 'block';
             quantity[j].nextElementSibling.style.display = 'block';
 
-            if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity) {
+            if (Number(quantity[j].textContent) < filter.minQuantity || Number(quantity[j].textContent) > filter.maxQuantity)
+            {
                 // set the display of all rows not meeting quantity standards to 'none'
-                if (td[columns['# Code']].children[j]) {
+                if (td[columns['# Code']].children[j])
+                {
                     td[columns['# Code']].children[j].style.display = 'none';
                 }
-                if (td[columns.Color].children[j]) {
+                if (td[columns.Color].children[j])
+                {
                     td[columns.Color].children[j].style.display = 'none';
                 }
-                if (td[columns['Last-Updated']].children[j]) {
+                if (td[columns['Last-Updated']].children[j])
+                {
                     td[columns['Last-Updated']].children[j].style.display = 'none';
                 }
                 quantity[j].style.display = 'none';
@@ -620,54 +705,61 @@ function filter(target) {
 
                 matchesFound++;
             }
-            if (matchesFound === quantity.length) {
+            if (matchesFound === quantity.length)
+            {
                 tr[i].style.display = 'none';
             }
-
         }
     }
-
     // Brand filter
-    if (filter.brand.length > 0) {
-        for (i = start; i < numRows; i++) {
+    if (filter.brand.length > 0)
+    {
+        for (i = start; i < numRows; i++)
+        {
             td = tr[i].getElementsByTagName('TD');
             var brandName = td[columns.Brand].textContent.toUpperCase();
 
-            if (brandName != filter.brand) {
+            if (brandName != filter.brand)
+            {
                 tr[i].style.display = 'none';
             }
         }
     }
-
     // Color filter
     // For HTML add an attribute that will give the color
-    if (filter.color != '') {
-        for (i = start; i < numRows; i++) {
-
+    if (filter.color != '')
+    {
+        for (i = start; i < numRows; i++)
+        {
             td = tr[i].getElementsByTagName('TD');
             color = td[columns.Color].getElementsByClassName('color');
             quantity = td[columns.Quantity].getElementsByClassName('quantity');
             matchesFound = 0;
 
-            for (j = 0; j < color.length; j++) {
+            for (j = 0; j < color.length; j++)
+            {
                 // reset all rows back to normal
-                if (td[columns['# Code']].children[j]) {
+                if (td[columns['# Code']].children[j])
+                {
                     td[columns['# Code']].children[j].style.display = 'block';
                 }
-                if (td[columns['Last-Updated']].children[j]) {
+                if (td[columns['Last-Updated']].children[j])
+                {
                     td[columns['Last-Updated']].children[j].style.display = 'block';
                 }
                 color[j].style.display = 'block';
                 quantity[j].style.display = 'block';
                 quantity[j].nextElementSibling.style.display = 'block';
 
-                if (color[j].textContent.search(filter.color) === -1) {
+                if (color[j].textContent.search(filter.color) === -1)
+                {
                     // set the display of all rows not meeting quantity standards to 'none'
-                    if (td[columns['# Code']].children[j]) {
+                    if (td[columns['# Code']].children[j])
+                    {
                         td[columns['# Code']].children[j].style.display = 'none';
                     }
-
-                    if (td[columns['Last-Updated']].children[j]) {
+                    if (td[columns['Last-Updated']].children[j])
+                    {
                         td[columns['Last-Updated']].children[j].style.display = 'none';
                     }
 
@@ -677,7 +769,6 @@ function filter(target) {
 
                     matchesFound++;
                 }
-
                 if (matchesFound === color.length) {
                     tr[i].style.display = 'none';
                 }
@@ -685,8 +776,10 @@ function filter(target) {
         }
     }
 }
-if (content) {
-    window.addEventListener('load', function (event) {
+if (content)
+{
+    window.addEventListener('load', function (event)
+    {
         var rows = printerTable.getElementsByClassName('table-info');
         var columns = {};
         var th, td, row = printerTable.querySelector('TR');
@@ -694,18 +787,22 @@ if (content) {
         var quantity;
 
         th = row.getElementsByTagName('TH');
-        for (i = 0; i < th.length; i++) {
+        for (i = 0; i < th.length; i++)
+        {
             columns[th[i].textContent] = i;
         }
 
-        for (i = 0; i < rows.length; i++) {
+        for (i = 0; i < rows.length; i++)
+        {
             td = rows[i].getElementsByTagName('TD');
             quantity = td[columns.Quantity].getElementsByClassName('quantity');
             for (j = 0; j < quantity.length; j++) {
-                if (Number(quantity[j].textContent) <= rows[i].getAttribute('data-min-alert')) {
+                if (Number(quantity[j].textContent) <= rows[i].getAttribute('data-min-alert'))
+                {
                     quantity[j].setAttribute('highlight', 'red');
                 }
-                else {
+                else
+                {
                     quantity[j].removeAttribute('highlight');
                 }
             }
