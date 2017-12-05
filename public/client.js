@@ -1,3 +1,5 @@
+//Initializing variables
+
 var printerTable = document.getElementById('printer-table');
 var content = document.querySelector('.content');
 var close = document.getElementById('modal-close');
@@ -9,11 +11,14 @@ var addNew = document.getElementById('modal-add-new');
 var edit = document.getElementById('modal-edit');
 var selectedRow = null;
 
+// Checking the quantity of each ink to see if a warning must be put out
 function checkQuantitiesForLowWarning(row, printer)
 {
+    //Initializing more variables
     var minAlert = row.getAttribute('data-min-alert');
     var quantities = row.children[4].getElementsByClassName('quantity');
-
+    
+    //For loop that goes through the length of the array of printer ink quantities and highlights if there is a low warning
     for (var i = 0; i < printer.quantity.length; i++)
     {
         if (printer.quantity[i] <= minAlert) {
@@ -26,6 +31,7 @@ function checkQuantitiesForLowWarning(row, printer)
     }
 }
 
+//Function to reset the input areas of the filter to blank so it can be reused
 function resetTable(target)
 {
     document.getElementById('filter-search').value = '';
@@ -36,6 +42,7 @@ function resetTable(target)
     filter();
 }
 
+//Function to close modal and clear modal is called so it can be reused
 function windowCloseModal(event)
 {
     if (event.target == modal)
@@ -46,6 +53,7 @@ function windowCloseModal(event)
     }
 }
 
+//Funcion opens modal so another printer can be added
 function openmodal(option, row)
 {
     backdropModal.style.display = "block";
@@ -56,6 +64,7 @@ function openmodal(option, row)
     }
 }
 
+//Function to close modal
 function closemodal(event)
 {
     backdropModal.style.display = "none";
@@ -63,7 +72,7 @@ function closemodal(event)
     clearModal();
 }
 
-
+//Function that sets all the input areas to blank for easy reuse
 function clearModal()
 {
     edit.style.display = 'block';
@@ -79,6 +88,7 @@ function clearModal()
     document.getElementById('post-notes-input').value = "";
 }
 
+//Setting values equal to appropriate variables
 function Printer(brand, type, code, color, quantity, updated, name, location, notes, warning)
 {
     this.brand = brand;
@@ -93,12 +103,14 @@ function Printer(brand, type, code, color, quantity, updated, name, location, no
     this.minAlert = Number(warning);
 }
 
+//Creating printer using handlebars templates
 function createPrinter(printer)
 {
     var printerHandlebars = Handlebars.templates.printer(printer);
     return printerHandlebars;
 }
 
+//Function to add new printer. createPrinter is called
 function addPrinter(row, newPrinter, rowNum)
 {
     var noBrand = 0;
@@ -160,6 +172,7 @@ function addPrinter(row, newPrinter, rowNum)
      closemodal();
 }
 
+//Updating array
 function splitToArray(printer)
 {
     var arrayCode = printer.code.split(",").map(function (item)
@@ -190,6 +203,8 @@ function splitToArray(printer)
    printer.quantity = arrayQuantity;
    printer.lastUpdated = arrayUpdated;
 }
+
+
 function addNewPrinter(event)
 {
     var printer = new Printer(
@@ -212,6 +227,8 @@ function addNewPrinter(event)
     splitToArray(printer);
     addPrinter(rowBefore, printer, numRows);
 }
+
+//Funcion that updated printer with whatever is entered.
 function editPrinter (event) {
     var editedPrinter = new Printer(
         document.getElementById('post-brand-input').value,
@@ -237,6 +254,7 @@ function editPrinter (event) {
     addPrinter(rowBefore, editedPrinter, null);
 }
 
+//Function that removes a whole printer
 function removeAlert(row)
 {
   var confirmValue = -1;
@@ -251,6 +269,7 @@ function removeAlert(row)
   return confirmValue;
 }
 
+//Function that removes printer row from DOM
 function removeRowFromDOM(target)
 {
   var row = target.parentNode.parentNode.parentNode;
@@ -315,6 +334,7 @@ function removeRowFromDOM(target)
   }
 }
 
+//This function sets the modal to default values we specified
 function setModalDefaultValues(target)
 {
     var columns = {};
@@ -411,6 +431,7 @@ function setModalDefaultValues(target)
     /* ----- UPDATING CHANGES TO TABLE ----- */
 }
 
+//Filter function that checks inputs from filter box
 function Filter(searchKey, minQuantity, maxQuantity, brand, color)
 {
     this.searchKey = searchKey;
@@ -529,6 +550,7 @@ function changeQuantity(target)
     postRequest.send(requestBody);
 }
 
+//Function to edit the notes section of the row
 function editNotes(target)
 {
     var row = target.parentNode.parentNode.parentNode;
