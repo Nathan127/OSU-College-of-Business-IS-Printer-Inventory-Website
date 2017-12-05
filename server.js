@@ -12,7 +12,7 @@ var mongoPort = 27017;
 var mongoUser = "cs290_destafen";
 var mongoPassword = "lambda127";
 var mongoDBName = "cs290_destafen";
-var brandArr = null;
+var brandArr = [''];
 
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
   '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
@@ -40,16 +40,22 @@ app.get('/', function(req, res)
     else
     {
       console.log("== query results: ", results);
-      
+      for (var i = 0; i < results.length; i++) {
+        for (var j = 0; j < brandArr.length; j++) {
+          if (results[i].brand !== brandArr[j]) {
+            brandArr.push(results[i].brand);
+          }
+        }
+      }
       res.status(200).render('homePage',
       {
-        rows: results
+        rows: results,
+        option: brandArr
 
       });
       
     }
   });
-  console.log
 });
 
 app.get('/contact', function (req, res) {
