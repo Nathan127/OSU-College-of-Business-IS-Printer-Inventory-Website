@@ -12,7 +12,7 @@ var mongoPort = 27017;
 var mongoUser = "cs290_destafen";
 var mongoPassword = "lambda127";
 var mongoDBName = "cs290_destafen";
-var brandArr = [''];
+var brandArr = [];
 
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
   '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
@@ -37,13 +37,26 @@ app.get('/', function(req, res)
     }
     else
     {
+      var match;
       console.log("== query results: ", results);
       for (var i = 0; i < results.length; i++) {
-        for (var j = 0; j < brandArr.length; j++) {
-          if (results[i].brand !== brandArr[j]) {
+        match = false;
+        if (brandArr.length === 0) {
+          brandArr.push(results[i].brand);
+        }
+        else {
+          for (var j = 0; j < brandArr.length; j++) {
+            if (results[i].brand === brandArr[j]) {
+              match = true;
+              break;
+            }
+          }
+          if (!match) {
             brandArr.push(results[i].brand);
           }
+
         }
+        
       }
       res.status(200).render('homePage',
       {
