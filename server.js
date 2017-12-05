@@ -29,8 +29,6 @@ app.use(express.static('public'));
 app.get('/', function(req, res)
 {
   var printerDataCollection = mongoConnection.collection('printerData');
-
-  var brands = printerDataCollection.find({}).select({'name': 1, '_id': 0})
   
   printerDataCollection.find({}).toArray(function (err, results){
     if(err)
@@ -50,7 +48,7 @@ app.get('/', function(req, res)
       res.status(200).render('homePage',
       {
         rows: results,
-        option: brandArr
+        brandOption: brandArr
 
       });
       
