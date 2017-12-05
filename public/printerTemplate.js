@@ -1,3 +1,5 @@
+//Allows us to use our handlebar templates to generate our pages
+
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['printer'] = template({"1":function(container,depth0,helpers,partials,data) {
